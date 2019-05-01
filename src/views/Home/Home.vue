@@ -1,6 +1,24 @@
+<style lang="less">
+  .home {
+    > img {
+      &.active {
+        display: flex;
+      }
+      &.inactive {
+
+      }
+    }
+    > p {
+
+    }
+    li {
+
+    }
+  }
+</style>
+
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <p>{{ countPlusLocalState }}</p>
     <input v-model="localCount" />

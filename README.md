@@ -1,4 +1,4 @@
-# movie-board
+`# movie-board
 
 ## Project setup
 ```
