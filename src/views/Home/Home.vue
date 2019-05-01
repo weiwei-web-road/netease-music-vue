@@ -19,21 +19,26 @@
 
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <p>{{ countPlusLocalState }}</p>
+    <Layout>
+      <MusicCard></MusicCard>
+    </Layout>
+
+    <!-- <p>{{ countPlusLocalState }}</p>
     <input v-model="localCount" />
     <button v-on:click="handleFilter">筛选</button>
     <button v-on:click="handleIncrement">增加</button>
     <label>{{message}}</label>
     <ul id="movies">
       <li v-bind:key="item" v-for="item in filterMovies">{{ item }}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Layout from '@/components/Layout.vue';
+import MusicCard from '@/views/Home/MusicCard.vue'
+
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
 
@@ -43,11 +48,13 @@ export default {
     return {
       localCount: 0,
       movies: this.$store.getters.singleMovies(3),
-      message: ''
+      message: '',
+      musicNames: '',
     };
   },
   components: {
-    HelloWorld
+    Layout,
+    MusicCard
   },
   computed: mapState({
     count: state => state.count,
