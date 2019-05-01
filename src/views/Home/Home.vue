@@ -36,6 +36,8 @@
 
 <script>
 // @ is an alias to /src
+
+// test git switch user
 import Layout from '@/components/Layout.vue';
 import MusicCard from '@/views/Home/MusicCard.vue'
 
