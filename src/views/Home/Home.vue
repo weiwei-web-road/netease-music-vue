@@ -1,18 +1,14 @@
 <style lang="less">
   .home {
-    > img {
-      &.active {
-        display: flex;
-      }
-      &.inactive {
-
-      }
-    }
-    > p {
-
-    }
-    li {
-
+    .playlist-container {
+      background-color: #fff;
+      border: 1px solid #d3d3d3;
+      border-width: 0 1px;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 40px;
+      
     }
   }
 </style>
@@ -21,7 +17,9 @@
   <div class="home">
     <Layout>
       <template v-slot:music-card>
-        <MusicCard></MusicCard>
+      <div class="playlist-container" >
+          <PlayList v-bind:data="topPlayList"></PlayList>
+      </div>
       </template>
 
       <!-- <template v-slot:footer-content>
@@ -45,7 +43,7 @@
 // @ is an alias to /src
 
 import Layout from '@/components/Layout.vue';
-import MusicCard from '@/views/Home/MusicCard.vue'
+import PlayList from '@/views/Home/PlayList.vue'
 // import FooterContent from '@/views/Home/FooterContent.vue';
 
 import { mapState, mapMutations, mapActions } from 'vuex';
@@ -61,12 +59,20 @@ export default {
       musicNames: '',
     };
   },
+  created: function() {
+    this.fetchTopPlayListAsync({
+      order: 'hot',
+      limit: '100'
+    });
+  },
   components: {
     Layout,
-    MusicCard
+    PlayList
     // FooterContent
   },
   computed: mapState({
+    // mapState 做一次映射
+    topPlayList: state => state.topPlayList,
     count: state => state.count,
     countAlias: 'count',
     countPlusLocalState (state) {
@@ -87,7 +93,8 @@ export default {
     }),
     ...mapActions({
       incrementAsync: 'incrementAsync',
-      filterAsync: 'filterAsync'
+      filterAsync: 'filterAsync',
+      fetchTopPlayListAsync: 'fetchTopPlayListAsync',
     }),
     handleFilter: function (event) {
       console.log(event);

@@ -30,7 +30,6 @@
             // margin-left: 50%;
             // transform: translate(-50%);
             
-            padding: 40px;
             // box-sizing: content-box; // 默认，设置的width 作用于content
             box-sizing: border-box; // 总的展示宽度是 content + border + margin
             
