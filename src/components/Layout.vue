@@ -31,13 +31,16 @@
             // transform: translate(-50%);
             
             padding: 40px;
+            // box-sizing: content-box; // 默认，设置的width 作用于content
+            box-sizing: border-box; // 总的展示宽度是 content + border + margin
+            
         }
         > .footer {
             width: 100%;
             background-color: #f2f2f2;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 148px;
+            flex-basis: 90px;
         }
     }
     html, body {
@@ -57,16 +60,22 @@
         </section>
 
         <div class='footer'>
-            <slot name="footer-content"></slot>
+            <slot name="footer-content">
+                <!-- 如果没有响应的slot，就用这个默认的Footer -->
+                <Footer></Footer>
+            </slot>
         </div>
     </div>
 </template>
 
 
 <script>
-
+import Footer from './Footer';
 export default {
   name: 'Layout',
+  components: {
+      Footer
+  }
   
 }
 </script>

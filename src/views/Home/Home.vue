@@ -24,9 +24,9 @@
         <MusicCard></MusicCard>
       </template>
 
-      <template v-slot:footer-content>
+      <!-- <template v-slot:footer-content>
         <FooterContent></FooterContent>
-      </template>
+      </template> -->
       
     </Layout>
 
@@ -46,7 +46,7 @@
 
 import Layout from '@/components/Layout.vue';
 import MusicCard from '@/views/Home/MusicCard.vue'
-import FooterContent from '@/views/Home/FooterContent.vue';
+// import FooterContent from '@/views/Home/FooterContent.vue';
 
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
@@ -63,9 +63,8 @@ export default {
   },
   components: {
     Layout,
-    MusicCard,
-    FooterContent,
-
+    MusicCard
+    // FooterContent
   },
   computed: mapState({
     count: state => state.count,
