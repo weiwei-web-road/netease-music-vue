@@ -20,7 +20,14 @@
 <template>
   <div class="home">
     <Layout>
-      <MusicCard></MusicCard>
+      <template v-slot:music-card>
+        <MusicCard></MusicCard>
+      </template>
+
+      <template v-slot:footer-content>
+        <FooterContent></FooterContent>
+      </template>
+      
     </Layout>
 
     <!-- <p>{{ countPlusLocalState }}</p>
@@ -37,9 +44,9 @@
 <script>
 // @ is an alias to /src
 
-// test git switch user
 import Layout from '@/components/Layout.vue';
 import MusicCard from '@/views/Home/MusicCard.vue'
+import FooterContent from '@/views/Home/FooterContent.vue';
 
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
@@ -56,7 +63,9 @@ export default {
   },
   components: {
     Layout,
-    MusicCard
+    MusicCard,
+    FooterContent,
+
   },
   computed: mapState({
     count: state => state.count,

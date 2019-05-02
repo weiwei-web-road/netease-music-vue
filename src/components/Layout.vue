@@ -53,10 +53,12 @@
         </div>
 
         <section>
-            <slot></slot>
+            <slot name="music-card"></slot>
         </section>
 
-        <div class='footer'>Github : https://github.com/weiwei-web-road/netease-music-vue</div>
+        <div class='footer'>
+            <slot name="footer-content"></slot>
+        </div>
     </div>
 </template>
 
