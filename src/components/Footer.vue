@@ -6,7 +6,8 @@
         margin: 0;
         padding: 0;
         display: flex;
-        justify-content: center;flex-direction: row;
+        justify-content: center;
+        flex-direction: row;
         align-items: center;
         background: #242424;
         border-top: 1px solid #d3d3d3;

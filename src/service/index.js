@@ -1,5 +1,5 @@
 import axios from 'axios'
-import querystring from 'nv'
+import querystring from 'querystring'
 import apis from './config'
 
 const TIMEOUT = 5000;

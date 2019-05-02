@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { INCREMENT, FILTER } from './mutation_types';
+import fetchAPI, {apis} from './service';
 
 Vue.use(Vuex)
 
@@ -30,6 +31,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // 用户触发
+
+    fetchTopPlayListAsync (context, params) {
+      // params view 层传递来的数据，idx: 榜单种类
+      return new Promise((resolve, reject) => {
+        fetchAPI(apis.home.getTopPlayList, params).then((res) => {
+          console.log(res, res);
+        }).catch((error) => {
+          console.log(error);
+          reject(JSON.stringify(error));
+        });
+      });
+    },
+
     incrementAsync (context, params) {
       return new Promise((resolve) => {
         setTimeout(() => {
