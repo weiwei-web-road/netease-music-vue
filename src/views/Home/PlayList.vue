@@ -62,7 +62,6 @@
   }
 </style>
 
-
 <template>
     <div class="music-card-layout"> 
         <div class="card-row" 
@@ -91,6 +90,7 @@ export default {
   },
   computed: {
     localData: function () {
+      // 前面是 handler 函数，后面是 初始的值。handler 的初始返回值与初始值保持一致。
       return this.data.reduce((prev, curr, index) => {
         if (index % 5 === 0) {
           prev.push([curr]);

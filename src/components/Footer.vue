@@ -1,4 +1,5 @@
 <style lang="less" scoped>
+// scoped 意思是只作用于这个作用域
 
     .wrapper {
         width: 100%;
@@ -19,6 +20,7 @@
         justify-content: space-between;
         align-items: center;
         flex-direction: row;
+        // 溢出的东西直接 hidden
         overflow: hidden;
 
         > .netease-icon {
@@ -66,7 +68,7 @@
 
 <template>
     <div class="wrapper">
-        <!-- wrapper 做适配 -->
+        <!-- wrapper 做适配， 是外层的一个div， 常用于居中-->
         <div class="footer-container">
             <div class="netease-icon">
 

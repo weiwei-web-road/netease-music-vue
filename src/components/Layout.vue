@@ -51,7 +51,7 @@
 <template>
     <div class='netease-layout'>
         <div class='header'> 
-            网易云音乐
+            <Header></Header>
         </div>
 
         <section>
@@ -70,10 +70,12 @@
 
 <script>
 import Footer from './Footer';
+import Header from './Header';
 export default {
   name: 'Layout',
   components: {
-      Footer
+      Footer,
+      Header,
   }
   
 }

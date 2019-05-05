@@ -4,7 +4,7 @@
       background-color: #fff;
       border: 1px solid #d3d3d3;
       border-width: 0 1px;
-      width: 100%;
+      // width: 100%;  // 不能设置为宽度100%， 否则会溢出section
       height: 100%;
       margin: 0;
       padding: 40px;
@@ -17,14 +17,11 @@
   <div class="home">
     <Layout>
       <template v-slot:music-card>
-      <div class="playlist-container" >
-          <PlayList v-bind:data="topPlayList"></PlayList>
-      </div>
+        <div class="playlist-container" >
+            <Category></Category>
+            <PlayList v-bind:data="topPlayList"></PlayList>
+        </div>
       </template>
-
-      <!-- <template v-slot:footer-content>
-        <FooterContent></FooterContent>
-      </template> -->
       
     </Layout>
 
@@ -43,9 +40,8 @@
 // @ is an alias to /src
 
 import Layout from '@/components/Layout.vue';
-import PlayList from '@/views/Home/PlayList.vue'
-// import FooterContent from '@/views/Home/FooterContent.vue';
-
+import PlayList from '@/views/Home/PlayList.vue';
+import Category from '@/views/Home/Category.vue';
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
 
@@ -67,8 +63,8 @@ export default {
   },
   components: {
     Layout,
-    PlayList
-    // FooterContent
+    PlayList,
+    Category,
   },
   computed: mapState({
     // mapState 做一次映射
