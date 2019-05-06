@@ -52,7 +52,10 @@
                 height: 29px;
                 line-height: 29px;
                 font-size: 12px;
-                text-decoration: none; // 去掉 a 标签中的下划线
+                cursor: pointer;
+            }
+            a:hover {
+                text-decoration:underline !important;
             }
         }
     }
@@ -75,7 +78,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
 export default {

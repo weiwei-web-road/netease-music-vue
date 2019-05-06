@@ -61,7 +61,7 @@ export default {
     // 并传递参数
     this.fetchTopPlayListAsync({
       order: this.category,
-      limit: '10'
+      limit: '100'
     });
   },
   components: {
@@ -111,7 +111,7 @@ export default {
     swapHotNewCategory: function(data) {
       this.fetchTopPlayListAsync({
         order: data.value,
-        limit: '10'
+        limit: '100'
     });
     }
   }
