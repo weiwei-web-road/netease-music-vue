@@ -53,12 +53,15 @@ export default {
       movies: this.$store.getters.singleMovies(3),
       message: '',
       musicNames: '',
+      category: 'hot',
     };
   },
   created: function() {
+    // 当初始化此页面的时候，调用store 中的 actions 中的 fetchTopPlayListAsync 方法
+    // 并传递参数
     this.fetchTopPlayListAsync({
-      order: 'hot',
-      limit: '100'
+      order: this.category,
+      limit: '10'
     });
   },
   components: {
@@ -68,6 +71,7 @@ export default {
   },
   computed: mapState({
     // mapState 做一次映射
+    // 把 store 中 state 中的数据映射到 Home 中相应的变量
     topPlayList: state => state.topPlayList,
     count: state => state.count,
     countAlias: 'count',
