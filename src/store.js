@@ -49,7 +49,7 @@ export default new Vuex.Store({
     fetchTopPlayListAsync (context, params) {
       // params view 层传递来的数据，idx: 榜单种类
       return new Promise((resolve, reject) => {
-        console.log(apis, 'apis');
+        console.log(params, params);
         // 调用 service index.js 中定义好的fetchAPI， 向后端发送请求
         fetchAPI(apis.home.getTopPlayList, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
@@ -58,7 +58,6 @@ export default new Vuex.Store({
             // 然后在 mutation 中， 找到相应的 SET_TYPE_PLAYLIST, 对 Store 中的 state 中的topPlayList 数据进行修改
             context.commit({ type : SET_TOP_PLAYLIST, value : res.data.playlists})
           }
-          console.log(res, res);
         }).catch((error) => {
           console.log(error);
           reject(JSON.stringify(error));

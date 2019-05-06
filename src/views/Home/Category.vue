@@ -70,8 +70,8 @@
             </div> -->
         </div>
         <div class="hot-new-category" v-bind:style="{backgroundPosition: backgroundPosition}">
-            <a v-bind:style="hotStyleObject" v-on:click="swap('hot')">热门</a>
-            <a v-bind:style="newStyleObject" v-on:click="swap('new')">最新</a>
+            <a v-bind:style="hotStyleObject" v-on:click="swapHotNewCategory('hot')">热门</a>
+            <a v-bind:style="newStyleObject" v-on:click="swapHotNewCategory('new')">最新</a>
         </div>
     </div>
 </template>
@@ -82,7 +82,7 @@ export default {
     data() {
         return {
             hotStyleObject: {
-                color: '#333',
+                color: '#fff',
             },
             newStyleObject: {
                 color: '#333',
@@ -94,16 +94,19 @@ export default {
         
     },
     methods: {
-        swap: function(value) {
-            console.log(value);
+        swapHotNewCategory: function(value) {
             if (this.selectedStyle === 'hot' && value === 'new') {
                 this.selectedStyle = 'new';
                 this.newStyleObject.color = '#fff';
+                this.hotStyleObject.color = '#333';
                 this.backgroundPosition = '0 -32px';
+                this.$emit('swapHotNewCategory', {value: value});
             } else if (this.selectedStyle === 'new' && value === 'hot') {
                 this.selectedStyle = 'hot';
                 this.hotStyleObject.color = '#fff';
+                this.newStyleObject.color = '#333';
                 this.backgroundPosition = '0 0';
+                this.$emit('swapHotNewCategory', {value: value});
             }
         }
     }

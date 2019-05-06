@@ -18,7 +18,7 @@
     <Layout>
       <template v-slot:music-card>
         <div class="playlist-container" >
-            <Category></Category>
+            <Category v-on:swapHotNewCategory="swapHotNewCategory"></Category>
             <PlayList v-bind:data="topPlayList"></PlayList>
         </div>
       </template>
@@ -107,6 +107,12 @@ export default {
       this.incrementAsync({ value: parseInt(this.localCount || 0)}).then(() => {
         this.message = '增值成功'
       });
+    },
+    swapHotNewCategory: function(data) {
+      this.fetchTopPlayListAsync({
+        order: data.value,
+        limit: '10'
+    });
     }
   }
 }
