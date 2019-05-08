@@ -59,7 +59,7 @@
             <a class="page prev-page">上一页</a>
             <a class="num-page" v-for="(index, page) in pagingArr" v-bind:key="index">{{page+1}}</a>
             <span>...</span>
-            <a class="num-page">10</a>
+            <a class="num-page">{{Math.ceil(tempData / limit)}}</a>
             <a class="page next-page">下一页</a>
         </div>
     </div>
@@ -67,11 +67,30 @@
 
 <script>
 export default {
+    name: 'Paging',
     data() {
+        console.log(this.data, 'totalPlay from Paging');
         return {
-            pagingArr: [1, 2, 3, 4, 5]
+            pagingArr: [1, 2, 3, 4, 5],
+            tempData: 1288,
+            limit: 35,
+
         }
-    }
+        
+    },
+    computed: {
+        totalPlay: function() {
+            console.log(this.data);
+            return this.tempData;
+        },
+        totalPages: function() {
+            console.log(this.tempData / this.limit);
+
+            return this.tempData / this.limit;
+        }
+    },
+    props: ['data'],
+
     
 }
 </script>

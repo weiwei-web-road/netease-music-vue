@@ -69,7 +69,6 @@ export default new Vuex.Store({
             // 然后在 mutation 中， 找到相应的 SET_TYPE_PLAYLIST, 对 Store 中的 state 中的topPlayList 数据进行修改
             context.commit({ type : SET_TOP_PLAYLIST, value : res.data.playlists});
             context.commit({ type : SET_TOTAL_PLAY, value : res.data.total});
-console.log(res.data.total, 'total');
           }
         }).catch((error) => {
           console.log(error);

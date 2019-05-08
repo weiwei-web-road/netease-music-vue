@@ -20,7 +20,7 @@
         <div class="playlist-container" >
             <Category v-on:swapHotNewCategory="swapHotNewCategory"></Category>
             <PlayList v-bind:data="topPlayList"></PlayList>
-            <Paging></Paging>
+            <Paging v-bind:data="totalPlay"></Paging>
         </div>
       </template>
       
@@ -73,8 +73,6 @@ export default {
       limit: this.limit,
       offset: this.offset,
     });
-
-    console.log(this.$store.state.topPlayList, "from $store");
 
   },
   components: {
