@@ -20,6 +20,7 @@
         <div class="playlist-container" >
             <Category v-on:swapHotNewCategory="swapHotNewCategory"></Category>
             <PlayList v-bind:data="topPlayList"></PlayList>
+            <Paging></Paging>
         </div>
       </template>
       
@@ -42,8 +43,14 @@
 import Layout from '@/components/Layout.vue';
 import PlayList from '@/views/Home/PlayList.vue';
 import Category from '@/views/Home/Category.vue';
+import Paging from '@/views/Home/Paging.vue';
+// 在vue组件中使用时，我们通常会使用mapGetters、mapActions、mapMutations，
+// 然后就可以按照vue调用methods和computed的方式去调用这些变量或函数
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
 
 export default {
   name: 'home',
@@ -54,6 +61,8 @@ export default {
       message: '',
       musicNames: '',
       category: 'hot',
+      limit: 35,
+      offset: 0
     };
   },
   created: function() {
@@ -61,18 +70,24 @@ export default {
     // 并传递参数
     this.fetchTopPlayListAsync({
       order: this.category,
-      limit: '100'
+      limit: this.limit,
+      offset: this.offset,
     });
+
+    console.log(this.$store.state.topPlayList, "from $store");
+
   },
   components: {
     Layout,
     PlayList,
     Category,
+    Paging,
   },
   computed: mapState({
     // mapState 做一次映射
     // 把 store 中 state 中的数据映射到 Home 中相应的变量
     topPlayList: state => state.topPlayList,
+    totalPlay: state => state.totalPlay,
     count: state => state.count,
     countAlias: 'count',
     countPlusLocalState (state) {
@@ -80,7 +95,8 @@ export default {
     },
     filterMovies: (state, getters) => {
       return getters.filterMovies;
-    }
+    },
+    
   }),
   watch: {
     localCount: function (val) {
@@ -109,9 +125,11 @@ export default {
       });
     },
     swapHotNewCategory: function(data) {
+      this.category = data.value;
       this.fetchTopPlayListAsync({
-        order: data.value,
-        limit: '100'
+        order: this.category,
+        limit: this.limit,
+        offset: this.offset,
     });
     }
   }

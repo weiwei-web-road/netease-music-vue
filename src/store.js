@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST } from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY} from './mutation_types';
 import fetchAPI, {apis} from './service';
 import {TopPlayList} from './model';
 
@@ -14,8 +14,11 @@ export default new Vuex.Store({
     count: 0,
     movies: [1,2,3,4,5,6,7,8],
     filterParams: '',
-    topPlayList: []
+    topPlayList: [],
+    totalPlay: 0,
   },
+  // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
+  // 就和vue的computed差不多；
   getters: {
     singleMovies: (state) => (filterNumber) => {
       return state.movies.filter(item => item % filterNumber)
@@ -28,6 +31,8 @@ export default new Vuex.Store({
     }
   },
    // mutation 对 store 数据的修改
+  //  提交状态修改。也就是set、get中的set，这是vuex中唯一修改state的方式，但不支持异步操作。
+  //  第一个参数默认是state。和vue中的methods类似。
   mutations: {
     [INCREMENT] (state, payload) {
       state.count += parseInt(payload.value);
@@ -40,8 +45,14 @@ export default new Vuex.Store({
     [SET_TOP_PLAYLIST] (state, payload) {
       // 调用 TopPlayList Model 中的 fromJS 方法，按照构造函数中定义好的格式对原数据进行修改
       state.topPlayList = TopPlayList.fromJS(payload.value);
+    },
+
+    [SET_TOTAL_PLAY] (state, payload) {
+      state.totalPlay = parseInt(payload.value);
+      console.log(state.totalPlay, 'state.totalPlay');
     }
   },
+  // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
   actions: {
     // 用户触发
 
@@ -56,7 +67,9 @@ export default new Vuex.Store({
             // commit 是 提交action
             // 把从后端拿到的数据 给 type SET_TYPE_PLAYLIST, 
             // 然后在 mutation 中， 找到相应的 SET_TYPE_PLAYLIST, 对 Store 中的 state 中的topPlayList 数据进行修改
-            context.commit({ type : SET_TOP_PLAYLIST, value : res.data.playlists})
+            context.commit({ type : SET_TOP_PLAYLIST, value : res.data.playlists});
+            context.commit({ type : SET_TOTAL_PLAY, value : res.data.total});
+console.log(res.data.total, 'total');
           }
         }).catch((error) => {
           console.log(error);

@@ -15,47 +15,33 @@
                 font-weight: normal;
                 color: #333;
             }
-            // .choose-category-button {
-            //     margin: 2px 0 0 12px;
-            //     padding: 0 10px 0 15px;
-            //     font-size: 12px;
-            //     font-weight: normal;
-            //     height: 31px;
-            //     line-height: 31px;
-            //     overflow: hidden;
-            //     vertical-align: top;
-            //     text-align: center;
-            //     cursor: pointer;
-            //     background: url('../../assets/button2.png') no-repeat 0 -59px;
-            //     color: #0c73c2 !important;
-            //     .arrow {
-            //         margin-left: 5px;
-            //         width: 8px;
-            //         height: 5px;
-            //         background-position: -70px -543px;
-            //         cursor: pointer;
-            //     }
-                
-            // }
         }
         .hot-new-category {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            width: 93px;
-            height: 29px;
-            background: url('../../assets/button.png');
-            background-repeat:  no-repeat;
-            a {
-                width: 46px;
-                height: 29px;
-                line-height: 29px;
-                font-size: 12px;
-                cursor: pointer;
-            }
-            a:hover {
-                text-decoration:underline !important;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    align-items: center;
+                    width: 93px;
+                    height: 29px;
+                    background: url('../../assets/button.png');
+                    background-repeat:  no-repeat;
+                    // 稍微延迟下响应速度，体验可能会好点
+                    animation-delay: 10ms;
+                    animation-timing-function: ease-in-out;
+                    .category-button {
+                        width: 46px;
+                        height: 29px;
+                        line-height: 29px;
+                        font-size: 12px;
+                        display: inline-block;
+                        color: #333;
+                        &.active {
+                            color: #fff;
+                        }
+                        // 相当于 .category-button:hover
+                        &:hover {
+                            cursor: pointer;
+                    }
             }
         }
     }
@@ -73,8 +59,8 @@
             </div> -->
         </div>
         <div class="hot-new-category" v-bind:style="{backgroundPosition: backgroundPosition}">
-            <a v-bind:style="hotStyleObject" v-on:click="swapHotNewCategory('hot')">热门</a>
-            <a v-bind:style="newStyleObject" v-on:click="swapHotNewCategory('new')">最新</a>
+            <div v-bind:class="hotStyle" v-on:click="swapHotNewCategory('hot')">热门</div>
+            <div v-bind:class="newStyle" v-on:click="swapHotNewCategory('new')">最新</div>
         </div>
     </div>
 </template>
@@ -83,34 +69,26 @@
 export default {
     data() {
         return {
-            hotStyleObject: {
-                color: '#fff',
-            },
-            newStyleObject: {
-                color: '#333',
-            },
-            backgroundPosition : '0 0',
-            selectedStyle: 'hot',
-            
+            selectedStyle: 'hot'
+        } 
+    },
+    computed: {
+        hotStyle: function() {
+            return `category-button${this.selectedStyle === 'hot' ? ' active' : ''}`;
+        },
+        newStyle: function() {
+            return `category-button${this.selectedStyle === 'new' ? ' active' : ''}`;
+        },
+        backgroundPosition: function() {
+            return this.selectedStyle === 'hot' ? '0 0' : '0 -32px'; 
         }
-        
     },
     methods: {
         swapHotNewCategory: function(value) {
-            if (this.selectedStyle === 'hot' && value === 'new') {
-                this.selectedStyle = 'new';
-                this.newStyleObject.color = '#fff';
-                this.hotStyleObject.color = '#333';
-                this.backgroundPosition = '0 -32px';
-                this.$emit('swapHotNewCategory', {value: value});
-            } else if (this.selectedStyle === 'new' && value === 'hot') {
-                this.selectedStyle = 'hot';
-                this.hotStyleObject.color = '#fff';
-                this.newStyleObject.color = '#333';
-                this.backgroundPosition = '0 0';
-                this.$emit('swapHotNewCategory', {value: value});
-            }
+            this.selectedStyle = value;
+            this.$emit('swapHotNewCategory', {value: value});
         }
     }
 }
 </script>
+
