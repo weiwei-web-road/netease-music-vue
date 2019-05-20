@@ -20,7 +20,7 @@
         <div class="playlist-container" >
             <Category v-on:swapHotNewCategory="swapHotNewCategory"></Category>
             <PlayList v-bind:data="topPlayList"></PlayList>
-            <Paging v-bind:data="totalPlay"></Paging>
+            <Paging v-bind:data="totalPlay" v-on:clickPage="clickPage"></Paging>
         </div>
       </template>
       
@@ -128,7 +128,16 @@ export default {
         order: this.category,
         limit: this.limit,
         offset: this.offset,
-    });
+      });
+    },
+    clickPage: function(data) {
+      this.offset = data.value;
+      console.log(this.offset, 'offset');
+      this.fetchTopPlayListAsync({
+        order: this.category,
+        limit: this.limit,
+        offset: this.offset,
+      });
     }
   }
 }
