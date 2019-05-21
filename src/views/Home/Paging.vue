@@ -28,17 +28,38 @@
                 background-position: 0 -560px;
                 padding-left: 22px;
                 width: 47px;
-
+                &:hover {
+                    background-position: 0 -620px; 
+                    text-decoration: none;
+                    cursor: pointer;
+                }
             }
             > .grey-prev-page {
                 color: #cacaca;
-                cursor: none;
-
+                text-decoration: none;
+                background-position: 0 -620px; 
+                &:hover {
+                    cursor: default;
+                }
             }
             > .next-page {
                 background-position: -75px -560px;
                 padding-left: 12px;
                 width: 57px;
+                &:hover {
+                    background-position: -75px -590px; 
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
+            > .grey-next-page {
+                color: #cacaca;
+                text-decoration: none;
+                background-position: -75px -590px; 
+
+                &:hover {
+                    cursor: default;
+                }
             }
             .num-page {
                 height: 22px;
@@ -50,6 +71,11 @@
                 border: 1px solid #ccc;
                 border-radius: 2px;
                 vertical-align: middle;
+                &:hover {
+                    border-color: #666; 
+                    text-decoration: none; 
+                    cursor: pointer;
+                }
             }
             .curr-page {
                 border-color: #A2161B;
@@ -57,6 +83,10 @@
                 color: #fff;
                 background-image: url('../../assets/button.png');
                 background-repeat: no-repeat;
+                &:hover {
+                    border-color: #A2161B;
+                    cursor: pointer; 
+                }
             }
             a:hover {
                 cursor: pointer;
@@ -68,21 +98,17 @@
 <template>
     <div class="wrapper">
         <div class="paging-container">
-            <a class="page prev-page grey-prev-page" v-if="currPage === 1" v-on:click="clickPrevPage()">上一页</a >
-            <a class="page prev-page " v-else-if="currPage !== 1" v-on:click="clickPrevPage()">上一页</a >
-
-            <span v-for="(index, page) in prevPagingArr" v-bind:key="index">
-                <a class="num-page curr-page" v-if="currPage === page+1" v-on:click="clickPage(page+1)">{{page+1}}</a >
-                <a class="num-page" v-else-if="currPage !== page+1" v-on:click="clickPage(page+1)">{{page+1}}</a >
-
+            <a v-bind:class="{'page': true, 'prev-page': true, 'grey-prev-page': currPage === 1}" v-on:click="clickPrevPage()">上一页</a >
+            <a v-bind:class="{'num-page': true, 'curr-page': currPage === 1}" v-on:click="clickPage(1)">1</a >
+            <span v-if="leftEllipsis">...</span>
+            <span v-for="page in centerArr" v-bind:key="page">
+                <a v-bind:class="{'num-page': true, 'curr-page': currPage === page}" v-on:click="clickPage(page)">{{page}}</a >
             </span>
-            <span v-if="lastEllipsisFlag">...</span>
-            <a class="num-page" v-if="lastEllipsisFlag" v-on:click="clickPage(totalPages)">{{totalPages}}</a >
-            <a class="page next-page grey-prev-page" v-if="currPage === totalPages" v-on:click="clickNextPage()">下一页</a >
-            <a class="page next-page " v-else-if="currPage !== totalPages" v-on:click="clickNextPage()">下一页</a >
-
+            <span v-if="rightEllipsis">...</span>
+            <a v-bind:class="{'num-page': true, 'curr-page': currPage === totalPages}" v-on:click="clickPage(totalPages)">{{totalPages}}</a >
+            <a v-bind:class="{'page': true, 'next-page': true, 'grey-next-page': currPage === totalPages}" v-on:click="clickNextPage()">下一页</a > 
         </div>
-    </div>
+    </div> 
 </template>
 
 <script>
@@ -93,9 +119,6 @@ export default {
         return {
             limit: 35,
             offset: 0,
-            midPagingArr: [],
-            lastPagingArr: [],
-            prevEllipsisFlag: false,
             currPage: 1,
             
         }
@@ -110,33 +133,20 @@ export default {
             // 数据处理逻辑尽量放到这里，不要写到模板里
             return Math.ceil(this.data / this.limit);
         },
-        prevPagingArr: function() {
-            let arr = [];
-
-            const len = Math.ceil(this.data / this.limit);
-            if (len < 8) {
-                for (let i=0; i<len; i++) {
-                    arr.push(i+1);
-                }
-            } else {
-                for (let i=0; i<8; i++) {
-                    arr.push(i+1);
-                }
-            }
-            
-            return arr;
+        leftEllipsis: function() {
+            return this.currPage > 4; 
         },
-        lastEllipsisFlag: function() {
-            const len = Math.ceil(this.data / this.limit);
-            let lastEllipsisFlag = false;
-
-            if (len < 8) {
-                lastEllipsisFlag = false;
-            } else {
-                lastEllipsisFlag = true;
+        rightEllipsis: function() {
+            return Math.ceil(this.data / this.limit) - this.currPage > 4;
+        },
+        centerArr: function() {
+            const result = [];
+            const left = this.currPage > 5 ? (this.totalPages < this.currPage + 4 ? Math.ceil(this.data / this.limit) - 7 : this.currPage - 3) : 2;
+            const isEnough = Math.ceil(this.data / this.limit) > this.currPage + 3; const right = isEnough ? Math.max(this.currPage + 3, left + 6) : Math.ceil(this.data / this.limit) - 1;
+            for (let index = left; index <= right; index++) {
+                result.push(index); 
             }
-
-            return lastEllipsisFlag;
+            return result; 
         }
     },
     methods: {
@@ -146,14 +156,20 @@ export default {
             this.$emit('clickPage', {value: this.offset});
         },
         clickPrevPage() {
-            this.currPage -= 1;
-            this.offset = this.limit * (this.currPage - 1);
-            this.$emit('clickPage', {value: this.offset});
+            if (this.currPage > 1) {
+                this.currPage -= 1;
+                this.offset = this.limit * (this.currPage - 1);
+                this.$emit('clickPage', {value: this.offset});
+            }
+            
         },
         clickNextPage() {
-            this.currPage += 1;
-            this.offset = this.limit * (this.currPage - 1);
-            this.$emit('clickPage', {value: this.offset});
+            if (this.currPage < Math.ceil(this.data / this.limit)) {
+                this.currPage += 1;
+                this.offset = this.limit * (this.currPage - 1);
+                this.$emit('clickPage', {value: this.offset});
+            }
+            
         }
     },
     props: ['data']
