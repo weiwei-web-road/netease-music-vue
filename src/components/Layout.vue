@@ -56,6 +56,8 @@
 
         <section>
             <slot name="music-card"></slot>
+            <slot name="song-card"></slot>
+
         </section>
 
         <div class='footer'>
@@ -66,7 +68,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
 import Footer from './Footer';

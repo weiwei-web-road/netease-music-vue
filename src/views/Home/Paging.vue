@@ -128,7 +128,6 @@ export default {
             return this.data;
         },
         totalPages: function() {
-            console.log(this.data);
             // 这里可以对 props 的值进行处理，也可以直接使用props中的值在template中绑定
             // 数据处理逻辑尽量放到这里，不要写到模板里
             return Math.ceil(this.data / this.limit);

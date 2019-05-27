@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY} from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST } from './mutation_types';
 import fetchAPI, {apis} from './service';
-import {TopPlayList} from './model';
+import {TopPlayList, MyPlayList} from './model';
 
 Vue.use(Vuex)
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
     filterParams: '',
     topPlayList: [],
     totalPlay: 0,
+    myPlayList: []
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
@@ -49,7 +50,12 @@ export default new Vuex.Store({
 
     [SET_TOTAL_PLAY] (state, payload) {
       state.totalPlay = parseInt(payload.value);
-      console.log(state.totalPlay, 'state.totalPlay');
+    },
+
+    // 对 state 中的 myPlayList 赋值 和 操作 
+    [SET_MY_PLAYLIST] (state, payload) {
+      // 调用 MyPlayList Model 中的 fromJS 方法，按照构造函数中定义好的格式对原数据进行修改
+      state.myPlayList = MyPlayList.fromJS(payload.value);
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -60,7 +66,6 @@ export default new Vuex.Store({
     fetchTopPlayListAsync (context, params) {
       // params view 层传递来的数据，idx: 榜单种类
       return new Promise((resolve, reject) => {
-        console.log(params, params);
         // 调用 service index.js 中定义好的fetchAPI， 向后端发送请求
         fetchAPI(apis.home.getTopPlayList, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
@@ -77,6 +82,18 @@ export default new Vuex.Store({
       });
     },
 
+    fetchMyPlayListAsync (context, params) {
+      return new Promise((resolve, reject) => {
+        fetchAPI(apis.myMusic.getMyPlayList, params).then((res) => {
+          if (res.status === 200 && res.data.code === 200) {
+            context.commit({type: SET_MY_PLAYLIST, value : res.data.playlist});
+          }
+        }).catch((error) => {
+          reject(JSON.stringify(error));
+        });
+      });
+    },
+
     // ?
     incrementAsync (context, params) {
       return new Promise((resolve) => {
@@ -88,7 +105,6 @@ export default new Vuex.Store({
     },
     // ?
     filterAsync (context, params) {
-      console.log('action', params);
       return new Promise((resolve) => {
         setTimeout(() => {
           context.commit({ type: FILTER, value: params.value });

@@ -5,3 +5,5 @@ export const FILTER = 'WW_FILTER';
 // Home 页面的Action的名称
 export const SET_TOP_PLAYLIST = 'HOME_SET_TOP_PLAYLIST';
 export const SET_TOTAL_PLAY = 'HOME_SET_TOTAL_PLAY';
+export const SET_MY_PLAYLIST = 'HOME_SET_MY_PLAYLIST';
+
