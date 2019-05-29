@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST } from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL } from './mutation_types';
 import fetchAPI, {apis} from './service';
-import {TopPlayList, MyPlayList} from './model';
+import {TopPlayList, MyPlayList, PlayListDetail} from './model';
 
 Vue.use(Vuex)
 
@@ -16,7 +16,9 @@ export default new Vuex.Store({
     filterParams: '',
     topPlayList: [],
     totalPlay: 0,
-    myPlayList: []
+    myPlayList: [],
+    myPlayListDetail : {},
+    rendermyPlayListDetail: false
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
@@ -56,6 +58,12 @@ export default new Vuex.Store({
     [SET_MY_PLAYLIST] (state, payload) {
       // 调用 MyPlayList Model 中的 fromJS 方法，按照构造函数中定义好的格式对原数据进行修改
       state.myPlayList = MyPlayList.fromJS(payload.value);
+    },
+    [SET_MY_PLAYLIST_DETAIL] (state, payload) {
+      state.myPlayListDetail = PlayListDetail.fromJS(payload.value);
+      // 定义全局变量 rendermyPlayListDetail ，用来控制等数据加载完成之后再渲染页面
+      state.rendermyPlayListDetail = true;
+      console.log(state.myPlayListDetail, 'my play list detail');
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -87,6 +95,19 @@ export default new Vuex.Store({
         fetchAPI(apis.myMusic.getMyPlayList, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
             context.commit({type: SET_MY_PLAYLIST, value : res.data.playlist});
+            
+          }
+        }).catch((error) => {
+          reject(JSON.stringify(error));
+        });
+      });
+    },
+
+    fetchMyPlayListDetailAsync (context, params) {
+      return new Promise((resolve, reject) => {
+        fetchAPI(apis.myMusic.getPlayListDetail, params).then((res) => {
+          if (res.status === 200 && res.data.code === 200) {
+            context.commit({type: SET_MY_PLAYLIST_DETAIL, value: res.data.playlist});
           }
         }).catch((error) => {
           reject(JSON.stringify(error));

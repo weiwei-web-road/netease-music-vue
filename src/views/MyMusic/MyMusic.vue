@@ -32,7 +32,7 @@
       <template v-slot:song-card>
 
         <div class="playlist-container" >
-            <LeftTitle class="left-title"></LeftTitle>
+            <LeftTitle v-bind:data="myPlayList" class="left-title"></LeftTitle>
             <RightContent class="right-content"></RightContent>
         </div>
 
@@ -46,6 +46,10 @@
 import Layout from '@/components/Layout.vue';
 import LeftTitle from '@/views/MyMusic/LeftTitle.vue';
 import RightContent from '@/views/MyMusic/RightContent.vue';
+import { mapState, mapActions } from 'vuex';
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
 
 export default {
     name: 'my-music',
@@ -54,11 +58,26 @@ export default {
 
         };
     },
+    created: function() {
+      this.fetchMyPlayListAsync({
+        uid: 1832132513
+      });
+      
+    },
     components: {
         Layout,
         LeftTitle,
         RightContent,
+    },
+    computed: mapState({
+      myPlayList: state => state.myPlayList
+    }),
+    methods: {
+      ...mapActions({
+        fetchMyPlayListAsync: 'fetchMyPlayListAsync',
+        fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync',
 
+      })
     }
 }
 </script>

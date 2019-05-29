@@ -14,6 +14,8 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            cursor: pointer;
+
             > .image {
                 > img {
                     width: 40px;
@@ -50,16 +52,16 @@
 
 <template>
     <div class="song-list-container">
-        <div class="title">收藏的歌单({{musicList.length}})</div>
-        <div class="song-list" v-for="(music, index) in musicList" v-bind:key="index">
+        <div class="title">收藏的歌单({{data.length}})</div>
+        <div class="song-list" v-for="(music, index) in data" v-bind:key="index" v-on:click="playListClick(music.id)">
             <div class="image"> 
-                <img src='../../assets/song_img.jpeg'>
+                <img v-bind:src="music.coverImgUrl">
             </div>
             <div class="song-list-content">
                 <div class="song-list-name">{{music.name}}</div>
                 <div class="song-list-info">
-                    <div class="song-length">{{music.length}}首&ensp; </div>
-                    <div class="song-author">by {{music.author}}</div>
+                    <div class="song-length">{{music.trackCount}}首&ensp; </div>
+                    <div class="song-author">by {{music.creatorNickName}}</div>
                 </div>
             </div>
         </div>
@@ -67,32 +69,34 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
 export default {
-    name: 'LeftList',
+    name: 'LeftTitle',
     data() {
         return {
-            musicList: [
-                {
-                    image: '',
-                    name: '逃跑计划：夜空中最亮的星',
-                    length: 30,
-                    author: '龙晓雯'
-                },
-                {
-                    image: '',
-                    name: '华晨宇 | 三张歌曲专辑完整版',
-                    length: 29,
-                    author: '龙晓雯'
-                },
-                {
-                    image: '',
-                    name: '世界上最好听的钢琴曲',
-                    length: 62,
-                    author: '龙晓雯'
-                }
-            ]
                 
         }
-    }
+    },
+    methods: {
+        ...mapActions({
+            fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync',
+        }),
+        playListClick: function(value) {
+            
+            console.log(value, 'left title');
+
+            this.fetchMyPlayListDetailAsync({
+                id: value,
+            })
+
+
+        }
+    },
+    
+    props: ['data'],
 }
 </script>

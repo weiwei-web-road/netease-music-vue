@@ -32,7 +32,7 @@
             
             // box-sizing: content-box; // 默认，设置的width 作用于content
             box-sizing: border-box; // 总的展示宽度是 content + border + margin
-            
+            margin-top: 5px;
         }
         > .footer {
             width: 100%;

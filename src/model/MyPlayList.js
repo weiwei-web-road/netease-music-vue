@@ -4,7 +4,7 @@ class MyPlayList {
         // 在构造函数里 定义本 class 的属性，
         this.id = props.id;
         this.name = props.name;
-        this.tags = this.tags;
+        this.tags = props.tags;
         this.coverImgUrl = props.coverImgUrl;
         this.creatorNickName = props.creator.nickname;
         this.trackCount = props.trackCount;

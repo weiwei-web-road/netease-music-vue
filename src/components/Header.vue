@@ -50,15 +50,21 @@
                     display: block;
                     position: absolute;
                     left: 50%;
-                    top: 64px;
+                    top: 69px;
                     width: 12px;
-                    height: 7px;
+                    height: 6px;
                     margin-left: -6px;
                     overflow: hidden;
                 }
             }
         }
-        
+        > .header-bottom {
+            height: 5px;
+            border-bottom: none;
+            box-sizing: border-box;
+            background-color: #C20C0C;
+            z-index: 90;
+        }
     }
 </style>
 <template>
@@ -75,6 +81,7 @@
                 <sub>&nbsp;</sub>
             </div>
         </div>
+        <div class="header-bottom"></div>
     </div>
 </template>
 
@@ -106,6 +113,7 @@ export default {
             this.selectIndex = value;
           
             if (ROUTE_MAP[this.selectIndex]) {
+                // 想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。
                 this.$router.push(ROUTE_MAP[this.selectIndex]);
             }
         }
