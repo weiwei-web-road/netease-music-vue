@@ -85,7 +85,6 @@
 export default {
   name: 'PlayList',
   data() {
-    console.log(this.data, 'res');
     return {};
   },
   computed: {

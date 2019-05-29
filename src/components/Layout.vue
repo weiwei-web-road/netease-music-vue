@@ -32,7 +32,7 @@
             
             // box-sizing: content-box; // 默认，设置的width 作用于content
             box-sizing: border-box; // 总的展示宽度是 content + border + margin
-            
+            margin-top: 5px;
         }
         > .footer {
             width: 100%;
@@ -56,6 +56,8 @@
 
         <section>
             <slot name="music-card"></slot>
+            <slot name="song-card"></slot>
+
         </section>
 
         <div class='footer'>
@@ -66,7 +68,6 @@
         </div>
     </div>
 </template>
-
 
 <script>
 import Footer from './Footer';
