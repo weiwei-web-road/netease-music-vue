@@ -1,4 +1,4 @@
-// import {Track} from '../model';
+import {Track} from '../model';
 
 class PlayListDetail {
     constructor(props) {
@@ -13,8 +13,9 @@ class PlayListDetail {
         this.creatorAvatarUrl = props.creator.avatarUrl;
         this.playCount = props.playCount;
         this.trackCount = props.trackCount;
-        this.tracks = props.tracks;
-        // this.tracks = new Track(props.tracks);
+        // this.tracks = props.tracks;
+        this.tracks = Track.fromJS(props.tracks);
+        this.createTime = props.createTime;
 
     }
 

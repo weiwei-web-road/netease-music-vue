@@ -6,6 +6,7 @@ class Track {
         this.name = props.name;
         this.author = props.ar;
         this.collection = props.al.name;
+        this.durationTime = props.dt;
     }
 
     static fromJS = (value) => {

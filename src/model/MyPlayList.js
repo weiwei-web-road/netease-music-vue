@@ -8,7 +8,6 @@ class MyPlayList {
         this.coverImgUrl = props.coverImgUrl;
         this.creatorNickName = props.creator.nickname;
         this.trackCount = props.trackCount;
-
     }
 
     // fromJS 是全局使用，所以写到原型链上面

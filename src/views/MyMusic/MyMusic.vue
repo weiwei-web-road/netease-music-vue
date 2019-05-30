@@ -61,8 +61,10 @@ export default {
     created: function() {
       this.fetchMyPlayListAsync({
         uid: 1832132513
+      }).then((id) => {
+        this.fetchMyPlayListDetailAsync(id);
+        console.log(id, 'id at my music component');
       });
-      
     },
     components: {
         Layout,

@@ -268,7 +268,7 @@
                     <img v-bind:src="myPlayListDetail.creatorAvatarUrl">
                     <div class="author-name">{{myPlayListDetail.creatorNickName}}
                     </div>
-                    <div class="create-time">2015-06-07 创建
+                    <div class="create-time">{{myPlayListDetail.createTime | dateformat('YYYY-MM-DD')}} 创建
                     </div>
                 </div>
 
@@ -312,9 +312,11 @@
                 <span class="play-icon"></span>
             </div>
             <div class="second-title common black-color">{{item.name}}</div>
-            <div class="third-title common">04：59</div>
-            <div class="fourth-title common black-color">{{item.ar[0].name}}</div>
-            <div class="fifth-title common black-color">{{item.al.name}}</div>           
+            <div class="third-title common">{{item.durationTime | dateformat('mm:ss')}}</div>
+            <div class="fourth-title common black-color">
+                <span v-for="(author, index) in item.author" v-bind:key="index">{{author.name}}</span>
+            </div>
+            <div class="fifth-title common black-color">{{item.collection}}</div>           
         </div>
         <!-- <div class="song-list-content">
             <div class="first-title common">2

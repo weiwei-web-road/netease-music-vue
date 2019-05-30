@@ -95,7 +95,8 @@ export default new Vuex.Store({
         fetchAPI(apis.myMusic.getMyPlayList, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
             context.commit({type: SET_MY_PLAYLIST, value : res.data.playlist});
-            
+            console.log(res.data.playlist[0].id, 'first play list id');
+            resolve({id: res.data.playlist[0].id});
           }
         }).catch((error) => {
           reject(JSON.stringify(error));
