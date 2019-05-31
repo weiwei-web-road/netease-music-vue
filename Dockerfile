@@ -22,8 +22,9 @@ WORKDIR /usr/projects/netease-musice-vue
 
 # Install dependencies
 COPY package.json /usr/projects/netease-musice-vue
-RUN yarn install --production
-RUN yarn global add @vue/cli@latest
+RUN yarn install
+RUN yarn global add @vue/cli@3.0.0-beta.1
+
 
 # copy other codes and resources
 COPY . /usr/projects/netease-musice-vue
