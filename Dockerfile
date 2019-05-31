@@ -15,11 +15,11 @@ WORKDIR /usr/projects/NeteaseCloudMusicApi
 RUN npm install --production
 
 # creat workdir
-RUN mkdir -p /usr/projects/netease-musice-vue
-WORKDIR /usr/projects/netease-musice-vue
+RUN mkdir -p /usr/projects/netease-music-vue
+WORKDIR /usr/projects/netease-music-vue
 
 # Install dependencies
-COPY package.json /usr/projects/netease-musice-vue
+COPY package.json /usr/projects/netease-music-vue
 RUN rm -f package-lock.json 
 RUN npm config set unsafe-perm true
 RUN npm install
@@ -27,8 +27,9 @@ RUN npm install -g @vue/cli
 
 
 # copy other codes and resources
-COPY . /usr/projects/netease-musice-vue
+COPY . /usr/projects/netease-music-vue
 
-EXPOSE 8081
+EXPOSE 8080
+EXPOSE 3000
 # ENTRYPOINT diff CMD CDM can be overrided
 CMD npm run serve & node ../NeteaseCloudMusicApi/app.js
