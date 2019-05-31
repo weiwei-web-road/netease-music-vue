@@ -23,6 +23,7 @@ WORKDIR /usr/projects/netease-musice-vue
 # Install dependencies
 COPY package.json /usr/projects/netease-musice-vue
 RUN npm install --production
+RUN npm install -g @vue/cli@latest
 
 # copy other codes and resources
 COPY . /usr/projects/netease-musice-vue
