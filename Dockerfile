@@ -6,10 +6,12 @@ MAINTAINER Yali Wang, Longlong Li
 RUN npm set registry https://registry.npm.taobao.org/
 
 # active api server
-RUN mkdir -p /usr/projects/netease-musice-api
-WORKDIR /usr/projects/netease-musice-api
+RUN mkdir -p /usr/projects
+WORKDIR /usr/projects
 
 RUN git clone https://github.com/Binaryify/NeteaseCloudMusicApi
+
+WORKDIR /usr/projects/NeteaseCloudMusicApi
 RUN npm install --production
 # runing in 4000 port
 RUN PORT=4000 node app.js
