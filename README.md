@@ -1,4 +1,4 @@
-`# movie-board
+# Netease Music
 
 ## Project setup
 ```
