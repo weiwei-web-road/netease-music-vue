@@ -14,7 +14,7 @@ RUN git clone https://github.com/Binaryify/NeteaseCloudMusicApi
 WORKDIR /usr/projects/NeteaseCloudMusicApi
 RUN npm install --production
 # runing in 4000 port
-RUN PORT=4000 node app.js
+# RUN PORT=4000 node app.js
 
 # creat workdir
 RUN mkdir -p /usr/projects/netease-musice-vue
@@ -29,4 +29,4 @@ COPY . /usr/projects/netease-musice-vue
 
 EXPOSE 8080
 # ENTRYPOINT diff CMD CDM can be overrided
-CMD [ "npm", "run", "serve" ]
+CMD npm run serve & node ../NeteaseCloudMusicApi/app.js
