@@ -138,12 +138,38 @@
                     margin: 8px 0 0;
                     font-size: 12px;
                     color: #666666;
-                    overflow: hidden;
                     text-align: left;
-                    height: 54px;
+                    width: 430px;
+                    display: block;
+                    line-height: 18px;
+                    // border-bottom: 1px solid red;
+                    &.closed {
+                        max-height: 54px;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
                     // text-overflow: ellipsis; // ...
                     // white-space: nowrap; // 不让换行，不然没有...
                 }
+                > .detail-operation-btn {
+                    color: #0c73c2;
+                    font-size: 12px;
+                    cursor: pointer;
+                    text-align: right;
+                    // > .openIcon {
+                    //     width: 11px;
+                    //     height: 8px;
+                    //     background-position: -65px -520px;
+                    //     background: url('../../assets/icon.png') no-repeat 0 9999px;
+                    // }
+                    // > .closeIcon {
+
+                    // }
+                }
+                
             }
         }
         .song-list-container {
@@ -250,7 +276,7 @@
 
 
 <template>
-    <div class="song-content-container" v-if="rendermyPlayListDetail">
+    <div class="song-content-container">
         <div class="song-introduction">
             <div class="image-border">
                 <img v-bind:src="myPlayListDetail.coverImgUrl">
@@ -286,10 +312,13 @@
 
                 </div>
 
-                <div class="song-detail">{{myPlayListDetail.description}}
-                    
+                <p ref="description" v-bind:class="{ 'song-detail': true, 'closed': !opened }">
+                    {{myPlayListDetail.description}}
+                </p>
+                <div v-if="isCanOpen" class="detail-operation-btn" v-on:click="handleDescriptionToggle">
+                    <span>{{ opened ? '收起' : '展开' }}</span>
+                    <!-- <span v-bind:class="{openIcon: !opened, closeIcon: opened}">5656</span> -->
                 </div>
-
             </div>
         </div>
         <div class="song-list-container">
@@ -336,13 +365,77 @@ export default {
     name: 'RightContent',
     data() {
         return {
+            opened: false, // 当前状态不是 open 的
+            isCanOpen: false, // 是否有展开按钮
+            isReComputed: false
         }
     },
-    computed: mapState({
+
+    watch: {
+        // 实时监视着 myPlayListDetail， 当其变化时，执行function
+        // 当点击其他的 play list 时， myPlayListDetail 会发生变化，需要重新计算，所以设置isReComputed = true，update 函数会执行
+        myPlayListDetail: function () {
+            this.opened = false;
+            this.isReComputed = true;
+        }
+    },
+    computed: {
+        ...mapState({
         // mapState 做一次映射
         // 把 store 中 state 中的数据映射到 RightContent 中相应的变量
         myPlayListDetail: state => state.myPlayListDetail,
-        rendermyPlayListDetail: state => state.rendermyPlayListDetail
-    })
+        })
+    },
+    methods: {
+        computeIsClosed: function () {
+            console.log(this.$refs, 'refs');
+            // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
+            // refs:一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例 注意：refs只会在组件渲染完成之后生效，并且它们不是响应式的
+            const clientHeight = this.$refs.description.clientHeight; // 可视窗口的高度
+            const scrollHeight = this.$refs.description.scrollHeight; // 文档或元素真实的高度，相对 Scroll 的高度
+            return clientHeight < scrollHeight;
+        },
+        handleDescriptionToggle: function () {
+            this.opened = !this.opened;
+        }
+    },
+    // 实例挂载到DOM之后，生成DOM节点之后调用
+    mounted: function () {
+        // nextTick是全局vue的一个函数，在vue系统中，用于处理dom更新的操作。vue里面有一个watcher，用于观察数据的变化，然后更新dom，vue里面并不是每次数据改变都会触发更新dom，而是将这些操作都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
+        // Vue.js实现了一个queue队列，在下一个tick的时候会统一执行queue中Watcher的run。同时，拥有相同id的Watcher不会被重复加入到该queue中去
+        // 保证更新视图操作DOM的动作是在当前栈执行完以后下一个tick的时候调用，大大优化了性能。
+        // 异步更新Dom操作
+        this.$nextTick(function () {
+            const isClosed = this.computeIsClosed();
+            if (isClosed) {
+                // 初始化是展开的，则isCanOpen is true
+                this.opened = !isClosed;
+                this.isCanOpen = true;
+            } else {
+                this.opened = false;
+                this.isCanOpen = false;
+            }
+        }); 
+    },
+    updated: function () {
+        // 当点击其他的 play list 时，isReComputed = true，在updated 中 的 $nextTick 中，重新计算
+        // 把$nextTick 中的操作 都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
+        this.$nextTick(function () {
+            // Code that will run only after the
+            // entire view has been re-rendered
+            if (this.isReComputed) {
+                const isClosed = this.computeIsClosed();
+                if (isClosed) {
+                    // 初始化是展开的，则isCanOpen is true
+                    this.opened = !isClosed;
+                    this.isCanOpen = true;
+                } else {
+                    this.opened = false;
+                    this.isCanOpen = false;
+                }
+                this.isReComputed = false;
+            }
+        })
+    }
 }
 </script>
