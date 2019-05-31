@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:dubnium
 
 MAINTAINER Yali Wang, Longlong Li
 
@@ -13,8 +13,6 @@ RUN git clone https://github.com/Binaryify/NeteaseCloudMusicApi
 
 WORKDIR /usr/projects/NeteaseCloudMusicApi
 RUN npm install --production
-# runing in 4000 port
-# RUN PORT=4000 node app.js
 
 # creat workdir
 RUN mkdir -p /usr/projects/netease-musice-vue
@@ -22,8 +20,9 @@ WORKDIR /usr/projects/netease-musice-vue
 
 # Install dependencies
 COPY package.json /usr/projects/netease-musice-vue
-RUN yarn install
-RUN yarn global add @vue/cli@3.0.0-beta.1
+RUN npm config set unsafe-perm true
+RUN npm install install
+RUN npm install -g @vue/cli
 
 
 # copy other codes and resources
