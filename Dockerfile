@@ -29,6 +29,6 @@ RUN npm install -g @vue/cli
 # copy other codes and resources
 COPY . /usr/projects/netease-musice-vue
 
-EXPOSE 8080
+EXPOSE 8081
 # ENTRYPOINT diff CMD CDM can be overrided
 CMD npm run serve & node ../NeteaseCloudMusicApi/app.js
