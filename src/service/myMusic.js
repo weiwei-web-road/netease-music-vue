@@ -1,4 +1,4 @@
-export const prefix = 'http://localhost:3000'
+import prefix from './getApiPrefix';
 
 export default {
   getMyPlayList: {
