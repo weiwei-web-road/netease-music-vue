@@ -1,4 +1,10 @@
 # Netease Music
+Re-design and implement Netease Music using Vue and Vuex. There's no 3rd party UI libraries used in this project. All components are designed and implemented only for this project.
+
+## Screenshots
+![image]
+(https://github.com/weiwei-web-road/netease-music-vue/blob/master/src/assets/button.png)
+
 
 ## Project setup
 ```
