@@ -20,7 +20,7 @@ WORKDIR /usr/projects/netease-musice-vue
 
 # Install dependencies
 COPY package.json /usr/projects/netease-musice-vue
-RUN rm package-lock.json 
+RUN rm -f package-lock.json 
 RUN npm config set unsafe-perm true
 RUN npm install
 RUN npm install -g @vue/cli
