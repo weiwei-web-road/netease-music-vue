@@ -5,6 +5,14 @@ Re-design and implement Netease Music using Vue and Vuex. There's no 3rd party U
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-home.png)
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-my-music.png)
 
+## Major Packages Used in this project
+- ESLint
+- Babel
+- Webpack
+- Vue including vue-router
+- Vuex
+- LESS
+
 ## Project setup
 ```
 yarn install
