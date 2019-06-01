@@ -9,6 +9,14 @@ http://nic-movie-board.daoapp.io/
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-home.png)
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-my-music.png)
 
+## Major Packages Used in this project
+- ESLint
+- Babel
+- Webpack
+- Vue including vue-router
+- Vuex
+- LESS
+
 ## Project setup
 ```
 yarn install
