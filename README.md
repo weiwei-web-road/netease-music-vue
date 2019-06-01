@@ -2,7 +2,7 @@
 Re-design and implement Netease Music using Vue and Vuex. There's no 3rd party UI libraries used in this project. All components are designed and implemented only for this project.
 
 ## Online Demo @ Daocloud
-http://nic-movie-board.daoapp.io/
+http://52.81.106.198:8080/
 > Since it's running on a free Docker host, I just can't guarantee it would be always working.
 
 ## Screenshots
