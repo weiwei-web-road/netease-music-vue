@@ -1,9 +1,21 @@
 # Netease Music
 Re-design and implement Netease Music using Vue and Vuex. There's no 3rd party UI libraries used in this project. All components are designed and implemented only for this project.
 
+## Online Demo @ Daocloud
+http://52.81.106.198:8080/
+> Since it's running on a free Docker host, I just can't guarantee it would be always working.
+
 ## Screenshots
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-home.png)
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-my-music.png)
+
+## Major Packages Used in this project
+- ESLint
+- Babel
+- Webpack
+- Vue including vue-router
+- Vuex
+- LESS
 
 ## Project setup
 ```
