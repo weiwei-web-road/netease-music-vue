@@ -1,4 +1,4 @@
-import axios from 'axios' // ?
+import axios from 'axios' // Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
 import querystring from 'querystring' // ?
 import apis from './config'
 

@@ -33,7 +33,8 @@
 
         <div class="playlist-container" >
             <LeftTitle v-bind:data="myPlayList" class="left-title"></LeftTitle>
-            <RightContent class="right-content"></RightContent>
+            <!-- <RightContent class="right-content"></RightContent> -->
+            <RightContent v-if="rendermyPlayListDetail" class="right-content"></RightContent>
         </div>
 
       </template>
@@ -72,7 +73,8 @@ export default {
         RightContent,
     },
     computed: mapState({
-      myPlayList: state => state.myPlayList
+      myPlayList: state => state.myPlayList,
+      rendermyPlayListDetail: state => state.rendermyPlayListDetail
     }),
     methods: {
       ...mapActions({
