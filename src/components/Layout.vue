@@ -1,13 +1,14 @@
 <style lang="less">
     .netease-layout {
         width: 100%;
-        height: 100vh;
+        height: 100vh; // 窗口高度的百分比
 
         // 3: 水平居中方法三，use flex
         display: flex;
         flex-direction: column;
         align-items: center;
-        
+
+    
         > .header {
             width: 100%;
             flex-grow: 0;
@@ -40,6 +41,15 @@
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 90px;
+
+            margin-bottom: 47px; // 为了腾出位置 让播放器一直浮动在底部
+        }
+
+        > .player {
+            width: 100%;
+            height: 47px;
+            position: fixed; // 为了腾出位置 让播放器一直浮动在底部
+            bottom: 0;
         }
     }
     html, body {
@@ -50,6 +60,7 @@
 
 <template>
     <div class='netease-layout'>
+        
         <div class='header'> 
             <Header></Header>
         </div>
@@ -66,17 +77,26 @@
                 <Footer></Footer>
             </slot>
         </div>
+
+        <div class="player">
+            <Player></Player>
+        </div>
+       
     </div>
 </template>
 
 <script>
 import Footer from './Footer';
 import Header from './Header';
+import Player from './Player';
+
 export default {
   name: 'Layout',
   components: {
       Footer,
       Header,
+      Player,
+
   }
   
 }
