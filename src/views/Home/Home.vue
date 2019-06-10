@@ -50,11 +50,13 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
 import Vue from 'vue';
 import Vuex from 'vuex';
-Vue.use(Vuex);
+import getAudioEvent from '../../config/AudioEvent';
 
+Vue.use(Vuex);
+const audioEvent = getAudioEvent('Home');
 export default {
   name: 'home',
-  data() {
+  data() {    
     return {
       localCount: 0,
       movies: this.$store.getters.singleMovies(3),
@@ -73,7 +75,12 @@ export default {
       limit: this.limit,
       offset: this.offset,
     });
-
+  },
+  mounted: function () {
+    this.$audio.$emit(audioEvent.SETCONTROLL, 'Home');
+    this.$audio.$on(audioEvent.ONPLAY, () => {
+      console.log('play is visibile');
+    });
   },
   components: {
     Layout,
@@ -132,7 +139,9 @@ export default {
     },
     clickPage: function(data) {
       this.offset = data.value;
-      console.log(this.offset, 'offset');
+      this.$audio.$emit(audioEvent.INITIALAUDIO, {
+        src: 'http://sf3-ttcdn-tos.pstatp.com/obj/ttfe/cg/homed/a8772889f38dfcb91c04da915b301617.mp3'
+      });
       this.fetchTopPlayListAsync({
         order: this.category,
         limit: this.limit,

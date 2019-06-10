@@ -1,10 +1,24 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import moment from 'moment'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import moment from 'moment';
+import AudioComponent from './components/Audio';
 
 Vue.config.productionTip = false
+
+const $audio = new Vue({
+  render: h => h(AudioComponent)
+}).$mount('#netease-music-player-node');
+
+Vue.use({
+  install: function (Vue, options) {
+    // 第一种方式
+    console.log(options, 'ok');
+
+    Vue.prototype.$audio = $audio;
+  }
+});
 
 new Vue({
   // 创建和挂载根实例。
