@@ -9,7 +9,8 @@ export default {
     data() {
         return {
             controller: null,
-            audioEvent: getAudioEvent(''),
+            audioEvent: null,
+            publishAudioEvent: getAudioEvent(''),
             audioState: {
                 isPlay: false,
                 muted: false,
@@ -58,6 +59,7 @@ export default {
             this.$root.$on(this.audioEvent.PLAY, () => {
                 this.play();
             });
+            // 增加切歌API
         },
         play: function () {
             // this.audioDOM.load();
@@ -107,7 +109,10 @@ export default {
             };
         },
         _handleOnEnded: function() {
-            this.$root.$emit(this.audioEvent.ONENDED);
+            if (this.audioEvent) {
+                this.$root.$emit(this.audioEvent.ONENDED);
+            }
+            this.$root.$emit(this.publishAudioEvent.ONENDED);
         },
         _handleOnError: function(e) {
             this.$root.$emit(this.audioEvent.ONERROR, { error: e });

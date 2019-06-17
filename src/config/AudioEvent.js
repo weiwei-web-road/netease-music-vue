@@ -14,7 +14,6 @@ export default function (controller = '') {
         ONTIMEUPDAE: prefix + controller + 'ONTIMEUPDAE',
         ONCANPLAY: prefix + controller + 'ONCANPLAY',
         ONERROR: prefix + controller + 'ONERROR',
-        ONTIMEUPTDAE: prefix + controller + 'ONTIMEUPTDAE',
         ONPLAYING: prefix + controller + 'ONPLAYING',
         ONCANPLAYTHROUGH: prefix + controller + 'ONCANPLAYTHROUGH',
         ONPLAY: prefix + 'ONPLAY',

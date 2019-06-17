@@ -77,6 +77,7 @@ export default {
     });
   },
   mounted: function () {
+    // 获取播放器控制权
     this.$audio.$emit(audioEvent.SETCONTROLL, 'Home');
     this.$audio.$on(audioEvent.ONPLAY, () => {
       console.log('play is visibile');
