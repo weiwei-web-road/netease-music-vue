@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import moment from 'moment'
+import './plugins/element.js'
 
 Vue.config.productionTip = false
 
