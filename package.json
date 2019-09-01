@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "d3": "^5.11.0",
     "element-ui": "^2.4.5",
     "moment": "^2.24.0",
     "querystring": "^0.2.0",

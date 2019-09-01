@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import moment from 'moment'
 import './plugins/element.js'
+import './plugins/audio.js'
+import './plugins/d3.js'
 
 Vue.config.productionTip = false
 

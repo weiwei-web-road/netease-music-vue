@@ -1,4 +1,12 @@
 module.exports = {
+    chainWebpack: config => {
+        config.plugins.delete('preload');
+        config.plugins.delete('prefetch');
+        config.plugin('html').tap(args => {
+            args[0].inject = 'body';
+            return [args[0]];
+        });
+    },
     devServer: {
         proxy: {
             '/api': {
@@ -10,5 +18,5 @@ module.exports = {
                 }
             }
         }
-    }
+    }  
 };
