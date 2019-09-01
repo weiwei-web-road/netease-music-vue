@@ -96,7 +96,6 @@ export default {
         }, this.checkList);
       }      
     }
-
   },
   watch: {
     checkList: function(newValue, oldValue) {
