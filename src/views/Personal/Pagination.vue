@@ -1,7 +1,7 @@
 <style lang="less" scoped>
     .footer-pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-family: SFUIText;
     font-size: 14px;
@@ -57,14 +57,15 @@
             width: 18px;
             height: 18px;
             object-fit: contain;
-            background-image: url("../images/footer-pagination/prev-page.svg");
+            background-image: url("../../assets/footer-pagination/prev-page.png");
+
             cursor: pointer;
             &:hover {
-                background-image: url("../images/footer-pagination/prev-page-hover.svg");
+                background-image: url("../../assets/footer-pagination/prev-page-hover.png");
             }
         }
         .no-prev-page {
-            background-image: url("../images/footer-pagination/prev-page-hover.svg");
+            background-image: url("../../assets/footer-pagination/prev-page-hover.png");
             cursor: default;
         }
         .next-page {
@@ -72,14 +73,14 @@
             height: 18px;
             margin-left: 2px;
             object-fit: contain;
-            background-image: url("../images/footer-pagination/next-page.svg");
+            background-image: url("../../assets/footer-pagination/next-page.png");
             cursor: pointer;
             &:hover {
-                background-image: url("../images/footer-pagination/next-page-hover.svg");
+                background-image: url("../../assets/footer-pagination/next-page-hover.png");
             }
         }
         .no-next-page {
-            background-image: url("../images/footer-pagination/next-page-hover.svg");
+            background-image: url("../../assets/footer-pagination/next-page-hover.png");
             cursor: default;
         }
     }
