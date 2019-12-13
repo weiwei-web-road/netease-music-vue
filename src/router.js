@@ -37,6 +37,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "personal" */ './views/Personal/index.vue')
     },
     {
+      path: '/temp',
+      name: 'temp',
+      component: () => import(/* webpackChunkName: "temp" */ './views/Temp/index.vue')
+    },
+    {
       path: '/d3',
       name: 'd3',
       component: () => import(/* webpackChunkName: "d3" */ './views/D3/index.vue')
