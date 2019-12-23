@@ -168,7 +168,7 @@
             </div>
         </div>
 
-        <!-- <div class="info-table-new">
+        <div class="info-table-new">
             <div class="info-table-border">
                 <div class="log-tr">
                     <div class='partWrap'>
@@ -265,7 +265,7 @@
                 </div>
 
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -281,50 +281,50 @@ export default {
     },
     mounted() {
       
-        // if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
-        //   let vehicleHeight = this.startEndOdemeterList.length*16;
-        //   let trailerHeight = this.trailerList.length*16;
-        //   let height='', 
-        //   vehiclePaddingTop='', 
-        //   trailerPaddingTop='';
+        if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
+          let vehicleHeight = this.startEndOdemeterList.length*16;
+          let trailerHeight = this.trailerList.length*16;
+          let height='', 
+          vehiclePaddingTop='', 
+          trailerPaddingTop='';
 
-        //   if (vehicleHeight > trailerHeight) {
-        //     height = vehicleHeight + 'px';
-        //     trailerPaddingTop = (vehicleHeight-trailerHeight)/2 + 10 + 'px';
-        //   } else {
-        //     height = trailerHeight + 'px';
-        //     vehiclePaddingTop = (trailerHeight-vehicleHeight)/2 + 10 + 'px';
-        //   }
-        //   console.log(height, 'height');
+          if (vehicleHeight > trailerHeight) {
+            height = vehicleHeight + 'px';
+            trailerPaddingTop = (vehicleHeight-trailerHeight)/2 + 10 + 'px';
+          } else {
+            height = trailerHeight + 'px';
+            vehiclePaddingTop = (trailerHeight-vehicleHeight)/2 + 10 + 'px';
+          }
+          console.log(height, 'height');
 
-        //   let domList = document.getElementsByClassName('log-vehicle-row-name');
+          let domList = document.getElementsByClassName('log-vehicle-row-name');
 
-        //   for (let i=0; i<domList.length; i++) {
-        //     domList[i].style.height = height;
-        //     domList[i].style.lineHeight = height;
-        //   }
+          for (let i=0; i<domList.length; i++) {
+            domList[i].style.height = height;
+            domList[i].style.lineHeight = height;
+          }
 
-        //   let contentDomList = document.getElementsByClassName('log-vehicle-row-content');
+          let contentDomList = document.getElementsByClassName('log-vehicle-row-content');
 
-        //   for (let i=0; i<contentDomList.length; i++) {
-        //     contentDomList[i].style.height = height;
-        //     // contentDomList[i].style.lineHeight = height;
-        //     // if (vehiclePaddingTop) {
-        //     //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
-        //     // }
-        //   }
+          for (let i=0; i<contentDomList.length; i++) {
+            contentDomList[i].style.height = height;
+            // contentDomList[i].style.lineHeight = height;
+            // if (vehiclePaddingTop) {
+            //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
+            // }
+          }
 
           
-        //   let trailerContentDomList = document.getElementsByClassName('log-trailer-row-content');
+          let trailerContentDomList = document.getElementsByClassName('log-trailer-row-content');
 
-        //   for (let i=0; i<trailerContentDomList.length; i++) {
-        //     trailerContentDomList[i].style.height = height;
-        //     // contentDomList[i].style.lineHeight = height;
-        //     // if (trailerPaddingTop) {
-        //     //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
-        //     // }
-        //   }
-        // }
+          for (let i=0; i<trailerContentDomList.length; i++) {
+            trailerContentDomList[i].style.height = height;
+            // contentDomList[i].style.lineHeight = height;
+            // if (trailerPaddingTop) {
+            //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
+            // }
+          }
+        }
 
     }
 }
