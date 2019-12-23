@@ -21,16 +21,34 @@
   h1 {
     color: red;
   }
+  // zoom in out
+.white-popup {
+
+    position: relative;
+
+    background: #FFF;
+
+    padding: 10px 20px;
+
+    width: auto;
+
+    max-width: 100%;
+
+    margin: 0 auto;
+
+}
 </style>
 
 <template lang="html">
-  <div class='d3-container'>
+  <div id='d3-container' @click="zoomOutSvg()">
     专业D3工程师
   </div>
 </template>
 
 <script>
 import LineChart from './LineChart';
+// import * as magnificPopup from 'magnific-popup';
+import $ from 'jquery';
 
 export default {
   data() {
@@ -42,6 +60,46 @@ export default {
     this.run();
   },
   methods: {
+            zoomOutSvg() {
+            
+            let gridChartWrapper = $('#d3-container');
+            
+            console.log(gridChartWrapper, 'gridChartWrapper');
+
+            $.magnificPopup.open({
+                items: {
+                    src: gridChartWrapper,
+                    type: "inline"
+                },
+                type: 'image',
+                tClose: "Close (Esc)",
+                closeBtnInside: true,
+                closeOnBgClick: true,
+                closeOnContentClick: true,
+                enableEscapeKey: true,
+                callbacks: {
+                    open: function() {
+                        let mfpClose = $(".mfp-close");
+
+                        // Will fire when this exact popup is opened
+                        // this - is Magnific Popup object
+                        gridChartWrapper.addClass("white-popup");
+                        mfpClose.appendTo(".mfp-content");
+                        gridChartWrapper.css({
+                            cursor: "zoom-out"
+                        });
+                    },
+                    close: function() {
+                        gridChartWrapper.removeClass("white-popup");
+                        gridChartWrapper.removeClass("mfp-hide");
+                        gridChartWrapper.prop( "style", false );
+
+                        // Clear the cache
+                        gridChartWrapper = null;
+                    }
+                }
+            });
+        },
     run() {
       console.log("The application is running now ...");
 
@@ -83,7 +141,8 @@ export default {
             initData,
             data,
             xPath: "month",
-            yPath: "value"
+            yPath: "value",
+            constainer: '#d3-container'
         });
 
         setTimeout(() => {

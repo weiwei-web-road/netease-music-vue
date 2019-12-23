@@ -9,6 +9,7 @@ export default class LineChart {
         this.data = props.data;
         this.xPath = props.xPath;
         this.yPath = props.yPath;
+        this.constainer = props.constainer;
 
         this._init();
         this._renderAxes();
@@ -31,7 +32,7 @@ export default class LineChart {
             .x(d => this.scaleX(d[this.xPath]))
             .y(d => this.scaleY(d[this.yPath]));
 
-        this.svg = d3.select("body").append("svg")
+        this.svg = d3.select(this.constainer).append("svg")
             .style("width", this.width)
             .style("height", this.height)
             .style("background-color", "rgba(0, 0, 0, 0.1)");

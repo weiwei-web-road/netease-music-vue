@@ -6,6 +6,7 @@ import moment from 'moment'
 import './plugins/element.js'
 import './plugins/audio.js'
 import './plugins/d3.js'
+import './plugins/popup.js'
 
 Vue.config.productionTip = false
 
