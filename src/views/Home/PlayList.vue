@@ -99,6 +99,7 @@ export default {
           prev.push(temp);
         }
 
+console.log(prev, this.data)
         return prev;
       }, [])
     }
