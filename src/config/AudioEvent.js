@@ -11,7 +11,7 @@ export default function (controller = '') {
         SETCONTROLL: prefix + 'SETCONTROLL',
         INITIALAUDIO: prefix + 'INITIALAUDIO',
         ONENDED: prefix + controller + 'ENDED',
-        ONTIMEUPDAE: prefix + controller + 'ONTIMEUPDAE',
+        ONTIMEUPDATE: prefix + controller + 'ONTIMEUPDATE',
         ONCANPLAY: prefix + controller + 'ONCANPLAY',
         ONERROR: prefix + controller + 'ONERROR',
         ONPLAYING: prefix + controller + 'ONPLAYING',
