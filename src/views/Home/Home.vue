@@ -118,14 +118,12 @@ export default {
       filterAsync: 'filterAsync',
       fetchTopPlayListAsync: 'fetchTopPlayListAsync',
     }),
-    handleFilter: function (event) {
-      console.log(event);
+    handleFilter: function () {
       this.filterAsync({ value: parseInt(this.localCount || 0)}).then(() => {
         this.message = '筛选成功'
       });
     },
-    handleIncrement: function(event) {
-      console.log(event);
+    handleIncrement: function() {
       this.incrementAsync({ value: parseInt(this.localCount || 0)}).then(() => {
         this.message = '增值成功'
       });

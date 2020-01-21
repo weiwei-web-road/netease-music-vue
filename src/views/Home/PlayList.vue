@@ -98,8 +98,6 @@ export default {
           temp.push(curr);
           prev.push(temp);
         }
-
-console.log(prev, this.data)
         return prev;
       }, [])
     }

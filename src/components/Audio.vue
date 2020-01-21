@@ -125,7 +125,7 @@ export default {
                 currentTime: time,
                 duration: this.audioDOM.duration
             };
-            this.$root.$emit(this.audioEvent.ONTIMEUPTDAE, { ratio, time });
+            this.$root.$emit(this.audioEvent.ONTIMEUPDATE, { ratio, time });
         },
         _handleOnCanPlay: function() {
             // 可以开始播放时, 可以播放，但是不知道为何不成功
