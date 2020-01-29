@@ -17,31 +17,31 @@
             }
         }
         .hot-new-category {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: flex-end;
-                    align-items: center;
-                    width: 93px;
-                    height: 29px;
-                    background: url('../../assets/button.png');
-                    background-repeat:  no-repeat;
-                    // 稍微延迟下响应速度，体验可能会好点
-                    animation-delay: 10ms;
-                    animation-timing-function: ease-in-out;
-                    .category-button {
-                        width: 46px;
-                        height: 29px;
-                        line-height: 29px;
-                        font-size: 12px;
-                        display: inline-block;
-                        color: #333;
-                        &.active {
-                            color: #fff;
-                        }
-                        // 相当于 .category-button:hover
-                        &:hover {
-                            cursor: pointer;
-                    }
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            width: 93px;
+            height: 29px;
+            background: url('../../assets/button.png');
+            background-repeat:  no-repeat;
+            // 稍微延迟下响应速度，体验可能会好点
+            animation-delay: 10ms;
+            animation-timing-function: ease-in-out;
+            .category-button {
+                width: 46px;
+                height: 29px;
+                line-height: 29px;
+                font-size: 12px;
+                display: inline-block;
+                color: #333;
+                &.active {
+                    color: #fff;
+                }
+                // 相当于 .category-button:hover
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
     }

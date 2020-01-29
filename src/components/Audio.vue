@@ -1,5 +1,5 @@
 <template>
-    <div />
+    <div class='netease-music-player' />
 </template>
 
 <script>

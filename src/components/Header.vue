@@ -50,11 +50,12 @@
                     display: block;
                     position: absolute;
                     left: 50%;
-                    top: 69px;
+                    bottom: 0px;
                     width: 12px;
                     height: 6px;
                     margin-left: -6px;
                     overflow: hidden;
+                    pointer-events: none;
                 }
             }
         }
