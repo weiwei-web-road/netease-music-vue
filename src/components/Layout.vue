@@ -60,7 +60,7 @@
               width: 100%;
               margin: 0 auto;
               position: absolute;
-              transition: top 300ms ease-in-out 0;
+              transition: top 300ms ease-in-out 50ms;
               &.visible {
                 top: -53px;
               }
@@ -147,11 +147,11 @@
             </slot>
         </div>
         <div class="footer-auto-visible">
-            <div :class="style.footerContainer">
+            <div :class="style.footerContainer" @mouseover="handleFooterOver" @mouseleave.capture="handleFooterMainLeave">
               <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
               <div class="updn-right"></div>
               <div class="bg" title="背景"></div>
-              <div class="hand" title="展开播放器"></div>
+              <div class="hand" @mouseleave="handleFooterLeave" @mouseenter="handleFooterEnter" title="展开播放器"></div>
               <div class="player"><Player></Player></div>
             </div>
         </div>
@@ -168,7 +168,9 @@ export default {
   data() {
       return {
           autovisible: false,
-          footerVisible: true
+          footerVisible: false,
+          mouseOver: false,
+          animationState: false
       };
   },
   computed: {
@@ -194,6 +196,30 @@ export default {
     handleAutoVisible: function(event) {
       event.preventDefault();
       this.autovisible = !this.autovisible;
+    },
+    handleFooterEnter: function(event) {
+      event.preventDefault();
+      if (!this.footerVisible && !this.autovisible) {
+        this.footerVisible = true;
+        this.animationState = true;
+        setTimeout(() => {
+          this.animationState = false;
+        }, 400);
+      }
+    },
+    handleFooterLeave: function(event) {
+      event.preventDefault();
+      if (!this.mouseOver && !this.autovisible && !this.animationState) {
+        this.footerVisible = false;
+      }
+    },
+    handleFooterOver: function(event) {
+      event.preventDefault();
+      this.mouseOver = true;
+    },
+    handleFooterMainLeave: function(event) {
+      event.preventDefault();
+      this.mouseOver = false;
     }
   }
 }
