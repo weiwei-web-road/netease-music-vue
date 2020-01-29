@@ -27,9 +27,11 @@
     <noscript>
       <strong>We're sorry but movie-board doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <!-- audio是HTML5新特性的标签，用来播放音频 -->
     <audio id='netease-music-player' class='netease-music-player' controls='controls'>
       Your browser does not support the audio tag.
     </audio>
+    <!-- audio的控制器，放在外面不会受生命周期的影响 -->
     <div id='netease-music-player-node' class='netease-music-player'></div>
     <div id="app"></div>
     <!-- built files will be auto injected -->
