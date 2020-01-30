@@ -71,7 +71,7 @@
             v-bind:key="subitem.id">
               <div class="playlist-cover-image">
                 <img v-bind:src="subitem.coverImage"/>
-                <div class="play-count">播放量： {{subitem.playCount}}</div>
+                <div class="play-count">播放量： {{convertNumFormat(subitem.playCount)}}</div>
               </div>
               <p class="playlist-name">{{subitem.name}}</p>
               <p class="playlist-user-name">by {{subitem.userName}}</p>
@@ -103,6 +103,11 @@ export default {
     }
   },
   props: ['data'],
-
+  methods: {
+    convertNumFormat(param) {
+      const temp = param / 10000;
+      return temp.toFixed(0) > 0 ? temp.toFixed(0)+'万' : param;
+    }
+  }
 }
 </script>

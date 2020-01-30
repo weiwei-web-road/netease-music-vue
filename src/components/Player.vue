@@ -139,7 +139,7 @@ const audioEvent = getAudioEvent('player');
 export default {
     data() {
         return {
-            isPlaying: false,
+            isPlaying: true,
         }
     },
     mounted() {
