@@ -219,6 +219,7 @@ export default {
     },
     handleFooterMainLeave: function(event) {
       event.preventDefault();
+      event.stopPropagation();
       this.mouseOver = false;
     }
   }
