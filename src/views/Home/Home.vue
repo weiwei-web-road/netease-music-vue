@@ -35,10 +35,10 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import getAudioEvent from '../../config/AudioEvent';
+// import getAudioEvent from '../../config/AudioEvent';
 
 Vue.use(Vuex);
-const audioEvent = getAudioEvent('Home');
+// const audioEvent = getAudioEvent('Home');
 export default {
   name: 'home',
   data() {    
@@ -62,11 +62,7 @@ export default {
     });
   },
   mounted: function () {
-    // 获取播放器控制权
-    this.$audio.$emit(audioEvent.SETCONTROLL, 'Home');
-    this.$audio.$on(audioEvent.ONPLAY, () => {
-      console.log('play is visibile');
-    });
+    
   },
   components: {
     Layout,

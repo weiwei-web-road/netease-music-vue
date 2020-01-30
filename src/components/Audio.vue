@@ -136,7 +136,7 @@ export default {
             this.$root.$emit(this.audioEvent.ONERROR, { error: e });
         },
         _handleOnTimeUpdate: function() {
-            const ratio = Math.round(this.audioDOM.currentTime / this.audioDOM.duration);
+            const ratio = Math.round(this.audioDOM.currentTime * 100 / this.audioDOM.duration);
             const time = Math.round(this.audioDOM.currentTime);
             this.audioState = {
                 ...this.audioState,

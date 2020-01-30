@@ -246,10 +246,21 @@ export default {
             isPlaying: true,
             blackBarWidth: '493px',
             redBarWidth: '400px',
+            
         }
     },
     mounted() {
+        // 获取播放器控制权
+        this.$audio.$emit(audioEvent.SETCONTROLL, 'player');
+        this.$audio.$on(audioEvent.ONPLAY, () => {
+            console.log('play is visibile');
+        });
+        this.$audio.$on(audioEvent.ONTIMEUPDATE, (options) => {
+            this.onTimeUpdate(options);
+        });
+        
         this.initialSong();
+
     },
     methods: {
         play() {
@@ -280,6 +291,9 @@ export default {
                 autoplay: true});
             // to do
             // 归零所有的控制信息，进度条，歌曲的信息，歌词，
+        },
+        onTimeUpdate(param) {
+            console.log(param, 'param')
         }
     }
 }
