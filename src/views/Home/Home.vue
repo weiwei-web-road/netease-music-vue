@@ -1,20 +1,16 @@
 <style lang="less">
-  .home {
-    .playlist-container {
-      background-color: #fff;
-      border: 1px solid #d3d3d3;
-      border-width: 0 1px;
-      // width: 100%;  // 不能设置为宽度100%， 否则会溢出section
-      height: 100%;
-      margin: 0;
-      padding: 40px;
-      
-    }
+  .playlist-container {
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-width: 0 1px;
+    // width: 100%;  // 不能设置为宽度100%， 否则会溢出section
+    height: 100%;
+    margin: 0;
+    padding: 40px;
   }
 </style>
 
 <template>
-  <div class="home">
     <Layout>
       <template v-slot:music-card>
         <div class="playlist-container" >
@@ -23,18 +19,7 @@
             <Paging v-bind:data="totalPlay" v-on:clickPage="clickPage"></Paging>
         </div>
       </template>
-      
     </Layout>
-
-    <!-- <p>{{ countPlusLocalState }}</p>
-    <input v-model="localCount" />
-    <button v-on:click="handleFilter">筛选</button>
-    <button v-on:click="handleIncrement">增加</button>
-    <label>{{message}}</label>
-    <ul id="movies">
-      <li v-bind:key="item" v-for="item in filterMovies">{{ item }}</li>
-    </ul> -->
-  </div>
 </template>
 
 <script>
@@ -50,11 +35,13 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
 import Vue from 'vue';
 import Vuex from 'vuex';
-Vue.use(Vuex);
+import getAudioEvent from '../../config/AudioEvent';
 
+Vue.use(Vuex);
+const audioEvent = getAudioEvent('Home');
 export default {
   name: 'home',
-  data() {
+  data() {    
     return {
       localCount: 0,
       movies: this.$store.getters.singleMovies(3),
@@ -73,7 +60,13 @@ export default {
       limit: this.limit,
       offset: this.offset,
     });
-
+  },
+  mounted: function () {
+    // 获取播放器控制权
+    this.$audio.$emit(audioEvent.SETCONTROLL, 'Home');
+    this.$audio.$on(audioEvent.ONPLAY, () => {
+      console.log('play is visibile');
+    });
   },
   components: {
     Layout,
@@ -110,14 +103,12 @@ export default {
       filterAsync: 'filterAsync',
       fetchTopPlayListAsync: 'fetchTopPlayListAsync',
     }),
-    handleFilter: function (event) {
-      console.log(event);
+    handleFilter: function () {
       this.filterAsync({ value: parseInt(this.localCount || 0)}).then(() => {
         this.message = '筛选成功'
       });
     },
-    handleIncrement: function(event) {
-      console.log(event);
+    handleIncrement: function() {
       this.incrementAsync({ value: parseInt(this.localCount || 0)}).then(() => {
         this.message = '增值成功'
       });
@@ -132,7 +123,9 @@ export default {
     },
     clickPage: function(data) {
       this.offset = data.value;
-      console.log(this.offset, 'offset');
+      this.$audio.$emit(audioEvent.INITIALAUDIO, {
+        src: 'http://sf3-ttcdn-tos.pstatp.com/obj/ttfe/cg/homed/a8772889f38dfcb91c04da915b301617.mp3'
+      });
       this.fetchTopPlayListAsync({
         order: this.category,
         limit: this.limit,

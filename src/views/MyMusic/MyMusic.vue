@@ -64,7 +64,6 @@ export default {
         uid: 1832132513
       }).then((id) => {
         this.fetchMyPlayListDetailAsync(id);
-        console.log(id, 'id at my music component');
       });
     },
     components: {
@@ -79,8 +78,7 @@ export default {
     methods: {
       ...mapActions({
         fetchMyPlayListAsync: 'fetchMyPlayListAsync',
-        fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync',
-
+        fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync'
       })
     }
 }

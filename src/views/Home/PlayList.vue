@@ -98,7 +98,6 @@ export default {
           temp.push(curr);
           prev.push(temp);
         }
-
         return prev;
       }, [])
     }

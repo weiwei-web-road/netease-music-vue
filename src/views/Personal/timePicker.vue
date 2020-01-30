@@ -1,0 +1,60 @@
+<style lang="less" scoped>
+.select-time-customize {
+    padding: 16px;
+    .log-create-icon-right /deep/.el-input__prefix{
+        left: 85%;
+        > .el-input__icon {
+            transform: scale(1.5);
+            line-height: 33px;
+        }
+    }
+    .log-create-icon-right /deep/.el-input__inner{
+        padding-left: 16px;
+    }
+}
+</style>
+<template>
+    <div class="select-time-customize">
+        <el-time-picker
+        class="log-create-icon-right"
+        v-model="value"
+        arrow-control
+        size="small"
+        :clearable="false"
+        format="hh:mm A"
+        :picker-options="{
+            selectableRange: '00:00:00 - 23:59:59'
+        } "
+        @change='getChange'
+        >
+        </el-time-picker>
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: 'timePicker',
+    props: ['initTime', 'getData'],
+    data() {
+        return {
+            value: ''
+        }
+    },
+    mounted() {
+        if (this.initTime) {
+            this.value = this.initTime;
+        }
+    },
+    methods:{
+        getChange(value) {
+            this.value = value;
+            // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
+            this.getData(value);
+            console.log(this.value, 'time value');
+            // this.getData(value);
+        }
+    },
+    
+}
+</script>

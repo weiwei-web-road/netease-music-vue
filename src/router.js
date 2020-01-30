@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home/Home.vue'
+import './plugins/element.js'
 
 Vue.use(Router)
 
@@ -28,7 +29,22 @@ export default new Router({
       name: 'my_music',
       // 把某个路由下的所有组件都打包在同个异步块 (chunk) 中。只需要使用 命名 chunk，一个特殊的注释语法来提供 chunk name (需要 Webpack > 2.4)。
       // Webpack 会将任何一个异步模块与相同的块名称组合到相同的异步块中。
-      component: () => import('./views/MyMusic/MyMusic.vue')
+      component: () => import(/* webpackChunkName: "mymusic" */ './views/MyMusic/MyMusic.vue')
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: () => import(/* webpackChunkName: "personal" */ './views/Personal/index.vue')
+    },
+    {
+      path: '/temp',
+      name: 'temp',
+      component: () => import(/* webpackChunkName: "temp" */ './views/Temp/index.vue')
+    },
+    {
+      path: '/d3',
+      name: 'd3',
+      component: () => import(/* webpackChunkName: "d3" */ './views/D3/index.vue')
     }
   ]
 })

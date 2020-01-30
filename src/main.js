@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import moment from 'moment'
+import './plugins/element.js'
+import './plugins/audio.js'
+import './plugins/d3.js'
+import './plugins/popup.js'
 
 Vue.config.productionTip = false
 

@@ -33,7 +33,7 @@ export default new Vuex.Store({
       return state.movies;
     }
   },
-   // mutation 对 store 数据的修改
+  // mutation 对 store 数据的修改
   //  提交状态修改。也就是set、get中的set，这是vuex中唯一修改state的方式，但不支持异步操作。
   //  第一个参数默认是state。和vue中的methods类似。
   mutations: {
