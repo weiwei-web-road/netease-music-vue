@@ -1,20 +1,16 @@
 <style lang="less">
-  .home {
-    .playlist-container {
-      background-color: #fff;
-      border: 1px solid #d3d3d3;
-      border-width: 0 1px;
-      // width: 100%;  // 不能设置为宽度100%， 否则会溢出section
-      height: 100%;
-      margin: 0;
-      padding: 40px;
-      
-    }
+  .playlist-container {
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-width: 0 1px;
+    // width: 100%;  // 不能设置为宽度100%， 否则会溢出section
+    height: 100%;
+    margin: 0;
+    padding: 40px;
   }
 </style>
 
 <template>
-  <div class="home">
     <Layout>
       <template v-slot:music-card>
         <div class="playlist-container" >
@@ -23,18 +19,7 @@
             <Paging v-bind:data="totalPlay" v-on:clickPage="clickPage"></Paging>
         </div>
       </template>
-      
     </Layout>
-
-    <!-- <p>{{ countPlusLocalState }}</p>
-    <input v-model="localCount" />
-    <button v-on:click="handleFilter">筛选</button>
-    <button v-on:click="handleIncrement">增加</button>
-    <label>{{message}}</label>
-    <ul id="movies">
-      <li v-bind:key="item" v-for="item in filterMovies">{{ item }}</li>
-    </ul> -->
-  </div>
 </template>
 
 <script>
