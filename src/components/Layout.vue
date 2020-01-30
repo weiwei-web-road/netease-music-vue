@@ -60,8 +60,9 @@
               width: 100%;
               margin: 0 auto;
               position: absolute;
-              transition: top 300ms ease-in-out 50ms;
+              transition: top 400ms ease-in-out 300ms;
               &.visible {
+                transition: top 200ms ease-in-out 50ms;
                 top: -53px;
               }
 
@@ -147,11 +148,11 @@
             </slot>
         </div>
         <div class="footer-auto-visible">
-            <div :class="style.footerContainer" @mouseover="handleFooterOver" @mouseleave.capture="handleFooterMainLeave">
+            <div :class="style.footerContainer" @mouseenter="handleFooterEnter" @mouseleave="handleFooterLeave">
               <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
               <div class="updn-right"></div>
               <div class="bg" title="背景"></div>
-              <div class="hand" @mouseleave="handleFooterLeave" @mouseenter="handleFooterEnter" title="展开播放器"></div>
+              <div class="hand" title="展开播放器"></div>
               <div class="player"><Player></Player></div>
             </div>
         </div>
@@ -169,7 +170,6 @@ export default {
       return {
           autovisible: false,
           footerVisible: false,
-          mouseOver: false,
           animationState: false
       };
   },
@@ -194,11 +194,12 @@ export default {
   },
   methods: {
     handleAutoVisible: function(event) {
-      event.preventDefault();
+      event.preventDefault();      
       this.autovisible = !this.autovisible;
     },
     handleFooterEnter: function(event) {
       event.preventDefault();
+      event.stopPropagation();
       if (!this.footerVisible && !this.autovisible) {
         this.footerVisible = true;
         this.animationState = true;
@@ -209,18 +210,14 @@ export default {
     },
     handleFooterLeave: function(event) {
       event.preventDefault();
-      if (!this.mouseOver && !this.autovisible && !this.animationState) {
-        this.footerVisible = false;
-      }
-    },
-    handleFooterOver: function(event) {
-      event.preventDefault();
-      this.mouseOver = true;
-    },
-    handleFooterMainLeave: function(event) {
-      event.preventDefault();
       event.stopPropagation();
-      this.mouseOver = false;
+      if (!this.autovisible && !this.animationState && this.footerVisible) {
+        this.footerVisible = false;
+        this.animationState = true;
+        setTimeout(() => {
+          this.animationState = false;
+        }, 400);
+      }
     }
   }
 }
