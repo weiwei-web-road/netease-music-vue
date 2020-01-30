@@ -67,6 +67,14 @@ export default {
                 this.play();
             });
             // 增加切歌API
+            this.$root.$on(this.audioEvent.PAUSE, () => {
+                this.pause();
+            });
+
+            this.$root.$on(this.audioEvent.SETSRC, (options) => {
+
+                this.setSrc(options.src, options.autoplay);
+            })
         },
         play: function () {
             // this.audioDOM.load();

@@ -123,12 +123,7 @@ export default {
     },
     clickPage: function(data) {
       this.offset = data.value;
-      // this.$audio = this.$root, 因为$audio 已经被挂载到全局Vue实例上了
-      // 向Vue实例发射事件INITIALAUDIO，并且带着实参src等，也可以直接调用play()或者setSrc()
-      // audioComponent 组件里面，有$on在监听INITIALAUDIO事件，然后触发响应的方法
-      this.$audio.$emit(audioEvent.INITIALAUDIO, {
-        src: 'http://sf3-ttcdn-tos.pstatp.com/obj/ttfe/cg/homed/a8772889f38dfcb91c04da915b301617.mp3'
-      });
+      
       this.fetchTopPlayListAsync({
         order: this.category,
         limit: this.limit,
