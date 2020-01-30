@@ -146,8 +146,18 @@
                 <Footer></Footer>
             </slot>
         </div>
-        <div class="footer-auto-visible">
+        <!-- <div class="footer-auto-visible">
             <div :class="style.footerContainer" @mouseover="handleFooterOver" @mouseleave.capture="handleFooterMainLeave">
+              <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
+              <div class="updn-right"></div>
+              <div class="bg" title="背景"></div>
+              <div class="hand" @mouseleave="handleFooterLeave" @mouseenter="handleFooterEnter" title="展开播放器"></div>
+              <div class="player"><Player></Player></div>
+            </div>
+        </div> -->
+
+        <div class="footer-auto-visible">
+            <div :class="style.footerContainer">
               <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
               <div class="updn-right"></div>
               <div class="bg" title="背景"></div>
@@ -218,7 +228,7 @@ export default {
       this.mouseOver = true;
     },
     handleFooterMainLeave: function(event) {
-      event.preventDefault();
+      event.preventDefault(); // 关闭默认行为，比如<a>, 阻止<a>标签的默认跳转行为
       this.mouseOver = false;
     }
   }
