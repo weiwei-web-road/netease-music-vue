@@ -107,25 +107,26 @@
                     justify-content: flex-start;
                     align-items: flex-start;
                     > .bar {
-                        width: 493px;
+                        // width: 493px;
                         height: 9px;
                         background: url('../assets/statbar.png') no-repeat 0 9999px;
                         background-position: right 0;
                         > .black-bar {
-                            width: 470px;
+                            // width: 470px;
                             height: 9px;
                             background: url('../assets/statbar.png') no-repeat 0 9999px;
                             background-position: right -30px;
 
                         }
                         > .red-bar {
-                            width: 400px;
+                            // width: 400px;
                             height: 9px;
                             background: url('../assets/statbar.png') no-repeat 0 9999px;
                             background-position: left -66px;
                             position: relative;
                             top: -9px;
                             left: 0;
+                            transition: width 1000ms linear;
                             span {
                                 background: url('../assets/iconall.png') no-repeat 0 9999px;
                                 background-position: 0 -250px;
@@ -207,16 +208,16 @@
                     </div>
 
                     <div class="play-bar">
-                        <div class="bar">
-                            <div class="black-bar">
+                        <div class="bar" :style='{width: blackBarWidth}'>
+                            <div class="black-bar" :style='{width: playedWidth}'>
                             </div>
-                            <div class="red-bar">
+                            <div class="red-bar" :style='{width: playedWidth}'>
                                 <span></span>
                             </div>
                         </div>
 
                         <div class="play-time">
-                            <span>00:30</span> / 03:50
+                            <span>{{playedTime}}</span> / {{totalTime}}
                         </div>
                     </div>
 
@@ -244,10 +245,17 @@ export default {
     data() {
         return {
             isPlaying: true,
-            blackBarWidth: '493px',
-            redBarWidth: '400px',
-            
+            totalWidth: 493,
+            playedTime: '00:00',
+            totalTime: '00:00',
+            playedWidth: '0px'
         }
+    },
+    computed: {
+        blackBarWidth() {
+            return this.totalWidth + 'px'
+        }
+
     },
     mounted() {
         // 获取播放器控制权
@@ -293,7 +301,21 @@ export default {
             // 归零所有的控制信息，进度条，歌曲的信息，歌词，
         },
         onTimeUpdate(param) {
-            console.log(param, 'param')
+            const time = param.time;
+            const duration = Math.round(param.duration);
+            // 解决动画卡顿的方法是计算得到每秒的宽度，然后动画时间设置为1秒
+            // time 当前播放时间每秒会更新，当更新的时候计算ratio，每秒会更新
+            const ratio = time / duration;
+            this.playedTime = this.convertTimeFormat(time);
+            this.totalTime = this.convertTimeFormat(duration);
+            this.playedWidth = this.totalWidth * ratio + 'px';
+        },
+        convertTimeFormat(time) {
+            const mins = Math.floor(time / 60);
+            const minsFormat = mins < 10 ? '0'+mins : mins;
+            const secs = time % 60;
+            const secsFormat = secs < 10 ? '0'+secs : secs;
+            return minsFormat + ':' + secsFormat;
         }
     }
 }
