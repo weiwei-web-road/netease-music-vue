@@ -136,14 +136,19 @@ export default {
             this.$root.$emit(this.audioEvent.ONERROR, { error: e });
         },
         _handleOnTimeUpdate: function() {
-            const ratio = Math.round(this.audioDOM.currentTime * 100 / this.audioDOM.duration);
+            const duration = this.audioDOM.duration;
+            // 这里的ratio变化周期是duration/100, 共变化100次。
+            // 每次ratio发生变化时，进度条会相应变化。由于每首歌的duration不同，导致ratio的变化周期不同，
+            // 使用transition做动画的时候，不容易设置动画时间，会有动画卡顿
+            const ratio = Math.round(this.audioDOM.currentTime * 100 / duration);
             const time = Math.round(this.audioDOM.currentTime);
+
             this.audioState = {
                 ...this.audioState,
                 currentTime: time,
-                duration: this.audioDOM.duration
+                duration: duration
             };
-            this.$root.$emit(this.audioEvent.ONTIMEUPDATE, { ratio, time });
+            this.$root.$emit(this.audioEvent.ONTIMEUPDATE, { ratio, time, duration });
         },
         _handleOnCanPlay: function() {
             // 可以开始播放时, 可以播放，但是不知道为何不成功

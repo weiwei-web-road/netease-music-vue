@@ -48,9 +48,6 @@ import Layout from '@/components/Layout.vue';
 import LeftTitle from '@/views/MyMusic/LeftTitle.vue';
 import RightContent from '@/views/MyMusic/RightContent.vue';
 import { mapState, mapActions } from 'vuex';
-import Vue from 'vue';
-import Vuex from 'vuex';
-Vue.use(Vuex);
 
 export default {
     name: 'my-music',

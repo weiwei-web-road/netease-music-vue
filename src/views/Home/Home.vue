@@ -33,12 +33,7 @@ import Paging from '@/views/Home/Paging.vue';
 // 然后就可以按照vue调用methods和computed的方式去调用这些变量或函数
 import { mapState, mapMutations, mapActions } from 'vuex';
 import { INCREMENT } from '@/mutation_types';
-import Vue from 'vue';
-import Vuex from 'vuex';
-// import getAudioEvent from '../../config/AudioEvent';
 
-Vue.use(Vuex);
-// const audioEvent = getAudioEvent('Home');
 export default {
   name: 'home',
   data() {    
