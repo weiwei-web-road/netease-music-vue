@@ -8,9 +8,9 @@ const $audio = new Vue({
 
 // 把上面定义的$audio 挂载到Vue实例的prototype原型上，所以全局都可以使用$audio 了
 Vue.use({
-  install: function (Vue, options) {
+  install: function (Vue) {
     // 第一种方式
-    console.log(options, '初始化audioAPI');
+    // console.log(options, '初始化audioAPI');
 
     Vue.prototype.$audio = $audio;
   }

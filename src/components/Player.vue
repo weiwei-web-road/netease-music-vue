@@ -198,13 +198,13 @@
 
 
                 <div class="head-img">
-                    <img src="../assets/song_img.jpeg">
+                    <img v-bind:src="this.playingSong.coverImgUrl">
                 </div>
 
                 <div class="play-status">
                     <div class="play-title">
-                        <div class="song-name">因为理想</div>
-                        <div class="singer">逃跑计划</div>
+                        <div class="song-name">{{this.playingSong.songName}}</div>
+                        <div class="singer">singer</div>
                     </div>
 
                     <div class="play-bar">
@@ -251,6 +251,7 @@ export default {
             playedWidth: '0px'
         }
     },
+    props: ['playingSong'],
     computed: {
         blackBarWidth() {
             return this.totalWidth + 'px'
@@ -261,14 +262,20 @@ export default {
         // 获取播放器控制权
         this.$audio.$emit(audioEvent.SETCONTROLL, 'player');
         this.$audio.$on(audioEvent.ONPLAY, () => {
-            console.log('play is visibile');
         });
         this.$audio.$on(audioEvent.ONTIMEUPDATE, (options) => {
             this.onTimeUpdate(options);
         });
         
-        this.initialSong();
+        // this.initialSong();
 
+    },
+    watch: {
+        playingSong: function() {
+            console.log(this.playingSong, 'watch')
+            this.initialSong();
+            
+        }
     },
     methods: {
         play() {
@@ -295,7 +302,7 @@ export default {
         },
         initialSong() {
             this.$audio.$emit(audioEvent.SETSRC, {
-                src: 'http://sf3-ttcdn-tos.pstatp.com/obj/ttfe/cg/homed/a8772889f38dfcb91c04da915b301617.mp3', 
+                src: this.playingSong.src, 
                 autoplay: true});
             // to do
             // 归零所有的控制信息，进度条，歌曲的信息，歌词，

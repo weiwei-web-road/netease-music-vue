@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL } from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG } from './mutation_types';
 import fetchAPI, {apis} from './service';
 import {TopPlayList, MyPlayList, PlayListDetail} from './model';
 
@@ -18,7 +18,15 @@ export default new Vuex.Store({
     totalPlay: 0,
     myPlayList: [],
     myPlayListDetail : {},
-    rendermyPlayListDetail: false
+    rendermyPlayListDetail: false,
+    playingSong: {
+      id: 34341349,
+      src: 'http://m10.music.126.net/20200131164944/8f281094c335148f33850c3dd7119d0c/ymusic/2daf/1b31/d403/e468cdf69e22118e4ad9b83bf53bf05f.mp3',
+      coverImgUrl: '',
+      songName: '',
+      playListId: '',
+      playListName: ''
+    },
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
@@ -63,7 +71,10 @@ export default new Vuex.Store({
       state.myPlayListDetail = PlayListDetail.fromJS(payload.value);
       // 定义全局变量 rendermyPlayListDetail ，用来控制等数据加载完成之后再渲染页面
       state.rendermyPlayListDetail = true;
-      console.log(state.myPlayListDetail, 'my play list detail');
+    },
+    [SET_PLAYING_SONG] (state, payload) {
+      state.playingSong = payload.value;
+      console.log(state.playingSong, 'payload')
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -95,7 +106,6 @@ export default new Vuex.Store({
         fetchAPI(apis.myMusic.getMyPlayList, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
             context.commit({type: SET_MY_PLAYLIST, value : res.data.playlist});
-            console.log(res.data.playlist[0].id, 'first play list id');
             resolve({id: res.data.playlist[0].id});
           }
         }).catch((error) => {
@@ -108,12 +118,25 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         fetchAPI(apis.myMusic.getPlayListDetail, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
-            context.commit({type: SET_MY_PLAYLIST_DETAIL, value: res.data.playlist});
+            const trackIds = res.data.playlist.trackIds.map(item => item.id).join(',');
+            const songUrlParam = {id: trackIds};
+            const playListDetailRes = res.data.playlist;
+            fetchAPI(apis.myMusic.getSongUrl, songUrlParam).then((res) => {
+              if (res.status === 200 && res.data.code === 200) {
+                const combineRes = Object.assign({}, playListDetailRes, {songUrlList: res.data.data});
+                context.commit({type: SET_MY_PLAYLIST_DETAIL, value: combineRes});
+
+              }
+            })
           }
         }).catch((error) => {
           reject(JSON.stringify(error));
         });
       });
+    },
+
+    getPlayingSongInfo (context, params) {
+      context.commit({type: SET_PLAYING_SONG, value: params});
     },
 
     // ?

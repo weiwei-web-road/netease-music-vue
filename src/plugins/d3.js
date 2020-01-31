@@ -9,8 +9,8 @@ if (!D3) {
 }
 
 Vue.use({
-  install: function (Vue, options) {
-    console.log('初始化D3', options);
+  install: function (Vue) {
+    // console.log('初始化D3', options);
     Vue.prototype.$d3 = D3;
   }
 });

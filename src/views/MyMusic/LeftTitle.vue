@@ -87,8 +87,6 @@ export default {
         }),
         playListClick: function(value) {
             
-            console.log(value, 'left title');
-
             this.fetchMyPlayListDetailAsync({
                 id: value,
             })

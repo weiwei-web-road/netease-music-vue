@@ -338,7 +338,7 @@
 
         <div v-bind:class="{'song-list-content': true, odd: index%2===0}" v-for="(item, index) in myPlayListDetail.tracks" v-bind:key="index">
             <div class="first-title common">{{index+1}}
-                <span class="play-icon"></span>
+                <span class="play-icon" @click="handlePlay(item)"></span>
             </div>
             <div class="second-title common black-color">{{item.name}}</div>
             <div class="third-title common">{{item.durationTime | dateformat('mm:ss')}}</div>
@@ -360,7 +360,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
     name: 'RightContent',
     data() {
@@ -387,8 +387,21 @@ export default {
         })
     },
     methods: {
+        ...mapActions({
+            getPlayingSongInfo: 'getPlayingSongInfo'
+        }),
+        handlePlay(param) {
+            const payload = {
+                id: param.id,
+                src: this.myPlayListDetail.songUrlMap[param.id],
+                coverImgUrl: this.myPlayListDetail.coverImgUrl,
+                songName: param.name,
+                playListId: this.myPlayListDetail.id,
+                playListName: this.myPlayListDetail.name
+            }
+            this.getPlayingSongInfo(payload);
+        },
         computeIsClosed: function () {
-            console.log(this.$refs, 'refs');
             // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
             // refs:一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例 注意：refs只会在组件渲染完成之后生效，并且它们不是响应式的
             const clientHeight = this.$refs.description.clientHeight; // 可视窗口的高度
@@ -397,8 +410,9 @@ export default {
         },
         handleDescriptionToggle: function () {
             this.opened = !this.opened;
-        }
+        },
     },
+
     // 实例挂载到DOM之后，生成DOM节点之后调用
     mounted: function () {
         // nextTick是全局vue的一个函数，在vue系统中，用于处理dom更新的操作。vue里面有一个watcher，用于观察数据的变化，然后更新dom，vue里面并不是每次数据改变都会触发更新dom，而是将这些操作都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。

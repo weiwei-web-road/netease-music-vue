@@ -153,7 +153,7 @@
               <div class="updn-right"></div>
               <div class="bg" title="背景"></div>
               <div class="hand" title="展开播放器"></div>
-              <div class="player"><Player></Player></div>
+              <div class="player"><Player :playingSong="playingSong"></Player></div>
             </div>
         </div>
 
@@ -173,6 +173,7 @@
 import Footer from './Footer';
 import Header from './Header';
 import Player from './Player';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Layout',
@@ -196,7 +197,10 @@ export default {
           lock: this.autovisible
         }
       };
-    }
+    },
+    ...mapState({
+      playingSong: state => state.playingSong
+    })
   },
   components: {
       Footer,

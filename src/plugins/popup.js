@@ -9,8 +9,8 @@ if (!magnificPopup) {
 }
 
 Vue.use({
-  install: function (Vue, options) {
-    console.log('初始化magnificPopup', options);
+  install: function (Vue) {
+    // console.log('初始化magnificPopup', options);
     Vue.prototype.$magnificPopup = magnificPopup;
   }
 });
