@@ -3,10 +3,9 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        
         > .song-introduction {
             // height: 328px;
-            padding: 40px;
+            padding: 40px 40px 40px 40px;
             box-sizing: border-box; // include content + padding + border
             display: flex;
             flex-direction: row;
@@ -139,7 +138,7 @@
                     font-size: 12px;
                     color: #666666;
                     text-align: left;
-                    width: 430px;
+                    width: 100%;
                     display: block;
                     line-height: 18px;
                     // border-bottom: 1px solid red;
@@ -175,9 +174,10 @@
         .song-list-container {
             display: flex;
             justify-content: space-between;
-            padding: 0 10px 0 32px;
+            padding: 0 10px 0 0;
             align-items: center;
             border-bottom: 2px solid #c20c0c;
+            padding-left: 32px;
             > .left-side {
                 display: flex;
                 justify-content: flex-start;
@@ -210,15 +210,17 @@
             align-items: center;
             background: linear-gradient(to bottom, #f7f7f7 0%,#f1f1f1 100%);
             border-bottom: 1px solid #d6d6d6;
-            th {
+            > .common {
                 text-align: left;
                 font-weight: normal;
                 color: #666;
                 font-size: 12px;
-                border-right: 1px solid #d6d6d6;
                 height: 18px;
                 line-height: 18px;
                 padding: 8px 10px;
+            }
+            > .border-right {
+                border-right: 1px solid #d6d6d6;
             }
             
         }
@@ -235,13 +237,14 @@
             width: 83px;
         }
         .fifth-title {
-            width: 125px;
+            width: 102px;
             
         }
         > .song-list-content {
-            margin-top: 2px;
+            padding-top: 2px;
             display: flex;
             align-items: center;
+
             > .common {
                 text-align: left;
                 font-weight: normal;
@@ -277,7 +280,7 @@
 
 <template>
     <div class="song-content-container">
-        <div class="song-introduction">
+        <div :class="{'song-introduction':true}">
             <div class="image-border">
                 <img v-bind:src="myPlayListDetail.coverImgUrl">
             </div>
@@ -303,7 +306,7 @@
                     <div class="play">播放</div>
                 </div>
 
-                <div class="song-mark" v-if="myPlayListDetail.tags.length > 0">
+                <div class="song-mark" v-if="myPlayListDetail.tags && myPlayListDetail.tags.length > 0">
                     <div class="mark">标签：</div>
                     
                     <div class="mark-content" v-for="mark in myPlayListDetail.tags" v-bind:key="mark">
@@ -321,20 +324,20 @@
                 </div>
             </div>
         </div>
-        <div class="song-list-container">
+        <div :class="{'song-list-container':true}">
             <div class="left-side">
                 <div class="song-list-name">歌曲列表</div>
                 <div class="song-list-length">{{myPlayListDetail.trackCount}}首歌</div>
             </div>
             <div class="play-count">播放：<span>{{myPlayListDetail.playCount}}</span> 次</div>
         </div>
-        <table class="song-list-table">
-            <th><div class="first-title">&nbsp;</div></th>
-            <th><div class="second-title">歌曲标题</div></th>
-            <th><div class="third-title">时长</div></th>
-            <th><div class="fourth-title">歌手</div></th>
-            <th><div class="fifth-title">专辑</div></th>
-        </table>
+        <div :class="{'song-list-table':true}">
+            <div class="first-title common border-right">&nbsp;</div>
+            <div class="second-title common border-right">歌曲标题</div>
+            <div class="third-title common border-right">时长</div>
+            <div class="fourth-title common border-right">歌手</div>
+            <div class="fifth-title common">专辑</div>
+        </div>
 
         <div v-bind:class="{'song-list-content': true, odd: index%2===0}" v-for="(item, index) in myPlayListDetail.tracks" v-bind:key="index">
             <div class="first-title common">{{index+1}}
@@ -360,7 +363,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
     name: 'RightContent',
     data() {
@@ -370,7 +373,7 @@ export default {
             isReComputed: false
         }
     },
-
+    props: ['myPlayListDetail'],
     watch: {
         // 实时监视着 myPlayListDetail， 当其变化时，执行function
         // 当点击其他的 play list 时， myPlayListDetail 会发生变化，需要重新计算，所以设置isReComputed = true，update 函数会执行
@@ -378,13 +381,6 @@ export default {
             this.opened = false;
             this.isReComputed = true;
         }
-    },
-    computed: {
-        ...mapState({
-        // mapState 做一次映射
-        // 把 store 中 state 中的数据映射到 RightContent 中相应的变量
-        myPlayListDetail: state => state.myPlayListDetail,
-        })
     },
     methods: {
         ...mapActions({
@@ -404,9 +400,13 @@ export default {
         computeIsClosed: function () {
             // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
             // refs:一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例 注意：refs只会在组件渲染完成之后生效，并且它们不是响应式的
-            const clientHeight = this.$refs.description.clientHeight; // 可视窗口的高度
-            const scrollHeight = this.$refs.description.scrollHeight; // 文档或元素真实的高度，相对 Scroll 的高度
-            return clientHeight < scrollHeight;
+            if (this.$refs.description) {
+                const clientHeight = this.$refs.description.clientHeight; // 可视窗口的高度
+                const scrollHeight = this.$refs.description.scrollHeight; // 文档或元素真实的高度，相对 Scroll 的高度
+                return clientHeight < scrollHeight;
+            }else {
+                return false;
+            }
         },
         handleDescriptionToggle: function () {
             this.opened = !this.opened;

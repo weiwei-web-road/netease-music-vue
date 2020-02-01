@@ -1,6 +1,6 @@
 <style lang="less">
   .my-music {
-    .playlist-container {
+    .my-music-playlist-container {
       background-color: #fff;
       border: 1px solid #d3d3d3;
       border-width: 0 1px;
@@ -31,10 +31,10 @@
     <Layout>
       <template v-slot:song-card>
 
-        <div class="playlist-container" >
+        <div class="my-music-playlist-container" >
             <LeftTitle v-bind:data="myPlayList" class="left-title"></LeftTitle>
             <!-- <RightContent class="right-content"></RightContent> -->
-            <RightContent v-if="rendermyPlayListDetail" class="right-content"></RightContent>
+            <RightContent :myPlayListDetail="myPlayListDetail" class="right-content"></RightContent>
         </div>
 
       </template>
@@ -70,6 +70,7 @@ export default {
     },
     computed: mapState({
       myPlayList: state => state.myPlayList,
+      myPlayListDetail: state => state.myPlayListDetail,
       rendermyPlayListDetail: state => state.rendermyPlayListDetail
     }),
     methods: {

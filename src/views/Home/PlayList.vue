@@ -10,6 +10,9 @@
       height: 188px;
       > .card-column {
         width: 140px;
+        &:hover {
+          cursor: pointer;
+        }
         > .playlist-cover-image {
           width: 100%;
           height: 140px;
@@ -68,7 +71,7 @@
           v-for="(item, index) in localData" v-bind:key="index">
           <div class="card-column"
             v-for="subitem in item"
-            v-bind:key="subitem.id">
+            v-bind:key="subitem.id" @click="JumpToDetail(subitem.id)">
               <div class="playlist-cover-image">
                 <img v-bind:src="subitem.coverImage"/>
                 <div class="play-count">播放量： {{convertNumFormat(subitem.playCount)}}</div>
@@ -107,6 +110,11 @@ export default {
     convertNumFormat(param) {
       const temp = param / 10000;
       return temp.toFixed(0) > 0 ? temp.toFixed(0)+'万' : param;
+    },
+    JumpToDetail(param) {
+      this.$router.push({
+        path: `/playlistDetail/${param}`
+      })
     }
   }
 }
