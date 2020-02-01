@@ -397,7 +397,7 @@ export default {
                 coverImgUrl: this.myPlayListDetail.coverImgUrl,
                 songName: param.name,
                 playListId: this.myPlayListDetail.id,
-                playListName: this.myPlayListDetail.name
+                author: param.author
             }
             this.getPlayingSongInfo(payload);
         },

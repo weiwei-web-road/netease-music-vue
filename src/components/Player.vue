@@ -204,7 +204,9 @@
                 <div class="play-status">
                     <div class="play-title">
                         <div class="song-name">{{this.playingSong.songName}}</div>
-                        <div class="singer">singer</div>
+                        <div class="singer">
+                            <span v-for="(author, index) in playingSong.author" v-bind:key="index">{{author.name}}</span>
+                        </div>
                     </div>
 
                     <div class="play-bar">

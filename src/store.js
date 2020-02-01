@@ -25,7 +25,7 @@ export default new Vuex.Store({
       coverImgUrl: '',
       songName: '',
       playListId: '',
-      playListName: ''
+      author: ''
     },
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
