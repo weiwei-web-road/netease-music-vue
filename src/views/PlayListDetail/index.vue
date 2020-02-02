@@ -31,7 +31,7 @@
             <template v-slot:song-card>
                 <div class="playlist-detail-container">
                     <RightContent :myPlayListDetail="myPlayListDetail" class="right-content"></RightContent>
-                    <RightInfo class="right-info"></RightInfo>
+                    <RightInfo :data="subscribers" class="right-info"></RightInfo>
                 </div>
             </template>
         </Layout>
@@ -55,6 +55,7 @@ export default {
     computed: {
         ...mapState({
             myPlayListDetail: state => state.myPlayListDetail,
+            subscribers: state => state.myPlayListDetail.subscribers
         })
     },
     components: {
@@ -69,6 +70,9 @@ export default {
         ...mapActions({
             fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync'
         })
+    },
+    // 加入组件销毁生命周期，当离开页面时，组件会销毁
+    destroyed() {
     }
 }
 </script>

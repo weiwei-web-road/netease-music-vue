@@ -99,11 +99,16 @@ export default {
     data() {
         return {
             topBar: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
-            selectIndex: PATH_MAP[this.$route.path]
+            selectIndex: PATH_MAP[this.$route.path],
+            currentPath: this.$route.path
         };
     },
     props: [],
-    
+    watch: {
+        currentPath: function() {
+            console.log(this.currentPath, 'currentPath')
+        }
+    },
     methods: {
         handleItemClick: function(event) {
             // 事件冒泡会从当前触发的事件目标一级一级往上传递，依次触发，直到document为止。
