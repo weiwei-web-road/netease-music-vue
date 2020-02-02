@@ -34,7 +34,7 @@
         <div class="title">喜欢这个歌单的人</div>
         <div class="content-list">
             <div class="row" v-for="(item, index) in localData" :key="index">
-                <div class="column" v-for="subItem in item" :key="subItem">
+                <div class="column" v-for="(subItem, subIndex) in item" :key="subIndex">
                     <img :src="subItem" />
                 </div>
             </div>

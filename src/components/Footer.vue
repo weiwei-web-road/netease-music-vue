@@ -11,12 +11,20 @@
 
     > .netease-icon {
         // width: 176px;
+        line-height: 25px;
         height: 69px;
-        flex: 0 0 176px;
-        background-image: url('../assets/topbar.png');
+        flex: 0 0 400px;
+        font-size: 12px;
+        color: #666;
+        text-align: left;
+        // background-image: url('../assets/topbar.png');
         background-size: auto; // 按照原生的大小
         background-repeat: no-repeat;
         background-position: 0 0; // x y
+        span {
+            margin-top: 15px;
+            display: block;
+        }
     }
 
     > .list-container {
@@ -35,7 +43,7 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-
+            margin: 10px 0 0 30px;
             > .icon {
                 height: 45px;
                 width: 50px;
@@ -55,6 +63,8 @@
 <template>
     <div class="footer-container">
         <div class="netease-icon">
+            <span>本项目使用Vue全家桶实现网易云音乐的模仿。
+                <br/>作者王亚丽。仅供学习交流使用。</span>
         </div>
         <div class="list-container">
             <div class="list-item" v-bind:key="item.title" v-for="item in data">

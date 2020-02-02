@@ -89,7 +89,8 @@
 <script>
 const PATH_MAP = {
     '/': '发现音乐',
-    '/my_music': '我的音乐'
+    '/my_music': '我的音乐',
+    '/playlistDetail/:id': '发现音乐',
 };
 const ROUTE_MAP = {
     '发现音乐': '/',
@@ -97,9 +98,11 @@ const ROUTE_MAP = {
 };
 export default {
     data() {
+        console.log(this.$route.path, this.$route, this.$route.matched[0].path, 'currentPath')
+
         return {
             topBar: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
-            selectIndex: PATH_MAP[this.$route.path],
+            selectIndex: PATH_MAP[this.$route.path] || PATH_MAP[this.$route.matched[0].path],
             currentPath: this.$route.path
         };
     },
