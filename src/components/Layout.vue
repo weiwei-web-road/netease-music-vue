@@ -124,7 +124,7 @@
                 top: 6px;
                 z-index: 15;
                 width: 980px;
-                height: 47px;
+                height: 4s7px;
                 transform: translateX(-50%);
               }
             }
@@ -153,19 +153,9 @@
               <div class="updn-right"></div>
               <div class="bg" title="背景"></div>
               <div class="hand" title="展开播放器"></div>
-              <div class="player"><Player :playingSong="playingSong"></Player></div>
+              <div class="player"><Player :playingSong="playingSong" @clockPlayer="clockPlayer"></Player></div>
             </div>
         </div>
-
-        <!-- <div class="footer-auto-visible">
-            <div :class="style.footerContainer">
-              <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
-              <div class="updn-right"></div>
-              <div class="bg" title="背景"></div>
-              <div class="hand" @mouseleave="handleFooterLeave" @mouseenter="handleFooterEnter" title="展开播放器"></div>
-              <div class="player"><Player></Player></div>
-            </div>
-        </div> -->
     </div>
 </template>
 
@@ -182,7 +172,8 @@ export default {
           autovisible: false, // 
           footerVisible: false,  // 12
           mouseOver: false,  // 
-          animationState: false  // 
+          animationState: false,  // 
+          showSongList: false,
       };
   },
   computed: {
@@ -224,15 +215,18 @@ export default {
       }
     },
     handleFooterLeave: function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      if (!this.autovisible && !this.animationState && this.footerVisible) {
+      event.preventDefault(); // 阻止标签点击时的一些默认行为， 比如a标签，点击的时候，阻止跳转
+      event.stopPropagation(); // 阻止冒泡
+      if (!this.autovisible && !this.animationState && this.footerVisible && !this.showSongList) {
         this.footerVisible = false;
         this.animationState = true;
         setTimeout(() => {
           this.animationState = false;
         }, 400);
       }
+    },
+    clockPlayer(param) {
+      this.showSongList = param;
     }
   }
 }

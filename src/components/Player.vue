@@ -4,11 +4,10 @@
         height: 100%;
         margin: 0; // 去掉 div 默认的 marign padding
         padding: 0;
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        align-items: center;
-        background-color: #333;
+        // display: flex;
+        // justify-content: center;
+        // flex-direction: row;
+        // align-items: center;
 
     }
     .player-container {
@@ -20,6 +19,8 @@
         flex-direction: row;
         // 溢出的东西直接 hidden
         overflow: hidden;
+        background-color: #333;
+
         > .left {
             display: flex;
             justify-content: flex-start;
@@ -180,6 +181,9 @@
                     padding: 0 0 0 21px;
                     color: #666666;
                 }
+                &:hover {
+                    cursor: pointer;
+                }
                 
             }
         }
@@ -188,6 +192,7 @@
 
 <template>
     <div class="wrapper">
+        <SongList v-if="showSongList"></SongList>
         <div class="player-container">
             <div class="left">
                 <div class="btn">
@@ -195,7 +200,6 @@
                     <a :class="{'audio-status': true, 'pause': isPlaying, 'play': !isPlaying}" @click="handleTroggle"></a>
                     <a class="next-song"></a> 
                 </div>
-
 
                 <div class="head-img">
                     <img v-bind:src="this.playingSong.coverImgUrl">
@@ -229,7 +233,7 @@
             <div class="operation-btn">
                 <div class="volume"></div>
                 <div class="repeat"></div>
-                <div class="play-list-icon">
+                <div class="play-list-icon" @click="clickShowSongList()">
                     <span>62</span>
                 </div>
             </div>
@@ -241,6 +245,8 @@
 
 <script>
 import getAudioEvent from '../config/AudioEvent';
+import SongList from './SongList.vue';
+
 const audioEvent = getAudioEvent('player');
 
 export default {
@@ -250,7 +256,8 @@ export default {
             totalWidth: 493,
             playedTime: '00:00',
             totalTime: '00:00',
-            playedWidth: '0px'
+            playedWidth: '0px',
+            showSongList: false,
         }
     },
     props: ['playingSong'],
@@ -259,6 +266,9 @@ export default {
             return this.totalWidth + 'px'
         }
 
+    },
+    components: {
+        SongList,
     },
     mounted() {
         // 获取播放器控制权
@@ -325,6 +335,10 @@ export default {
             const secs = time % 60;
             const secsFormat = secs < 10 ? '0'+secs : secs;
             return minsFormat + ':' + secsFormat;
+        },
+        clickShowSongList() {
+            this.showSongList = !this.showSongList;
+            this.$emit('clockPlayer', this.showSongList);
         }
     }
 }

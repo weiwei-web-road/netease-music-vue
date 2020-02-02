@@ -90,8 +90,6 @@ export default {
             this.fetchMyPlayListDetailAsync({
                 id: value,
             })
-
-
         }
     },
     
