@@ -1,17 +1,29 @@
 <style lang="less" scoped>
     .song-list-container{
         position: absolute;
-        top: -154px;
+        top: -300px;
         width: 980px;
-        background-color: #333;
+        height: 300px;
+        background-color: #121212;
         color: #ffffff;
+        > .title {
+            display: flex;
+            justify-content: flex-start;
+            height: 41px;
+            padding: 0 5px;
+        }
     }
 </style>
 
 <template>
     <div class="song-list-container">
-        song list <br/>
-        song list <br/>song list <br/>song list <br/>song list <br/>song list <br/>song list <br/>
+        <div class="title">
+            <div class="name">播放列表</div>
+            <div class="song-name">歌名</div>
+            <div class="close">close</div>
+        </div>
+        <div class="content">
+        </div>
     </div>
 </template>
 
