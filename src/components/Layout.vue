@@ -227,6 +227,13 @@ export default {
     },
     clockPlayer(param) {
       this.showSongList = param;
+      if (!this.showSongList) {
+        this.footerVisible = false;
+        this.animationState = true;
+        setTimeout(() => {
+          this.animationState = false;
+        }, 400);
+      }
     }
   }
 }

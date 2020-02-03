@@ -301,7 +301,7 @@
                     </div>
                 </div>
 
-                <div class="song-play-button">
+                <div class="song-play-button" @click="addToPlayingSongList">
                     <div class="play-icon"></div>
                     <div class="play">播放</div>
                 </div>
@@ -411,6 +411,9 @@ export default {
         handleDescriptionToggle: function () {
             this.opened = !this.opened;
         },
+        addToPlayingSongList() {
+            console.log(this.myPlayListDetail)
+        }
     },
 
     // 实例挂载到DOM之后，生成DOM节点之后调用

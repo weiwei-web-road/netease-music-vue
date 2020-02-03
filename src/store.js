@@ -27,6 +27,188 @@ export default new Vuex.Store({
       playListId: '',
       author: ''
     },
+    playSongList: [
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      },
+      {
+          name: 'song name',
+          author: 'author name',
+          duration: '04:56',
+      }
+  ]
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；

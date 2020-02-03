@@ -19,7 +19,6 @@
         flex-direction: row;
         // 溢出的东西直接 hidden
         overflow: hidden;
-        background-color: #333;
 
         > .left {
             display: flex;
@@ -192,7 +191,7 @@
 
 <template>
     <div class="wrapper">
-        <SongList v-if="showSongList"></SongList>
+        <SongList v-if="showSongList" @closeSongList="closeSongList"></SongList>
         <div class="player-container">
             <div class="left">
                 <div class="btn">
@@ -338,6 +337,10 @@ export default {
         },
         clickShowSongList() {
             this.showSongList = !this.showSongList;
+            this.$emit('clockPlayer', this.showSongList);
+        },
+        closeSongList() {
+            this.showSongList = false;
             this.$emit('clockPlayer', this.showSongList);
         }
     }
