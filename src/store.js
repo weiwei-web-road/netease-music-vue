@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING } from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING, SET_LYRIC } from './mutation_types';
 import fetchAPI, {apis} from './service';
 import {TopPlayList, MyPlayList, PlayListDetail} from './model';
 
@@ -28,6 +28,7 @@ export default new Vuex.Store({
       author: ''
     },
     isPlaying: true,
+    lyric: {},
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
@@ -75,10 +76,24 @@ export default new Vuex.Store({
     },
     [SET_PLAYING_SONG] (state, payload) {
       state.playingSong = payload.value;
-      console.log(state.playingSong, 'payload')
     },
     [SET_IS_PLAYING] (state, payload) {
       state.isPlaying = payload.value;
+    },
+    [SET_LYRIC] (state, payload) {
+      const value = payload.value;
+      const lyric = value.split(/\r?\n/).map(item => {
+        const index = item.indexOf(']');
+          const time = item.slice(1, index);
+          const content = item.slice(index + 1);
+          return {
+              time,
+              content,
+          };
+      })
+
+      state.lyric = lyric;
+      console.log(state.lyric, value, 'lyric')
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -145,6 +160,19 @@ export default new Vuex.Store({
 
     updateIsPlaying (context, params) {
       context.commit({type: SET_IS_PLAYING, value: params});
+    },
+
+    getLyric (context, params) {
+      return new Promise((resolve, reject) => {
+        fetchAPI(apis.myMusic.getLyric, params).then((res) => {
+          if (res.status === 200 && res.data.code === 200) {
+            context.commit({type: SET_LYRIC, value: res.data.lrc.lyric});
+          }
+        }).catch((error) => {
+          console.log(error);
+          reject(JSON.stringify(error));
+        });
+      })
     },
 
     // ?

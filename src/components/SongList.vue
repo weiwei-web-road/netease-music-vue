@@ -42,6 +42,7 @@
             }
         }
         > .content {
+            display: flex;
             > .left {
                 width: 564px;
                 overflow-y: scroll;
@@ -98,6 +99,22 @@
                     }
                 }
             }
+            > .right {
+                width: 415px;
+                height: 259px;
+                overflow: scroll;
+                color: #989898;
+                word-wrap: break-word;
+                font-size: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                > .item {
+                    width: 354px;
+                    height: 32px;
+                    line-height: 32px;
+                }
+            }
         }
     }
 </style>
@@ -119,13 +136,17 @@
                     <div class="source"><a></a></div>
                 </div>
             </div>
-            <div class="right"></div>
+            <div class="right">
+                <div class="item" v-for="(item, index) of lyric" :key="index">
+                    {{item.content}}
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
     name: 'song-list',
     data() {
@@ -134,6 +155,9 @@ export default {
     },
     props: ['playingSong'],
     computed: {
+        ...mapState({
+            lyric: state => state.lyric,
+        }),
         playSongList() {
             const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
             const arr = [];
@@ -146,6 +170,7 @@ export default {
     methods: {
         ...mapActions({
             getPlayingSongInfo: 'getPlayingSongInfo',
+            getLyric: 'getLyric',
         }),
         closeSongList() {
             this.$emit('closeSongList');
@@ -166,6 +191,7 @@ export default {
                 author: author
             }
             this.getPlayingSongInfo(payload);
+            this.getLyric({id: id});
         }
     }
 }

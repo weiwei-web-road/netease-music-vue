@@ -350,15 +350,6 @@
             </div>
             <div class="fifth-title common black-color">{{item.collection}}</div>           
         </div>
-        <!-- <div class="song-list-content">
-            <div class="first-title common">2
-                <span class="play-icon"></span>
-            </div>
-            <div class="second-title common black-color">卡农（经典钢琴版）</div>
-            <div class="third-title common">04：59</div>
-            <div class="fourth-title common black-color">dflanf</div>
-            <div class="fifth-title common black-color">卡农Canon</div>           
-        </div> -->
     </div>
 </template>
 
@@ -385,6 +376,7 @@ export default {
     methods: {
         ...mapActions({
             getPlayingSongInfo: 'getPlayingSongInfo',
+            getLyric: 'getLyric',
         }),
         handlePlay(param) {
             const id = param.id;
@@ -419,6 +411,7 @@ export default {
             localStorage.removeItem('playingSongObj');
             localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
 
+            this.getLyric({id: id});
         },
         computeIsClosed: function () {
             // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
