@@ -64,13 +64,17 @@
                     > .name {
                         width: 266px;
                         color: #cccccc;
+                        cursor: pointer;
                     }
                     > .blank {
                         width: 88px;
                     }
                     > .author {
-                        width: 80px;
+                        width: 100px;
                         color: #9b9b9b;
+                        overflow: hidden;
+                        text-overflow: ellipsis; // ...
+                        white-space: nowrap; // 不让换行，不然没有...
                     }
                     > .duration {
                         width: 45px;
@@ -88,7 +92,7 @@
                             background-image: url('../assets/playlist.png');
                             background-position: -80px 0px;
                             background-repeat: no-repeat;
-                            cursor: pointer;
+                            // cursor: pointer;
                         }
                         
                     }
@@ -101,17 +105,17 @@
 <template>
     <div class="song-list-container">
         <div class="title">
-            <h4 class="name">{{songListLen}}</h4>
-            <div class="song-name">歌名</div>
+            <h4 class="name">{{'播放列表('+playSongList.length+')'}}</h4>
+            <div class="song-name">{{playingSong.songName}}</div>
             <div class="close" @click="closeSongList"></div>
         </div>
         <div class="content">
             <div class="left">
-                <div class="song-item" v-for="(item, index) in playSongList" v-bind:key="index">
-                    <div class="common name">{{item.name}}</div>
+                <div class="song-item" v-for="item in playSongList" v-bind:key="item.id">
+                    <div class="common name" @click="handlePlay(item)">{{item.name}}</div>
                     <div class="common blank"></div>
-                    <div class="common author">{{item.author}}</div>
-                    <div class="common duration">{{item.duration}}</div>
+                    <div class="common author">{{item.author[0].name}}</div>
+                    <div class="common duration">{{item.durationTime | dateformat('mm:ss')}}</div>
                     <div class="source"><a></a></div>
                 </div>
             </div>
@@ -121,23 +125,47 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapActions } from 'vuex';
 export default {
     name: 'song-list',
     data() {
         return {
-            songListLen: '播放列表(62)',
         }
     },
+    props: ['playingSong'],
     computed: {
-        ...mapState({
-            playSongList: state => state.playSongList
-        })
+        playSongList() {
+            const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            const arr = [];
+            for (const key in data) {
+                arr.push(data[key])
+            }
+            return arr;
+        }
     },
     methods: {
+        ...mapActions({
+            getPlayingSongInfo: 'getPlayingSongInfo',
+        }),
         closeSongList() {
             this.$emit('closeSongList');
+        },
+        handlePlay(param) {
+            const id = param.id;
+            const coverImgUrl = param.coverImgUrl;
+            const src = param.src;
+            const playListId = param.playListId;
+            const author = param.author;
+            const name = param.name;
+            const payload = {
+                id: id,
+                src: src,
+                coverImgUrl: coverImgUrl,
+                songName: name,
+                playListId: playListId,
+                author: author
+            }
+            this.getPlayingSongInfo(payload);
         }
     }
 }

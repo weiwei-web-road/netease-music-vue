@@ -384,18 +384,41 @@ export default {
     },
     methods: {
         ...mapActions({
-            getPlayingSongInfo: 'getPlayingSongInfo'
+            getPlayingSongInfo: 'getPlayingSongInfo',
         }),
         handlePlay(param) {
+            const id = param.id;
+            const coverImgUrl = this.myPlayListDetail.coverImgUrl;
+            const src = this.myPlayListDetail.songUrlMap[param.id];
+            const playListId = this.myPlayListDetail.id;
+            const author = param.author;
+            const name = param.name;
             const payload = {
-                id: param.id,
-                src: this.myPlayListDetail.songUrlMap[param.id],
-                coverImgUrl: this.myPlayListDetail.coverImgUrl,
-                songName: param.name,
-                playListId: this.myPlayListDetail.id,
-                author: param.author
+                id: id,
+                src: src,
+                coverImgUrl: coverImgUrl,
+                songName: name,
+                playListId: playListId,
+                author: author
             }
             this.getPlayingSongInfo(payload);
+            const data = {
+                id: id,
+                name: name,
+                author: author,
+                collection: param.collection,
+                durationTime: param.durationTime,
+                coverImgUrl: coverImgUrl,
+                playListId: playListId,
+                src: src,
+            }
+            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            if (!playingSongObj.hasOwnProperty(id)) {
+                playingSongObj[id] = data;
+            }
+            localStorage.removeItem('playingSongObj');
+            localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+
         },
         computeIsClosed: function () {
             // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
@@ -412,7 +435,25 @@ export default {
             this.opened = !this.opened;
         },
         addToPlayingSongList() {
-            console.log(this.myPlayListDetail)
+            const tracks = this.myPlayListDetail.tracks;
+            const songUrlMap = this.myPlayListDetail.songUrlMap;
+            const coverImgUrl = this.myPlayListDetail.coverImgUrl;
+            const playListId = this.myPlayListDetail.id;
+            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+
+            tracks.forEach((item) => {
+                const id = item.id;
+                if (!playingSongObj.hasOwnProperty(id)) {
+                    const url = songUrlMap[id];
+                    item['src'] = url;
+                    item['coverImgUrl'] = coverImgUrl;
+                    item['playListId'] = playListId;
+                    playingSongObj[id] = item;
+                }
+            })
+            localStorage.removeItem('playingSongObj');
+            localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            
         }
     },
 

@@ -191,7 +191,7 @@
 
 <template>
     <div class="wrapper">
-        <SongList v-if="showSongList" @closeSongList="closeSongList"></SongList>
+        <SongList v-if="showSongList" :playingSong="playingSong" @closeSongList="closeSongList"></SongList>
         <div class="player-container">
             <div class="left">
                 <div class="btn">
@@ -233,7 +233,7 @@
                 <div class="volume"></div>
                 <div class="repeat"></div>
                 <div class="play-list-icon" @click="clickShowSongList()">
-                    <span>62</span>
+                    <span>{{songListLen}}</span>
                 </div>
             </div>
 
@@ -245,13 +245,13 @@
 <script>
 import getAudioEvent from '../config/AudioEvent';
 import SongList from './SongList.vue';
+import { mapState, mapActions } from 'vuex';
 
 const audioEvent = getAudioEvent('player');
 
 export default {
     data() {
         return {
-            isPlaying: true,
             totalWidth: 493,
             playedTime: '00:00',
             totalTime: '00:00',
@@ -263,8 +263,15 @@ export default {
     computed: {
         blackBarWidth() {
             return this.totalWidth + 'px'
+        },
+        ...mapState({
+            isPlaying: state => state.isPlaying,
+        }),
+        songListLen() {
+            const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            return Object.keys(data).length;
         }
-
+    
     },
     components: {
         SongList,
@@ -289,6 +296,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            updateIsPlaying: 'updateIsPlaying',
+        }),
         play() {
             // this.$audio = this.$root, 因为$audio 已经被挂载到全局Vue实例上了
             // 向Vue实例发射事件INITIALAUDIO，并且带着实参src等，也可以直接调用play()或者setSrc()
@@ -304,10 +314,10 @@ export default {
         },
         handleTroggle() {
             if (this.isPlaying) {
-                this.isPlaying = false;
+                this.updateIsPlaying(false);
                 this.pause();
             } else {
-                this.isPlaying = true;
+                this.updateIsPlaying(true);
                 this.play();
             }
         },
@@ -317,6 +327,8 @@ export default {
                 autoplay: true});
             // to do
             // 归零所有的控制信息，进度条，歌曲的信息，歌词，
+            this.updateIsPlaying(true);
+
         },
         onTimeUpdate(param) {
             const time = param.time;

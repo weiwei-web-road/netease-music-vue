@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG } from './mutation_types';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING } from './mutation_types';
 import fetchAPI, {apis} from './service';
 import {TopPlayList, MyPlayList, PlayListDetail} from './model';
 
@@ -27,188 +27,7 @@ export default new Vuex.Store({
       playListId: '',
       author: ''
     },
-    playSongList: [
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      },
-      {
-          name: 'song name',
-          author: 'author name',
-          duration: '04:56',
-      }
-  ]
+    isPlaying: true,
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
@@ -257,6 +76,9 @@ export default new Vuex.Store({
     [SET_PLAYING_SONG] (state, payload) {
       state.playingSong = payload.value;
       console.log(state.playingSong, 'payload')
+    },
+    [SET_IS_PLAYING] (state, payload) {
+      state.isPlaying = payload.value;
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -319,6 +141,10 @@ export default new Vuex.Store({
 
     getPlayingSongInfo (context, params) {
       context.commit({type: SET_PLAYING_SONG, value: params});
+    },
+
+    updateIsPlaying (context, params) {
+      context.commit({type: SET_IS_PLAYING, value: params});
     },
 
     // ?
