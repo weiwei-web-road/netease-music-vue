@@ -447,6 +447,24 @@ export default {
             localStorage.removeItem('playingSongObj');
             localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
             
+            if (tracks.length > 0) {
+                const track = tracks[0];
+                const id = track.id;
+                const coverImgUrl = this.myPlayListDetail.coverImgUrl;
+                const src = this.myPlayListDetail.songUrlMap[track.id];
+                const playListId = this.myPlayListDetail.id;
+                const author = track.author;
+                const name = track.name;
+                const payload = {
+                    id: id,
+                    src: src,
+                    coverImgUrl: coverImgUrl,
+                    songName: name,
+                    playListId: playListId,
+                    author: author
+                }
+                this.getPlayingSongInfo(payload);
+            }
         }
     },
 
