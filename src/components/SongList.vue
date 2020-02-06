@@ -54,7 +54,9 @@
                     height: 28px;
                     align-items: center;
                     &:hover {
-                        background-color: rgba(0,0,0,0.4);
+                        background-color: #000000;
+                    }
+                    &:hover div {
                         color: #ffffff !important;
                     }
                     > .common {
@@ -66,9 +68,24 @@
                         width: 266px;
                         color: #cccccc;
                         cursor: pointer;
+                        &:hover {
+                            color: #ffffff !important;
+                        }
                     }
                     > .blank {
-                        width: 88px;
+                        width: 88px;  
+                        &:hover .delete{
+                            visibility: visible;
+                        }  
+                        > .delete {
+                            width: 13px;
+                            height: 16px;
+                            float: right;
+                            background-image: url('../assets/playlist.png');
+                            background-position: -51px 0;
+                            background-repeat: no-repeat;
+                            visibility: hidden; 
+                        }
                     }
                     > .author {
                         width: 100px;
@@ -96,6 +113,13 @@
                             // cursor: pointer;
                         }
                         
+                    }
+                }
+                > .selected {
+                    background-color: #000000;
+                    font-weight: bold;
+                    > .common {
+                        color: #ffffff;
                     }
                 }
             }
@@ -128,9 +152,11 @@
         </div>
         <div class="content">
             <div class="left">
-                <div class="song-item" v-for="item in playSongList" v-bind:key="item.id">
+                <div :class="{'song-item':true, 'selected': item.id === playingSong.id}" v-for="item in playSongList" v-bind:key="item.id">
                     <div class="common name" @click="handlePlay(item)">{{item.name}}</div>
-                    <div class="common blank"></div>
+                    <div class="common blank">
+                        <div class="delete" @click="deleteSongList(item.id)"></div>
+                    </div>
                     <div class="common author">{{item.author[0].name}}</div>
                     <div class="common duration">{{item.durationTime | dateformat('mm:ss')}}</div>
                     <div class="source"><a></a></div>
@@ -192,6 +218,13 @@ export default {
             }
             this.getPlayingSongInfo(payload);
             this.getLyric({id: id});
+        },
+        deleteSongList(param) {
+            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            delete playingSongObj[param];
+
+            localStorage.removeItem('playingSongObj');
+            localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
         }
     }
 }
