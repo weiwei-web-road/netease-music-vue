@@ -241,13 +241,13 @@
     </div>
 </template>
 
-
 <script>
 import getAudioEvent from '../config/AudioEvent';
 import SongList from './SongList.vue';
 import { mapState, mapActions } from 'vuex';
 
 const audioEvent = getAudioEvent('player');
+// 每次切换页面时，Layout 和 Header，Footer，Player 组件会再次调用。
 
 export default {
     data() {
@@ -294,9 +294,12 @@ export default {
         this.$audio.$on(audioEvent.ONTIMEUPDATE, (options) => {
             this.onTimeUpdate(options);
         });
-        
-        // this.initialSong();
 
+        const payload = {
+            isPlaying: this.isPlaying,
+            showSongList: false,
+        }
+        this.updateIsPlaying(payload);
     },
     watch: {
         playingSong: function() {

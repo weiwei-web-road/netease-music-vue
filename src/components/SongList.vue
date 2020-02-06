@@ -173,6 +173,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+// 点击显示播放列表时，会调用
+// 在显示播放列表的情况下，切换页面，会调用
 export default {
     name: 'song-list',
     data() {

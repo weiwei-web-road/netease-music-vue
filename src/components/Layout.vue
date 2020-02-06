@@ -164,7 +164,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Player from './Player';
 import { mapState } from 'vuex';
-
+// 每次切换页面时，Layout 和 Header，Footer 组件会再次调用。
 export default {
   name: 'Layout',
   data() {

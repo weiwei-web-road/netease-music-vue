@@ -5,7 +5,8 @@
 <script>
 // getAudioEvent 定义播放器的不同状态
 import getAudioEvent from '../config/AudioEvent';  
-
+// audio 组件只调用一次，因为audio 组件是挂载到 index.html 中的，和 App.vue 并列，
+// 所以并不会随着切换页面再次调用
 export default {
     data() {
         return {
