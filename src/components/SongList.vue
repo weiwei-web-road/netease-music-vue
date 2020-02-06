@@ -195,10 +195,13 @@ export default {
         }
     },
     // created() {
-    //     window.addEventListener('setItem', ()=> {
-    //         this.newVal = localStorage.getItem('playingSongObj');
-    //     })
-    //         console.log(this.newVal, 'new val');
+        // window.addEventListener('setItem', ()=> {
+        //     this.newVal = localStorage.getItem('playingSongObj');
+        // })
+        //     console.log(this.newVal, 'new val');
+        // window.addEventListener('onScroll', () => {
+        //     event.preventDefault();
+        // })
     // },
     methods: {
         ...mapActions({
@@ -234,6 +237,7 @@ export default {
             this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
             // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
         }
+        
     }
 }
 </script>
