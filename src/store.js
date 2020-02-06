@@ -27,7 +27,10 @@ export default new Vuex.Store({
       playListId: '',
       author: ''
     },
-    isPlaying: true,
+    initPlay: {
+      isPlaying: true,
+      showSongList: false,
+    },
     lyric: {},
   },
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
@@ -78,7 +81,7 @@ export default new Vuex.Store({
       state.playingSong = payload.value;
     },
     [SET_IS_PLAYING] (state, payload) {
-      state.isPlaying = payload.value;
+      state.initPlay = payload.value;
     },
     [SET_LYRIC] (state, payload) {
       const value = payload.value;
@@ -91,9 +94,7 @@ export default new Vuex.Store({
               content,
           };
       })
-
       state.lyric = lyric;
-      console.log(state.lyric, value, 'lyric')
     }
   },
   // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -166,7 +167,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         fetchAPI(apis.myMusic.getLyric, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
-            context.commit({type: SET_LYRIC, value: res.data.lrc.lyric});
+            context.commit({type: SET_LYRIC, value: (res.data.lrc ? res.data.lrc.lyric : '')});
           }
         }).catch((error) => {
           console.log(error);

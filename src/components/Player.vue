@@ -256,16 +256,26 @@ export default {
             playedTime: '00:00',
             totalTime: '00:00',
             playedWidth: '0px',
-            showSongList: false,
+            // showSongList: false,
+            // newVal: '',
         }
     },
     props: ['playingSong'],
+    // updated() {
+    //     window.addEventListener('resetSetItem', ()=> {
+    //         this.newVal = localStorage.getItem('playingSongObj');
+    //         console.log(this.newVal, localStorage.getItem('playingSongObj'), 'inside new val');
+            
+    //     })
+    //     console.log(this.newVal, 'new val');
+    // },
     computed: {
         blackBarWidth() {
             return this.totalWidth + 'px'
         },
         ...mapState({
-            isPlaying: state => state.isPlaying,
+            isPlaying: state => state.initPlay.isPlaying,
+            showSongList: state => state.initPlay.showSongList,
         }),
         songListLen() {
             const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
@@ -290,9 +300,7 @@ export default {
     },
     watch: {
         playingSong: function() {
-            console.log(this.playingSong, 'watch')
             this.initialSong();
-            
         }
     },
     methods: {
@@ -314,10 +322,18 @@ export default {
         },
         handleTroggle() {
             if (this.isPlaying) {
-                this.updateIsPlaying(false);
+                const payload = {
+                    isPlaying: false,
+                    showSongList: this.showSongList,
+                }
+                this.updateIsPlaying(payload);
                 this.pause();
             } else {
-                this.updateIsPlaying(true);
+                const payload = {
+                    isPlaying: true,
+                    showSongList: this.showSongList,
+                }
+                this.updateIsPlaying(payload);
                 this.play();
             }
         },
@@ -327,7 +343,11 @@ export default {
                 autoplay: true});
             // to do
             // 归零所有的控制信息，进度条，歌曲的信息，歌词，
-            this.updateIsPlaying(true);
+            const payload = {
+                isPlaying: true,
+                showSongList: this.showSongList,
+            }
+            this.updateIsPlaying(payload);
 
         },
         onTimeUpdate(param) {
@@ -348,11 +368,21 @@ export default {
             return minsFormat + ':' + secsFormat;
         },
         clickShowSongList() {
-            this.showSongList = !this.showSongList;
+            const payload = {
+                isPlaying: this.isPlaying,
+                showSongList: !this.showSongList,
+            }
+            this.updateIsPlaying(payload);
+            // this.showSongList = !this.showSongList;
             this.$emit('clockPlayer', this.showSongList);
         },
         closeSongList() {
-            this.showSongList = false;
+            const payload = {
+                isPlaying: this.isPlaying,
+                showSongList: false,
+            }
+            this.updateIsPlaying(payload);
+            // this.showSongList = false;
             this.$emit('clockPlayer', this.showSongList);
         }
     }

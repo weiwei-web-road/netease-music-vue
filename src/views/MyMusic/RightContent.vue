@@ -409,7 +409,9 @@ export default {
                 playingSongObj[id] = data;
             }
             localStorage.removeItem('playingSongObj');
-            localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
+
+            // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
 
             this.getLyric({id: id});
         },
@@ -445,7 +447,9 @@ export default {
                 }
             })
             localStorage.removeItem('playingSongObj');
-            localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
+
+            // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
             
             if (tracks.length > 0) {
                 const track = tracks[0];

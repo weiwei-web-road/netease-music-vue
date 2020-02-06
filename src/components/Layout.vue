@@ -227,7 +227,7 @@ export default {
     },
     clockPlayer(param) {
       this.showSongList = param;
-      if (!this.showSongList) {
+      if (!this.showSongList && !this.autovisible) {
         this.footerVisible = false;
         this.animationState = true;
         setTimeout(() => {
