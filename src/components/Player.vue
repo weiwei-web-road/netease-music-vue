@@ -245,6 +245,7 @@
 import getAudioEvent from '../config/AudioEvent';
 import SongList from './SongList.vue';
 import { mapState, mapActions } from 'vuex';
+import { localStorageGetItem } from '../utils/index';
 
 const audioEvent = getAudioEvent('player');
 // 每次切换页面时，Layout 和 Header，Footer，Player 组件会再次调用。
@@ -256,19 +257,10 @@ export default {
             playedTime: '00:00',
             totalTime: '00:00',
             playedWidth: '0px',
-            // showSongList: false,
-            // newVal: '',
+            data: localStorageGetItem('playingSongObj'),
         }
     },
     props: ['playingSong'],
-    // updated() {
-    //     window.addEventListener('resetSetItem', ()=> {
-    //         this.newVal = localStorage.getItem('playingSongObj');
-    //         console.log(this.newVal, localStorage.getItem('playingSongObj'), 'inside new val');
-            
-    //     })
-    //     console.log(this.newVal, 'new val');
-    // },
     computed: {
         blackBarWidth() {
             return this.totalWidth + 'px'
@@ -278,10 +270,13 @@ export default {
             showSongList: state => state.initPlay.showSongList,
         }),
         songListLen() {
-            const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
-            return Object.keys(data).length;
+            return Object.keys(this.data).length;
         }
-    
+    },
+    created() {
+        window.addEventListener('setItem', () => {
+            this.data = localStorageGetItem('playingSongObj');
+        })
     },
     components: {
         SongList,

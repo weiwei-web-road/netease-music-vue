@@ -173,38 +173,36 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { localStorageSetItem, localStorageGetItem } from '../utils/index';
 // 点击显示播放列表时，会调用
 // 在显示播放列表的情况下，切换页面，会调用
 export default {
     name: 'song-list',
     data() {
         return {
-            // newVal: ''
+            data: localStorageGetItem('playingSongObj'),
+            dataArr: localStorageGetItem('playingSongIdArr'),
         }
     },
     props: ['playingSong'],
+    created() {
+        window.addEventListener('setItem', ()=> {
+            this.data = localStorageGetItem('playingSongObj');
+            this.dataArr = localStorageGetItem('playingSongIdArr');
+        });
+    },
     computed: {
         ...mapState({
             lyric: state => state.lyric,
         }),
         playSongList() {
-            const data = JSON.parse(localStorage.getItem('playingSongObj')) || {};
             const arr = [];
-            for (const key in data) {
-                arr.push(data[key])
+            for (const item of this.dataArr) {
+                arr.push(this.data[item])
             }
-            return arr;
+            return arr; 
         }
     },
-    // created() {
-        // window.addEventListener('setItem', ()=> {
-        //     this.newVal = localStorage.getItem('playingSongObj');
-        // })
-        //     console.log(this.newVal, 'new val');
-        // window.addEventListener('onScroll', () => {
-        //     event.preventDefault();
-        // })
-    // },
     methods: {
         ...mapActions({
             getPlayingSongInfo: 'getPlayingSongInfo',
@@ -232,14 +230,16 @@ export default {
             this.getLyric({id: id});
         },
         deleteSongList(param) {
-            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
-            delete playingSongObj[param];
+            const playingSongObj = localStorageGetItem('playingSongObj');
+            const playingSongIdArr = localStorageGetItem('playingSongIdArr');
 
-            localStorage.removeItem('playingSongObj');
-            this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
-            // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            delete playingSongObj[param];
+            const index = playingSongIdArr.indexOf(param);
+            playingSongIdArr.splice(index, 1);
+
+            localStorageSetItem('playingSongObj', playingSongObj);
+            localStorageSetItem('playingSongIdArr', playingSongIdArr);
         }
-        
     }
 }
 </script>

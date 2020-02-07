@@ -35,7 +35,7 @@ Vue.prototype.resetSetItem = function (key, newVal) {
               localStorage.setItem(k, val);
 
               // 初始化创建的事件
-              newStorageEvent.initStorageEvent('setItem', false, false, k, null, val, null, null);
+              newStorageEvent.initEvent('setItem', true, true);
 
               // 派发对象
               window.dispatchEvent(newStorageEvent)

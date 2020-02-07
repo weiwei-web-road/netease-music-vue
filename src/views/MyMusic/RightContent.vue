@@ -354,7 +354,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import { localStorageSetItem, localStorageGetItem } from '../../utils/index';
+
 export default {
     name: 'RightContent',
     data() {
@@ -373,10 +375,16 @@ export default {
             this.isReComputed = true;
         }
     },
+    computed: {
+        ...mapState({
+            isPlaying: state => state.isPlaying,
+        })
+    },
     methods: {
         ...mapActions({
             getPlayingSongInfo: 'getPlayingSongInfo',
             getLyric: 'getLyric',
+            updateIsPlaying: 'updateIsPlaying',
         }),
         handlePlay(param) {
             const id = param.id;
@@ -404,16 +412,23 @@ export default {
                 playListId: playListId,
                 src: src,
             }
-            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            const playingSongObj = localStorageGetItem('playingSongObj');
+            const playingSongIdArr = localStorageGetItem('playingSongIdArr');
+
             if (!playingSongObj.hasOwnProperty(id)) {
                 playingSongObj[id] = data;
+                playingSongIdArr.push(id);
             }
-            localStorage.removeItem('playingSongObj');
-            this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
-
-            // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            localStorageSetItem('playingSongObj', playingSongObj);
+            localStorageSetItem('playingSongIdArr', playingSongIdArr);
 
             this.getLyric({id: id});
+
+            const initPlay = {
+                isPlaying: this.isPlaying,
+                showSongList: false,
+            }
+            this.updateIsPlaying(initPlay);
         },
         computeIsClosed: function () {
             // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
@@ -434,7 +449,8 @@ export default {
             const songUrlMap = this.myPlayListDetail.songUrlMap;
             const coverImgUrl = this.myPlayListDetail.coverImgUrl;
             const playListId = this.myPlayListDetail.id;
-            const playingSongObj = JSON.parse(localStorage.getItem('playingSongObj')) || {};
+            const playingSongObj = localStorageGetItem('playingSongObj');
+            const playingSongIdArr = localStorageGetItem('playingSongIdArr');
 
             tracks.forEach((item) => {
                 const id = item.id;
@@ -444,12 +460,11 @@ export default {
                     item['coverImgUrl'] = coverImgUrl;
                     item['playListId'] = playListId;
                     playingSongObj[id] = item;
+                    playingSongIdArr.push(id);
                 }
-            })
-            localStorage.removeItem('playingSongObj');
-            this.resetSetItem('playingSongObj', JSON.stringify(playingSongObj));
-
-            // localStorage.setItem('playingSongObj', JSON.stringify(playingSongObj));
+            });
+            localStorageSetItem('playingSongObj', playingSongObj);
+            localStorageSetItem('playingSongIdArr', playingSongIdArr);
             
             if (tracks.length > 0) {
                 const track = tracks[0];
