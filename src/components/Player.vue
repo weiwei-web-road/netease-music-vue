@@ -54,6 +54,7 @@
                     background-position: 0 -165px;
                     margin-right: 8px;
                     text-indent: -9999px;
+                    cursor: pointer;
                 }
                 > .pause {
                     background-position: 0 -165px;

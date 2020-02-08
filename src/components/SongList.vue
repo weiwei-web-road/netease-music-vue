@@ -32,6 +32,7 @@
                 width: 88px;  
                 &:hover .delete{
                     visibility: visible;
+                    cursor: pointer;
                 }  
                 > .delete {
                     width: 13px;
