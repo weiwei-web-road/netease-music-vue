@@ -40,9 +40,6 @@ export default {
         }
     },
     props: ['lyric', 'playedTimeSec'],
-    mounted() {
-        console.log(this.playedTimeSec, this.lyric, 'playedTimeSec');
-    },
     watch: {
         playedTimeSec: function() {
             for (let i=0; i<this.lyric.length-1; i++) {
@@ -57,7 +54,6 @@ export default {
     methods: {
         goToLyricLine() {
             const node = this.$refs.lyricLine[this.indexLine];
-            console.log(node, 'node');
             scrollIntoViewIfNeeded(node, {
                 centerIfNeeded: true
                 // scrollMode: 'if-needed',

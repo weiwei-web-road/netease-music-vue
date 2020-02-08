@@ -86,10 +86,6 @@ export default {
       }      
     }
   },
-  watch: {
-    checkList: function(newValue, oldValue) {
-      console.log(newValue, oldValue);
-    }
-  }
+
 };
 </script>

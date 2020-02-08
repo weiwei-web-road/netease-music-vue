@@ -64,8 +64,6 @@ export default {
             
             let gridChartWrapper = $('#d3-container');
             
-            console.log(gridChartWrapper, 'gridChartWrapper');
-
             $.magnificPopup.open({
                 items: {
                     src: gridChartWrapper,
@@ -101,7 +99,6 @@ export default {
             });
         },
     run() {
-      console.log("The application is running now ...");
 
         const initData = [
             { month: 0, value: 5},

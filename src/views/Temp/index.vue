@@ -187,7 +187,7 @@
                         <div class='td-right'>
                             <div v-if="vehicleCoDriverList.length === 0">——</div>
                             <div v-if="vehicleCoDriverList.length !== 0">
-                                <div v-for="item in vehicleCoDriverList">{{item.coDriverName}}</div>
+                                <div v-for="item in vehicleCoDriverList" :key="item">{{item.coDriverName}}</div>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                         <div class='td-right'>
                             <div v-if="vehicleCoDriverList.length === 0">——</div>
                             <div v-if="vehicleCoDriverList.length !== 0">
-                                <div v-for="item in vehicleCoDriverList">{{item.email}}</div>
+                                <div v-for="item in vehicleCoDriverList" :key="item">{{item.email}}</div>
                             </div>
                         </div>
                     </div>
@@ -217,13 +217,13 @@
                     <div class='partWrap'>
                         <div class='td-left'>VEHICLES</div>
                         <div class='td-right'>
-                            <div v-for="(item,index) in data.vehicle">{{item}}</div>
+                            <div v-for="(item,index) in data.vehicle" :key="index">{{item}}</div>
                         </div>
                     </div>
                     <div class='partWrap'>
                         <div class='td-left'>TRAILERS</div>
                         <div class='td-right'>
-                            <div v-for="item in data.trailer">{{item}}</div> 
+                            <div v-for="item in data.trailer" :key="item">{{item}}</div> 
                         </div>
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                         <div class='td-right'>
                             <div v-if="startEndOdemeterList.length === 0">——</div>
                             <div v-if="startEndOdemeterList.length !== 0">
-                                <div v-for="item in startEndOdemeterList">{{item}}</div>
+                                <div v-for="item in startEndOdemeterList" :key="item">{{item}}</div>
                             </div>
                         </div>
                     </div>
@@ -259,12 +259,17 @@
                     <div class='partWrap width100'>
                         <div class='td-left'>EXCEPTIONS</div>
                         <div class='flex1'>
-                            <span v-for="item in exceptionsDescArr">{{item}}</span>
+                            <span v-for="item in exceptionsDescArr" :key="item">{{item}}</span>
                         </div>
                     </div>
                 </div>
 
             </div>
+        </div>
+
+        <div class="other">
+          <div>{{trailerPaddingTop}}</div>
+          <div>{{vehiclePaddingTop}}</div>
         </div>
     </div>
 </template>
@@ -295,7 +300,6 @@ export default {
             height = trailerHeight + 'px';
             vehiclePaddingTop = (trailerHeight-vehicleHeight)/2 + 10 + 'px';
           }
-          console.log(height, 'height');
 
           let domList = document.getElementsByClassName('log-vehicle-row-name');
 

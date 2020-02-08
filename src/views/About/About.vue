@@ -41,15 +41,12 @@ export default {
   },
   methods: {
     showTotalIntro () {
-      console.log(this.showTotal);
       this.showTotal = !this.showTotal;
       this.exchangeButton = !this.exchangeButton;
     },
     getRem () {
-      console.log('getRem');
       const defaultRem = 16;
       let winWidth = window.innerWidth;
-      console.log('winWidth:' + winWidth);
       let rem = winWidth / 375 * defaultRem;
       return rem;
     },
@@ -76,19 +73,13 @@ export default {
   watch: {
     'introduce': function () {
       this.$nextTick(function () {
-        console.log('nextTick');
         // 判断介绍是否超过四行
         let rem = parseFloat(this.getRem());
-        console.log('watch 中的rem', rem);
         if (!this.$refs.desc) {
-          console.log('desc null');
           return;
         }
         let descHeight = window.getComputedStyle(this.$refs.desc).height.replace('px', '');
-        console.log('descHeight:' + descHeight);
-        console.log('如果 descHeight 超过' + (5.25 * rem) + '就要显示展开按钮');
         if (descHeight > 5.25 * rem) {
-          console.log('超过了四行');
           // 显示展开收起按钮
           this.showExchangeButton = true;
           this.exchangeButton = true;
@@ -99,8 +90,6 @@ export default {
           this.showExchangeButton = false;
           // 没有超过四行就显示所有
           this.showTotal = true;
-          console.log('showExchangeButton', this.showExchangeButton);
-          console.log('showTotal', this.showTotal);
         }
       }.bind(this));
     }

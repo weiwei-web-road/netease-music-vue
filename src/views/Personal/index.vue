@@ -44,7 +44,6 @@ import limitDoubleDateSearch from './doubleDateSearch.vue';
 import radioSelect from './radioSelect.vue';
 import elTooltipHover from './elTooltip.vue';
 import timePicker from './timePicker.vue';
-import moment from 'moment';
 
 export default {
   name: 'Spread',
@@ -70,14 +69,6 @@ export default {
     this.convertStrToArr();
   },
   methods: {
-    // double date select
-    changeDate(data) {
-      console.log(data, "double date serach");
-    },
-    // time picker
-    getSelectedTime(data) {
-      console.log( moment(data).format('HH:mm:ss'), 'selectedTime');
-    },
     convertStrToArr() {
         let str, arr, res = [];
         let value = '["baoma","chenxin"]';

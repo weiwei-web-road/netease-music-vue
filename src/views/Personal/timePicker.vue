@@ -51,7 +51,6 @@ export default {
             this.value = value;
             // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
             this.getData(value);
-            console.log(this.value, 'time value');
             // this.getData(value);
         }
     },

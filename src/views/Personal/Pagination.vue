@@ -141,7 +141,6 @@ export default {
         selectGet(val) {
             this.rowValue = val;
             this.currPage = 1;
-            // console.log(this.rowValue, 'row page');
             this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
 
         },
@@ -149,7 +148,6 @@ export default {
             const validateCode = [8, 13, 39, 37, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
             const code = event.which || event.keyCode;
             const value = event.target.value;
-            console.log(code, 'code', event.target.value);
             if (validateCode.indexOf(code) === -1) {
                 event.preventDefault();
             } else {
@@ -167,32 +165,25 @@ export default {
             if (valStr && valStr.length > 0) {
                 page = isNaN(valStr) ? 1 : parseInt(valStr);
             }
-            console.log(this.currPage, 'curr page');
             this.$emit('clickPage', {offset: this.rowValue * (page > 1 ? page -1 : 0), limit: this.rowValue});
 
         },
         prevPage() {
             let currPageNum = parseInt(this.currPage);
-            console.log(currPageNum, 'footer pagination curr page');
-            console.log(typeof(currPageNum), 'type of curr page');
 
             if (currPageNum > 1) {
                 currPageNum -= 1;
                 this.currPage = currPageNum;
-                console.log(this.currPage, 'curr page from prev page');
                 this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
             }
         },
         nextPage() {
 
             let currPageNum = parseInt(this.currPage);
-            console.log(currPageNum, 'footer pagination curr page');
-            console.log(typeof(currPageNum), 'type of curr page');
 
             if (currPageNum < this.totalPageNum) {
                 currPageNum += 1;
                 this.currPage = currPageNum;
-                console.log(this.currPage, 'curr page from next page');
                 this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
             }
         }

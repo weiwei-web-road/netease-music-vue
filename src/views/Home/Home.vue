@@ -80,11 +80,6 @@ export default {
     },
     
   }),
-  watch: {
-    localCount: function (val) {
-      console.log(val);
-    }
-  },
   methods: {
     ...mapMutations({
       increment: INCREMENT,

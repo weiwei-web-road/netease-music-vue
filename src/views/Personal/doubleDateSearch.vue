@@ -119,7 +119,6 @@ import moment from 'moment';
             let form = moment(date).format().split('T')[0];
             let endTime = moment( temp).format().split('T')[0];
             this.value = [endTime,form];
-            console.log(this.value);
         },
         getChange(value) {
             if(value){
@@ -129,8 +128,6 @@ import moment from 'moment';
                     temp.push(moment(element).format().split('T')[0]);
                 });
                 this.getData(temp);
-
-                console.log(value, temp);
 
             }else{
                 // $('.searchDate').removeClass('doublDate').addClass('doublDateInit');
