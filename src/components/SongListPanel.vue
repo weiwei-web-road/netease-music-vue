@@ -56,7 +56,7 @@
         </div>
         <div class="content">
             <SongList :playingSong="playingSong" :playSongList="playSongList" @deleteSongList="deleteSongList" @handlePlay="handlePlay"></SongList>
-            <Lyric :lyric="lyric"></Lyric>
+            <Lyric :lyric="lyric" :playedTimeSec="playedTimeSec"></Lyric>
         </div>
     </div>
 </template>

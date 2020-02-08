@@ -87,7 +87,8 @@ export default new Vuex.Store({
       const value = payload.value;
       const lyric = value.split(/\r?\n/).map(item => {
         const index = item.indexOf(']');
-          const time = item.slice(1, index);
+          const timeArr = item.slice(1, index).split(':');
+          const time = timeArr.length === 2 ? timeArr[0]*60 + Math.floor(timeArr[1]) : 0;
           const content = item.slice(index + 1);
           return {
               time,

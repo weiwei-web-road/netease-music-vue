@@ -13,19 +13,59 @@
             width: 354px;
             height: 32px;
             line-height: 32px;
+            // transform: translate(0px, 130px);
+        }
+        > .selected {
+            font-weight: bold;
+            font-size: 14px;
+            color: #ffffff;
+            transition: color 0.7s linear;
         }
     }
 </style>
 <template>
     <div class="lyric-container">
-        <div class="item" v-for="(item, index) of lyric" :key="index">
+        <div ref="lyricLine" :class="{'item':true, 'selected':indexLine===index}" v-for="(item, index) of lyric" :key="index">
             {{item.content}}
         </div>
     </div>
 </template>
 <script>
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+
 export default {
-    props: ['lyric']
+    data() {
+        return {
+            indexLine: 0,
+        }
+    },
+    props: ['lyric', 'playedTimeSec'],
+    mounted() {
+        console.log(this.playedTimeSec, this.lyric, 'playedTimeSec');
+    },
+    watch: {
+        playedTimeSec: function() {
+            for (let i=0; i<this.lyric.length-1; i++) {
+                if (this.playedTimeSec < this.lyric[i+1].time && this.playedTimeSec > this.lyric[i].time) {
+                    this.indexLine = i;
+                    break;
+                }
+            }
+            this.goToLyricLine();
+        }
+    },
+    methods: {
+        goToLyricLine() {
+            const node = this.$refs.lyricLine[this.indexLine];
+            console.log(node, 'node');
+            scrollIntoViewIfNeeded(node, {
+                centerIfNeeded: true
+                // scrollMode: 'if-needed',
+                // block: 'center',
+                // inline: 'center',
+            });
+        }
+    }
 }
 </script>
 
