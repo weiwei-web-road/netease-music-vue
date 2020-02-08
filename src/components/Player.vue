@@ -191,7 +191,7 @@
 
 <template>
     <div class="wrapper">
-        <SongList v-if="showSongList" :playingSong="playingSong" @closeSongList="closeSongList"></SongList>
+        <SongListPanel v-if="showSongList" :playingSong="playingSong" :playedTimeSec="playedTimeSec" @closeSongList="closeSongList"></SongListPanel>
         <div class="player-container">
             <div class="left">
                 <div class="btn">
@@ -243,7 +243,7 @@
 
 <script>
 import getAudioEvent from '../config/AudioEvent';
-import SongList from './SongList.vue';
+import SongListPanel from './SongListPanel.vue';
 import { mapState, mapActions } from 'vuex';
 import { localStorageGetItem } from '../utils/index';
 
@@ -255,6 +255,7 @@ export default {
         return {
             totalWidth: 493,
             playedTime: '00:00',
+            playedTimeSec: 0,
             totalTime: '00:00',
             playedWidth: '0px',
             data: localStorageGetItem('playingSongObj'),
@@ -279,7 +280,7 @@ export default {
         })
     },
     components: {
-        SongList,
+        SongListPanel,
     },
     mounted() {
         // 获取播放器控制权
@@ -349,12 +350,12 @@ export default {
 
         },
         onTimeUpdate(param) {
-            const time = param.time;
+            this.playedTimeSec = param.time;
             const duration = Math.round(param.duration);
             // 解决动画卡顿的方法是计算得到每秒的宽度，然后动画时间设置为1秒
-            // time 当前播放时间每秒会更新，当更新的时候计算ratio，每秒会更新
-            const ratio = time / duration;
-            this.playedTime = this.convertTimeFormat(time);
+            // this.playedTimeSec 当前播放时间每秒会更新，当更新的时候计算ratio，每秒会更新
+            const ratio = this.playedTimeSec / duration;
+            this.playedTime = this.convertTimeFormat(this.playedTimeSec);
             this.totalTime = this.convertTimeFormat(duration);
             this.playedWidth = this.totalWidth * ratio + 'px';
         },

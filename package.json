@@ -16,6 +16,7 @@
     "magnific-popup": "^1.1.0",
     "moment": "^2.24.0",
     "querystring": "^0.2.0",
+    "scroll-into-view-if-needed": "^2.2.24",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
