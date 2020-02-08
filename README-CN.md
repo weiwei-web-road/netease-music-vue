@@ -1,6 +1,5 @@
-# Netease Music
-Re-design and implement Netease Music using Vue and Vuex. There's no 3rd party UI libraries used in this project. All components are designed and implemented only for this project. The accomplished functions include Found Music, My Music, Song List Detail, Music Player, Playlist and Lyric.
-[中文介绍](https://github.com/weiwei-web-road/netease-music-vue/blob/master/README-CN.md)
+# 网易云音乐
+使用Vue全家桶设计和实现网易云音乐网站。项目中没有使用第三方的UI库。所有的组件仅仅针对本项目设计和实现。已经完成的功能有发现音乐、我的音乐、歌单详情页、音乐播放器、播放列表和歌词。
 
 ## Online Demo @ Daocloud
 http://52.81.106.198:8080/
