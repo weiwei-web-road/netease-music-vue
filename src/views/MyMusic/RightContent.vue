@@ -450,8 +450,10 @@ export default {
             const coverImgUrl = this.myPlayListDetail.coverImgUrl;
             const playListId = this.myPlayListDetail.id;
             const playingSongObj = localStorageGetItem('playingSongObj');
-            const playingSongIdArr = localStorageGetItem('playingSongIdArr');
-
+            let playingSongIdArr = localStorageGetItem('playingSongIdArr');
+            if (Object.keys(playingSongIdArr).length === 0) {
+                playingSongIdArr = [];
+            }
             tracks.forEach((item) => {
                 const id = item.id;
                 if (!playingSongObj.hasOwnProperty(id)) {
