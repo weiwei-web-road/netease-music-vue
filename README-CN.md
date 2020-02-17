@@ -11,12 +11,12 @@ http://52.81.106.198:8080/
 ![image](https://github.com/weiwei-web-road/netease-music-vue/blob/master/screenshots/netease-music-detail.png)
 
 ## Major Packages Used in this project
-- ESLint
-- Babel
-- Webpack
 - Vue including vue-router
 - Vuex
+- Babel
+- Webpack
 - LESS
+- ESLint
 
 ## Project setup
 ```
