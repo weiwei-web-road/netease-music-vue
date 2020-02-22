@@ -6,7 +6,7 @@
 <template>
     <div>component B
         <div>{{messageA}}</div>
-        <button @click="emitToA"></button>
+        <button @click="emitToA">emitToA</button>
         <!-- 从组件A传递过来的data 和事件中，B组件通过props 获取了自身需要用的属性，
         然后向 C组件传递了$attr, $listeners 
         本质是Vue内部封装了props，不用再手动 props和v-on事件了
@@ -14,6 +14,8 @@
         <C v-bind="$attrs" v-on="$listeners"></C>
         <!-- messageFromB 会以value的属性传递给D组件，并未会自动绑定v-on:input事件 -->
         <D v-model="messageFromB"></D>
+        <button @click="changeChildVal">Change Child</button>
+        <div>{{parentB}}</div>
     </div>
 </template>
 
@@ -24,7 +26,9 @@ import D from './D';
 export default {
     data() {
         return {
-            messageFromB: 'hello from B'
+            messageFromB: 'hello from B',
+            message: 'hello from parent B',
+            parentB: 'parent B',
         }
     },
     props: ['messageA'],
@@ -38,6 +42,12 @@ export default {
             // React 需要调用第三方库 EventEmitter3 来实现事件的发射与监听
             this.$emit('getB', 'emit val from B to A')
             console.log(this.forProvide, 'B for provide')
+        },
+        changeChildVal() {
+            console.log(this.$children)
+            this.$children[0].childC = "changed child C";
+            this.$children[1].childD = "changed child D"
+
         }
     }
 }

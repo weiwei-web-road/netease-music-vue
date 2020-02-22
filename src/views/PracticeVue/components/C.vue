@@ -1,12 +1,20 @@
 <template>
     <div>component C
         {{$attrs.messageToC}}
-        <button @click="emitToA"></button>
+        <button @click="emitToA">emitToA</button>
+        <div>{{childC}}</div>
+        <button @click="changeParentB">changeParentB</button>
+        
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            childC: 'child C'
+        }
+    },
     inject: ['forProvide'],
     methods: {
         emitToA() {
@@ -14,6 +22,10 @@ export default {
             // console.log(this.$attrs, '$attrs')
             this.$emit('getC', 'emit value from C to A')
             console.log(this.forProvide, 'C for provide')
+        },
+        changeParentB() {
+            console.log(this.$parent);
+            this.$parent.parentB = "changed parent B"
         }
     }
 }
