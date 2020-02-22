@@ -12,22 +12,32 @@
         本质是Vue内部封装了props，不用再手动 props和v-on事件了
         $attrs, $listeners 用于隔代组件之间传递数据 -->
         <C v-bind="$attrs" v-on="$listeners"></C>
+        <!-- messageFromB 会以value的属性传递给D组件，并未会自动绑定v-on:input事件 -->
+        <D v-model="messageFromB"></D>
     </div>
 </template>
 
 <script>
 import C from './C';
+import D from './D';
 
 export default {
+    data() {
+        return {
+            messageFromB: 'hello from B'
+        }
+    },
     props: ['messageA'],
     components: {
-        C,
+        C, D,
     },
+    inject: ['forProvide'],
     methods: {
         emitToA() {
             // 通过this.$emit 触发父组件注册的事件监听。Vue 内置了 $emit 事件发射和监听机制
             // React 需要调用第三方库 EventEmitter3 来实现事件的发射与监听
             this.$emit('getB', 'emit val from B to A')
+            console.log(this.forProvide, 'B for provide')
         }
     }
 }

@@ -21,6 +21,9 @@ export default {
 
         }
     },
+    provide: {
+        forProvide: 'for provide'
+    },
     components: {
         B
     },
