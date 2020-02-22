@@ -50,6 +50,11 @@ export default new Router({
       path: '/d3',
       name: 'd3',
       component: () => import(/* webpackChunkName: "d3" */ './views/D3/index.vue')
+    },
+    {
+      path: '/practice',
+      name: 'practice',
+      component: () => import('./views/PracticeVue/index.vue')
     }
   ]
 })
