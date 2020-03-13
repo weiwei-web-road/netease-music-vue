@@ -53,13 +53,13 @@ export default {
         },
         computedCreatedData: {
             get: function() {
-                console.log(this.createdData, '2');
+                // console.log(this.createdData, '2');
                 return this.createdData + 'computed';
             },
             // setter 更改的是此计算属性的依赖，不可以更改此计算属性本身，会递归引起错误
             // 参数 newVal 是要被更改的值
             set: function(newVal) {
-                console.log(newVal, '22')
+                // console.log(newVal, '22')
                 this.createdData = newVal;
             }
         },
