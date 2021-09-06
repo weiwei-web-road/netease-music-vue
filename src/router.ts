@@ -19,7 +19,7 @@ export default new Router({
     {
       path: '/playlistDetail/:id',
       name: 'playlistDetail',
-      component: () => import(/* webpackChunkName: "about" */ './views/PlayListDetail/index.vue')
+      component: async () => await import(/* webpackChunkName: "about" */ './views/PlayListDetail/index.vue')
     },
     {
       path: '/about',
@@ -27,34 +27,34 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About/About.vue')
+      component: async () => await import(/* webpackChunkName: "about" */ './views/About/About.vue')
     },
     {
       path: '/my_music',
       name: 'my_music',
       // 把某个路由下的所有组件都打包在同个异步块 (chunk) 中。只需要使用 命名 chunk，一个特殊的注释语法来提供 chunk name (需要 Webpack > 2.4)。
       // Webpack 会将任何一个异步模块与相同的块名称组合到相同的异步块中。
-      component: () => import(/* webpackChunkName: "mymusic" */ './views/MyMusic/MyMusic.vue')
+      component: async () => await import(/* webpackChunkName: "mymusic" */ './views/MyMusic/MyMusic.vue')
     },
     {
       path: '/personal',
       name: 'personal',
-      component: () => import(/* webpackChunkName: "personal" */ './views/Personal/index.vue')
+      component: async () => await import(/* webpackChunkName: "personal" */ './views/Personal/index.vue')
     },
     {
       path: '/temp',
       name: 'temp',
-      component: () => import(/* webpackChunkName: "temp" */ './views/Temp/index.vue')
+      component: async () => await import(/* webpackChunkName: "temp" */ './views/Temp/index.vue')
     },
     {
       path: '/d3',
       name: 'd3',
-      component: () => import(/* webpackChunkName: "d3" */ './views/D3/index.vue')
+      component: async () => await import(/* webpackChunkName: "d3" */ './views/D3/index.vue')
     },
     {
       path: '/practice',
       name: 'practice',
-      component: () => import('./views/PracticeVue/index.vue')
+      component: async () => await import('./views/PracticeVue/index.vue')
     }
   ]
 })

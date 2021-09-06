@@ -25,21 +25,28 @@
 </style>
 
 <template>
-    <el-tooltip class="item" effect="dark" placement="right" popper-class="fleet-manager-role-tooltip" >
-        <div slot="content">
-            <div class="admin-content-tooltip">A Fleet Manager<br/></div>
-        </div>
-        <el-button></el-button>
-    </el-tooltip>
+  <el-tooltip
+    class="item"
+    effect="dark"
+    placement="right"
+    popper-class="fleet-manager-role-tooltip"
+  >
+    <div slot="content">
+      <div class="admin-content-tooltip">
+        A Fleet Manager<br>
+      </div>
+    </div>
+    <el-button />
+  </el-tooltip>
 </template>
 
 <script>
 export default {
-    name: 'elTooltipHover',
-    data() {
-        return {
+  name: 'ElTooltipHover',
+  data () {
+    return {
 
-        }
     }
+  }
 }
 </script>

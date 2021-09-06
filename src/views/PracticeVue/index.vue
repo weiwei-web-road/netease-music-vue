@@ -1,15 +1,16 @@
 <template>
-    <div>Practice Vue
-        <A></A>
-    </div>
+  <div>
+    Practice Vue
+    <A />
+  </div>
 </template>
 
 <script>
-import A from './components/A';
+import A from './components/A'
 
 export default {
-    components: {
-        A
-    }
+  components: {
+    A
+  }
 }
 </script>

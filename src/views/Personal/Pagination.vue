@@ -21,7 +21,7 @@
             width:70px;
             height:20px;
             line-height: 20px;
-            
+
         }
         .el-input__prefix{
             left:97%;
@@ -88,29 +88,47 @@
 </style>
 
 <template>
-    <div class="footer-pagination" v-if="totalPageNum > 0">
-        <div class="select-row-num">
-            <span>Rows per page:</span>
-            <el-select popper-class="select-popper-container" v-model="rowValue" @change="selectGet" suffix-icon='el-icon-caret-bottom'>
-                <el-option
-                    v-for="item in options"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                >
-                </el-option>
-            </el-select>
-        </div>
-        <div class="page-num">
-            <span>Page</span>
-            <input class="input-page" type="text" v-model="currPage" @keydown="handleOnKeyDown" />
-            <span> of {{totalPageNum}}</span>
-        </div>
-        <div class="select-page">
-            <div v-bind:class="{'prev-page':true, 'no-prev-page': parseInt(String(currPage).length > 0 ? currPage : 1) <= 1}" v-on:click="prevPage()"></div>
-            <div v-bind:class="{'next-page':true, 'no-next-page': parseInt(String(currPage).length > 0 ? currPage : 1) >= totalPageNum}" v-on:click="nextPage()"></div>
-        </div>
+  <div
+    v-if="totalPageNum > 0"
+    class="footer-pagination"
+  >
+    <div class="select-row-num">
+      <span>Rows per page:</span>
+      <el-select
+        v-model="rowValue"
+        popper-class="select-popper-container"
+        suffix-icon="el-icon-caret-bottom"
+        @change="selectGet"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item"
+          :label="item"
+          :value="item"
+        />
+      </el-select>
     </div>
+    <div class="page-num">
+      <span>Page</span>
+      <input
+        v-model="currPage"
+        class="input-page"
+        type="text"
+        @keydown="handleOnKeyDown"
+      >
+      <span> of {{ totalPageNum }}</span>
+    </div>
+    <div class="select-page">
+      <div
+        :class="{'prev-page':true, 'no-prev-page': parseInt(String(currPage).length > 0 ? currPage : 1) <= 1}"
+        @click="prevPage()"
+      />
+      <div
+        :class="{'next-page':true, 'no-next-page': parseInt(String(currPage).length > 0 ? currPage : 1) >= totalPageNum}"
+        @click="nextPage()"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -118,75 +136,72 @@
  * @description 分页组件
  * @author 王亚丽
  * @param totalListNum 传给分页组件 所有数据的总数
- * @param clickPage 分页组件 $emit 出来的 offset 和 limit  
+ * @param clickPage 分页组件 $emit 出来的 offset 和 limit
  * @
  */
 export default {
-    name: 'footerPagination',
-    props: ['totalListNum'],
-    data() {
-        return {
-            rowValue: 10,
-            options: [10, 20, 50, 100],
-            currPage: 1,
-           
-        }
-    },
-    computed: {
-        totalPageNum() {
-            return Math.ceil(this.totalListNum / this.rowValue);
-        },
-    },
-    methods: {
-        selectGet(val) {
-            this.rowValue = val;
-            this.currPage = 1;
-            this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
+  name: 'FooterPagination',
+  props: ['totalListNum'],
+  data () {
+    return {
+      rowValue: 10,
+      options: [10, 20, 50, 100],
+      currPage: 1
 
-        },
-        handleOnKeyDown(event) {
-            const validateCode = [8, 13, 39, 37, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-            const code = event.which || event.keyCode;
-            const value = event.target.value;
-            if (validateCode.indexOf(code) === -1) {
-                event.preventDefault();
-            } else {
-                event.preventDefault();
-                if (code === 8) {
-                    this.inputGet(value.slice(0, -1));
-                } else if (code >= 48 && code <= 57) {
-                    this.inputGet(`${value}${code-48}`);
-                }
-            }
-        },
-        inputGet(valStr) {
-            this.currPage = valStr;
-            let page = 1;
-            if (valStr && valStr.length > 0) {
-                page = isNaN(valStr) ? 1 : parseInt(valStr);
-            }
-            this.$emit('clickPage', {offset: this.rowValue * (page > 1 ? page -1 : 0), limit: this.rowValue});
-
-        },
-        prevPage() {
-            let currPageNum = parseInt(this.currPage);
-
-            if (currPageNum > 1) {
-                currPageNum -= 1;
-                this.currPage = currPageNum;
-                this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
-            }
-        },
-        nextPage() {
-
-            let currPageNum = parseInt(this.currPage);
-
-            if (currPageNum < this.totalPageNum) {
-                currPageNum += 1;
-                this.currPage = currPageNum;
-                this.$emit('clickPage', {offset: this.rowValue * (this.currPage-1), limit: this.rowValue});
-            }
-        }
     }
+  },
+  computed: {
+    totalPageNum () {
+      return Math.ceil(this.totalListNum / this.rowValue)
+    }
+  },
+  methods: {
+    selectGet (val) {
+      this.rowValue = val
+      this.currPage = 1
+      this.$emit('clickPage', { offset: this.rowValue * (this.currPage - 1), limit: this.rowValue })
+    },
+    handleOnKeyDown (event) {
+      const validateCode = [8, 13, 39, 37, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+      const code = event.which || event.keyCode
+      const value = event.target.value
+      if (validateCode.indexOf(code) === -1) {
+        event.preventDefault()
+      } else {
+        event.preventDefault()
+        if (code === 8) {
+          this.inputGet(value.slice(0, -1))
+        } else if (code >= 48 && code <= 57) {
+          this.inputGet(`${value}${code - 48}`)
+        }
+      }
+    },
+    inputGet (valStr) {
+      this.currPage = valStr
+      let page = 1
+      if (valStr && valStr.length > 0) {
+        page = isNaN(valStr) ? 1 : parseInt(valStr)
+      }
+      this.$emit('clickPage', { offset: this.rowValue * (page > 1 ? page - 1 : 0), limit: this.rowValue })
+    },
+    prevPage () {
+      let currPageNum = parseInt(this.currPage)
+
+      if (currPageNum > 1) {
+        currPageNum -= 1
+        this.currPage = currPageNum
+        this.$emit('clickPage', { offset: this.rowValue * (this.currPage - 1), limit: this.rowValue })
+      }
+    },
+    nextPage () {
+      let currPageNum = parseInt(this.currPage)
+
+      if (currPageNum < this.totalPageNum) {
+        currPageNum += 1
+        this.currPage = currPageNum
+        this.$emit('clickPage', { offset: this.rowValue * (this.currPage - 1), limit: this.rowValue })
+      }
+    }
+  }
 }
 </script>

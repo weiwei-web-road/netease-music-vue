@@ -49,50 +49,60 @@
     }
 </style>
 
-
 <template>
-    <div class="song-list-container">
-        <div class="title">收藏的歌单({{data.length}})</div>
-        <div class="song-list" v-for="(music, index) in data" v-bind:key="index" v-on:click="playListClick(music.id)">
-            <div class="image"> 
-                <img v-bind:src="music.coverImgUrl">
-            </div>
-            <div class="song-list-content">
-                <div class="song-list-name">{{music.name}}</div>
-                <div class="song-list-info">
-                    <div class="song-length">{{music.trackCount}}首&ensp; </div>
-                    <div class="song-author">by {{music.creatorNickName}}</div>
-                </div>
-            </div>
-        </div>
+  <div class="song-list-container">
+    <div class="title">
+      收藏的歌单({{ data.length }})
     </div>
+    <div
+      v-for="(music, index) in data"
+      :key="index"
+      class="song-list"
+      @click="playListClick(music.id)"
+    >
+      <div class="image">
+        <img :src="music.coverImgUrl">
+      </div>
+      <div class="song-list-content">
+        <div class="song-list-name">
+          {{ music.name }}
+        </div>
+        <div class="song-list-info">
+          <div class="song-length">
+            {{ music.trackCount }}首&ensp;
+          </div>
+          <div class="song-author">
+            by {{ music.creatorNickName }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import Vue from 'vue';
-import Vuex from 'vuex';
-Vue.use(Vuex);
+import Vuex, { mapActions } from 'vuex'
+import Vue from 'vue'
+Vue.use(Vuex)
 
 export default {
-    name: 'LeftTitle',
-    data() {
-        return {
-                
-        }
-    },
-    methods: {
-        ...mapActions({
-            fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync',
-        }),
-        playListClick: function(value) {
-            
-            this.fetchMyPlayListDetailAsync({
-                id: value,
-            })
-        }
-    },
-    
-    props: ['data'],
+  name: 'LeftTitle',
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    ...mapActions({
+      fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync'
+    }),
+    playListClick: function (value) {
+      this.fetchMyPlayListDetailAsync({
+        id: value
+      })
+    }
+  },
+
+  props: ['data']
 }
 </script>

@@ -3,13 +3,13 @@
     input::-webkit-input-placeholder{
         color:#4c5c6a;
     }
-    input::-moz-placeholder{   
+    input::-moz-placeholder{
         color:#4c5c6a;
     }
-    input:-moz-placeholder{    
+    input:-moz-placeholder{
         color:#4c5c6a;
     }
-    input:-ms-input-placeholder{  
+    input:-ms-input-placeholder{
         color:#4c5c6a;
     }
     .data-con{
@@ -17,7 +17,7 @@
         div{
             width:100%;
         }
-        
+
         .el-input__inner{
             border-radius:2px;
             border:1px solid #e4e8eb;
@@ -39,7 +39,7 @@
             font-size:18px;
         }
     }
-    
+
 }
 .doublDate{
     .el-date-editor .el-range-separator{
@@ -68,72 +68,71 @@
         width:60%;
         // background-color:red;
     }
-     
+
 }
 </style>
 <template>
-    <div class='searchDate doublDate'>
-        <div class='data-con'>
-            <el-date-picker :start-placeholder="initMsg" format="MMM d, yyyy"
-            v-model="value"
-            type='daterange'
-            unlink-panels
-            :picker-options="pickerOptions0"
-            @change='getChange'
-            :clearable='false'
-            >
-            </el-date-picker>
-        </div>
+  <div class="searchDate doublDate">
+    <div class="data-con">
+      <el-date-picker
+        v-model="value"
+        :start-placeholder="initMsg"
+        format="MMM d, yyyy"
+        type="daterange"
+        unlink-panels
+        :picker-options="pickerOptions0"
+        :clearable="false"
+        @change="getChange"
+      />
     </div>
+  </div>
 </template>
 <script type="text/javascript">
-import moment from 'moment';
+import moment from 'moment'
 
-  export default {
-    name: 'limitDoubleDateSearch',
-    components: {
+export default {
+  name: 'LimitDoubleDateSearch',
+  components: {
 
-    },
-    props:['initMsg', 'getData'],
-    data () {
-        return {
-            value:'',
-            pickerOptions0:{
-                disabledDate(time) {
-                    return time.getTime() > Date.now() || time.getTime() <= new Date(Date.now() - 30*24*3600*1000);
-
-                },
-            }
+  },
+  props: ['initMsg', 'getData'],
+  data () {
+    return {
+      value: '',
+      pickerOptions0: {
+        disabledDate (time) {
+          return time.getTime() > Date.now() || time.getTime() <= new Date(Date.now() - 30 * 24 * 3600 * 1000)
         }
-    },
-    mounted() {
-        this.dataInit();
-    },
-    created() {
+      }
+    }
+  },
+  mounted () {
+    this.dataInit()
+  },
+  created () {
 
+  },
+  methods: {
+    dataInit () {
+      const date = new Date()
+      const temp = new Date(date - 6 * 24 * 3600 * 1000)
+      const form = moment(date).format().split('T')[0]
+      const endTime = moment(temp).format().split('T')[0]
+      this.value = [endTime, form]
     },
-    methods:{
-        dataInit(){
-            let date = new Date();
-            let temp = new Date(date - 6*24*3600*1000);
-            let form = moment(date).format().split('T')[0];
-            let endTime = moment( temp).format().split('T')[0];
-            this.value = [endTime,form];
-        },
-        getChange(value) {
-            if(value){
-                // $('.searchDate').removeClass('doublDateInit').addClass('doublDate');
-                let temp = [];
-                value.forEach(element => {
-                    temp.push(moment(element).format().split('T')[0]);
-                });
-                this.getData(temp);
-
-            }else{
-                // $('.searchDate').removeClass('doublDate').addClass('doublDateInit');
-                this.getData(value);
-            }  
-        },
-    } 
- }
+    getChange (value) {
+      if (value) {
+        // $('.searchDate').removeClass('doublDateInit').addClass('doublDate');
+        const temp = []
+        value.forEach(element => {
+          temp.push(moment(element).format().split('T')[0])
+        })
+        this.getData(temp)
+      } else {
+        // $('.searchDate').removeClass('doublDate').addClass('doublDateInit');
+        this.getData(value)
+      }
+    }
+  }
+}
 </script>

@@ -53,7 +53,7 @@
                     > .name {
                         font-size: 20px;
                         color: #333333;
-                        
+
                     }
                 }
                 > .song-author {
@@ -168,7 +168,7 @@
 
                     // }
                 }
-                
+
             }
         }
         .song-list-container {
@@ -222,7 +222,7 @@
             > .border-right {
                 border-right: 1px solid #d6d6d6;
             }
-            
+
         }
         .first-title {
             width: 54px;
@@ -238,7 +238,7 @@
         }
         .fifth-title {
             width: 102px;
-            
+
         }
         > .song-list-content {
             padding-top: 2px;
@@ -272,260 +272,315 @@
         > .odd {
             background-color: #f7f7f7;
         }
-        
+
     }
-    
+
 </style>
 
-
 <template>
-    <div class="song-content-container">
-        <div :class="{'song-introduction':true}">
-            <div class="image-border">
-                <img v-bind:src="myPlayListDetail.coverImgUrl">
-            </div>
-            <div class="introduction-content">
-                <div class="song-name">
-                    <div class="song-list-icon">
-                        <span class="icon"></span>
-                    </div>
-                    <div class="name">{{myPlayListDetail.name}}
-                    </div>
-                </div>
-
-                <div class="song-author">
-                    <img v-bind:src="myPlayListDetail.creatorAvatarUrl">
-                    <div class="author-name">{{myPlayListDetail.creatorNickName}}
-                    </div>
-                    <div class="create-time">{{myPlayListDetail.createTime | dateformat('YYYY-MM-DD')}} 创建
-                    </div>
-                </div>
-
-                <div class="song-play-button" @click="addToPlayingSongList">
-                    <div class="play-icon"></div>
-                    <div class="play">播放</div>
-                </div>
-
-                <div class="song-mark" v-if="myPlayListDetail.tags && myPlayListDetail.tags.length > 0">
-                    <div class="mark">标签：</div>
-                    
-                    <div class="mark-content" v-for="mark in myPlayListDetail.tags" v-bind:key="mark">
-                        {{mark}}
-                    </div>
-
-                </div>
-
-                <p ref="description" v-bind:class="{ 'song-detail': true, 'closed': !opened }">
-                    {{myPlayListDetail.description}}
-                </p>
-                <div v-if="isCanOpen" class="detail-operation-btn" v-on:click="handleDescriptionToggle">
-                    <span>{{ opened ? '收起' : '展开' }}</span>
-                    <!-- <span v-bind:class="{openIcon: !opened, closeIcon: opened}">5656</span> -->
-                </div>
-            </div>
-        </div>
-        <div :class="{'song-list-container':true}">
-            <div class="left-side">
-                <div class="song-list-name">歌曲列表</div>
-                <div class="song-list-length">{{myPlayListDetail.trackCount}}首歌</div>
-            </div>
-            <div class="play-count">播放：<span>{{myPlayListDetail.playCount}}</span> 次</div>
-        </div>
-        <div :class="{'song-list-table':true}">
-            <div class="first-title common border-right">&nbsp;</div>
-            <div class="second-title common border-right">歌曲标题</div>
-            <div class="third-title common border-right">时长</div>
-            <div class="fourth-title common border-right">歌手</div>
-            <div class="fifth-title common">专辑</div>
+  <div class="song-content-container">
+    <div :class="{'song-introduction':true}">
+      <div class="image-border">
+        <img :src="myPlayListDetail.coverImgUrl">
+      </div>
+      <div class="introduction-content">
+        <div class="song-name">
+          <div class="song-list-icon">
+            <span class="icon" />
+          </div>
+          <div class="name">
+            {{ myPlayListDetail.name }}
+          </div>
         </div>
 
-        <div v-bind:class="{'song-list-content': true, odd: index%2===0}" v-for="(item, index) in myPlayListDetail.tracks" v-bind:key="index">
-            <div class="first-title common">{{index+1}}
-                <span class="play-icon" @click="handlePlay(item)"></span>
-            </div>
-            <div class="second-title common black-color">{{item.name}}</div>
-            <div class="third-title common">{{item.durationTime | dateformat('mm:ss')}}</div>
-            <div class="fourth-title common black-color">
-                <span v-for="(author, index) in item.author" v-bind:key="index">{{author.name}}</span>
-            </div>
-            <div class="fifth-title common black-color">{{item.collection}}</div>           
+        <div class="song-author">
+          <img :src="myPlayListDetail.creatorAvatarUrl">
+          <div class="author-name">
+            {{ myPlayListDetail.creatorNickName }}
+          </div>
+          <div class="create-time">
+            {{ myPlayListDetail.createTime | dateformat('YYYY-MM-DD') }} 创建
+          </div>
         </div>
+
+        <div
+          class="song-play-button"
+          @click="addToPlayingSongList"
+        >
+          <div class="play-icon" />
+          <div class="play">
+            播放
+          </div>
+        </div>
+
+        <div
+          v-if="myPlayListDetail.tags && myPlayListDetail.tags.length > 0"
+          class="song-mark"
+        >
+          <div class="mark">
+            标签：
+          </div>
+
+          <div
+            v-for="mark in myPlayListDetail.tags"
+            :key="mark"
+            class="mark-content"
+          >
+            {{ mark }}
+          </div>
+        </div>
+
+        <p
+          ref="description"
+          :class="{ 'song-detail': true, 'closed': !opened }"
+        >
+          {{ myPlayListDetail.description }}
+        </p>
+        <div
+          v-if="isCanOpen"
+          class="detail-operation-btn"
+          @click="handleDescriptionToggle"
+        >
+          <span>{{ opened ? '收起' : '展开' }}</span>
+          <!-- <span v-bind:class="{openIcon: !opened, closeIcon: opened}">5656</span> -->
+        </div>
+      </div>
     </div>
+    <div :class="{'song-list-container':true}">
+      <div class="left-side">
+        <div class="song-list-name">
+          歌曲列表
+        </div>
+        <div class="song-list-length">
+          {{ myPlayListDetail.trackCount }}首歌
+        </div>
+      </div>
+      <div class="play-count">
+        播放：<span>{{ myPlayListDetail.playCount }}</span> 次
+      </div>
+    </div>
+    <div :class="{'song-list-table':true}">
+      <div class="first-title common border-right">
+&nbsp;
+      </div>
+      <div class="second-title common border-right">
+        歌曲标题
+      </div>
+      <div class="third-title common border-right">
+        时长
+      </div>
+      <div class="fourth-title common border-right">
+        歌手
+      </div>
+      <div class="fifth-title common">
+        专辑
+      </div>
+    </div>
+
+    <div
+      v-for="(item, index) in myPlayListDetail.tracks"
+      :key="index"
+      :class="{'song-list-content': true, odd: index%2===0}"
+    >
+      <div class="first-title common">
+        {{ index+1 }}
+        <span
+          class="play-icon"
+          @click="handlePlay(item)"
+        />
+      </div>
+      <div class="second-title common black-color">
+        {{ item.name }}
+      </div>
+      <div class="third-title common">
+        {{ item.durationTime | dateformat('mm:ss') }}
+      </div>
+      <div class="fourth-title common black-color">
+        <span
+          v-for="(author, index) in item.author"
+          :key="index"
+        >{{ author.name }}</span>
+      </div>
+      <div class="fifth-title common black-color">
+        {{ item.collection }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { localStorageSetItem, localStorageGetItem } from '../../utils/index';
+import { mapState, mapActions } from 'vuex'
+import { localStorageSetItem, localStorageGetItem } from '../../utils/index'
 
 export default {
-    name: 'RightContent',
-    data() {
-        return {
-            opened: false, // 当前状态不是 open 的
-            isCanOpen: false, // 是否有展开按钮
-            isReComputed: false
-        }
-    },
-    props: ['myPlayListDetail'],
-    watch: {
-        // 实时监视着 myPlayListDetail， 当其变化时，执行function
-        // 当点击其他的 play list 时， myPlayListDetail 会发生变化，需要重新计算，所以设置isReComputed = true，update 函数会执行
-        myPlayListDetail: function () {
-            this.opened = false;
-            this.isReComputed = true;
-        }
-    },
-    computed: {
-        ...mapState({
-            isPlaying: state => state.isPlaying,
-        })
-    },
-    methods: {
-        ...mapActions({
-            getPlayingSongInfo: 'getPlayingSongInfo',
-            getLyric: 'getLyric',
-            updateIsPlaying: 'updateIsPlaying',
-        }),
-        handlePlay(param) {
-            const id = param.id;
-            const coverImgUrl = this.myPlayListDetail.coverImgUrl;
-            const src = this.myPlayListDetail.songUrlMap[param.id];
-            const playListId = this.myPlayListDetail.id;
-            const author = param.author;
-            const name = param.name;
-            const payload = {
-                id: id,
-                src: src,
-                coverImgUrl: coverImgUrl,
-                songName: name,
-                playListId: playListId,
-                author: author
-            }
-            this.getPlayingSongInfo(payload);
-            const data = {
-                id: id,
-                name: name,
-                author: author,
-                collection: param.collection,
-                durationTime: param.durationTime,
-                coverImgUrl: coverImgUrl,
-                playListId: playListId,
-                src: src,
-            }
-            const playingSongObj = localStorageGetItem('playingSongObj');
-            const playingSongIdArr = localStorageGetItem('playingSongIdArr');
-
-            if (!playingSongObj.hasOwnProperty(id)) {
-                playingSongObj[id] = data;
-                playingSongIdArr.push(id);
-            }
-            localStorageSetItem('playingSongObj', playingSongObj);
-            localStorageSetItem('playingSongIdArr', playingSongIdArr);
-
-            this.getLyric({id: id});
-
-            const initPlay = {
-                isPlaying: this.isPlaying,
-                showSongList: false,
-            }
-            this.updateIsPlaying(initPlay);
-        },
-        computeIsClosed: function () {
-            // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
-            // refs:一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例 注意：refs只会在组件渲染完成之后生效，并且它们不是响应式的
-            if (this.$refs.description) {
-                const clientHeight = this.$refs.description.clientHeight; // 可视窗口的高度
-                const scrollHeight = this.$refs.description.scrollHeight; // 文档或元素真实的高度，相对 Scroll 的高度
-                return clientHeight < scrollHeight;
-            }else {
-                return false;
-            }
-        },
-        handleDescriptionToggle: function () {
-            this.opened = !this.opened;
-        },
-        addToPlayingSongList() {
-            const tracks = this.myPlayListDetail.tracks;
-            const songUrlMap = this.myPlayListDetail.songUrlMap;
-            const coverImgUrl = this.myPlayListDetail.coverImgUrl;
-            const playListId = this.myPlayListDetail.id;
-            const playingSongObj = localStorageGetItem('playingSongObj');
-            let playingSongIdArr = localStorageGetItem('playingSongIdArr');
-            if (Object.keys(playingSongIdArr).length === 0) {
-                playingSongIdArr = [];
-            }
-            tracks.forEach((item) => {
-                const id = item.id;
-                if (!playingSongObj.hasOwnProperty(id)) {
-                    const url = songUrlMap[id];
-                    item['src'] = url;
-                    item['coverImgUrl'] = coverImgUrl;
-                    item['playListId'] = playListId;
-                    playingSongObj[id] = item;
-                    playingSongIdArr.push(id);
-                }
-            });
-            localStorageSetItem('playingSongObj', playingSongObj);
-            localStorageSetItem('playingSongIdArr', playingSongIdArr);
-            
-            if (tracks.length > 0) {
-                const track = tracks[0];
-                const id = track.id;
-                const coverImgUrl = this.myPlayListDetail.coverImgUrl;
-                const src = this.myPlayListDetail.songUrlMap[track.id];
-                const playListId = this.myPlayListDetail.id;
-                const author = track.author;
-                const name = track.name;
-                const payload = {
-                    id: id,
-                    src: src,
-                    coverImgUrl: coverImgUrl,
-                    songName: name,
-                    playListId: playListId,
-                    author: author
-                }
-                this.getPlayingSongInfo(payload);
-            }
-        }
-    },
-
-    // 实例挂载到DOM之后，生成DOM节点之后调用
-    mounted: function () {
-        // nextTick是全局vue的一个函数，在vue系统中，用于处理dom更新的操作。vue里面有一个watcher，用于观察数据的变化，然后更新dom，vue里面并不是每次数据改变都会触发更新dom，而是将这些操作都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
-        // Vue.js实现了一个queue队列，在下一个tick的时候会统一执行queue中Watcher的run。同时，拥有相同id的Watcher不会被重复加入到该queue中去
-        // 保证更新视图操作DOM的动作是在当前栈执行完以后下一个tick的时候调用，大大优化了性能。
-        // 异步更新Dom操作
-        this.$nextTick(function () {
-            const isClosed = this.computeIsClosed();
-            if (isClosed) {
-                // 初始化是展开的，则isCanOpen is true
-                this.opened = !isClosed;
-                this.isCanOpen = true;
-            } else {
-                this.opened = false;
-                this.isCanOpen = false;
-            }
-        }); 
-    },
-    updated: function () {
-        // 当点击其他的 play list 时，isReComputed = true，在updated 中 的 $nextTick 中，重新计算
-        // 把$nextTick 中的操作 都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
-        this.$nextTick(function () {
-            // Code that will run only after the
-            // entire view has been re-rendered
-            if (this.isReComputed) {
-                const isClosed = this.computeIsClosed();
-                if (isClosed) {
-                    // 初始化是展开的，则isCanOpen is true
-                    this.opened = !isClosed;
-                    this.isCanOpen = true;
-                } else {
-                    this.opened = false;
-                    this.isCanOpen = false;
-                }
-                this.isReComputed = false;
-            }
-        })
+  name: 'RightContent',
+  props: ['myPlayListDetail'],
+  data () {
+    return {
+      opened: false, // 当前状态不是 open 的
+      isCanOpen: false, // 是否有展开按钮
+      isReComputed: false
     }
+  },
+  watch: {
+    // 实时监视着 myPlayListDetail， 当其变化时，执行function
+    // 当点击其他的 play list 时， myPlayListDetail 会发生变化，需要重新计算，所以设置isReComputed = true，update 函数会执行
+    myPlayListDetail: function () {
+      this.opened = false
+      this.isReComputed = true
+    }
+  },
+  computed: {
+    ...mapState({
+      isPlaying: state => state.isPlaying
+    })
+  },
+  methods: {
+    ...mapActions({
+      getPlayingSongInfo: 'getPlayingSongInfo',
+      getLyric: 'getLyric',
+      updateIsPlaying: 'updateIsPlaying'
+    }),
+    handlePlay (param) {
+      const id = param.id
+      const coverImgUrl = this.myPlayListDetail.coverImgUrl
+      const src = this.myPlayListDetail.songUrlMap[param.id]
+      const playListId = this.myPlayListDetail.id
+      const author = param.author
+      const name = param.name
+      const payload = {
+        id: id,
+        src: src,
+        coverImgUrl: coverImgUrl,
+        songName: name,
+        playListId: playListId,
+        author: author
+      }
+      this.getPlayingSongInfo(payload)
+      const data = {
+        id: id,
+        name: name,
+        author: author,
+        collection: param.collection,
+        durationTime: param.durationTime,
+        coverImgUrl: coverImgUrl,
+        playListId: playListId,
+        src: src
+      }
+      const playingSongObj = localStorageGetItem('playingSongObj')
+      const playingSongIdArr = localStorageGetItem('playingSongIdArr')
+
+      if (!playingSongObj.hasOwnProperty(id)) {
+        playingSongObj[id] = data
+        playingSongIdArr.push(id)
+      }
+      localStorageSetItem('playingSongObj', playingSongObj)
+      localStorageSetItem('playingSongIdArr', playingSongIdArr)
+
+      this.getLyric({ id: id })
+
+      const initPlay = {
+        isPlaying: this.isPlaying,
+        showSongList: false
+      }
+      this.updateIsPlaying(initPlay)
+    },
+    computeIsClosed: function () {
+      // ref 加在普通的元素上，用this.ref.name 获取到的是dom元素
+      // refs:一个对象，持有注册过 ref 特性 的所有 DOM 元素和组件实例 注意：refs只会在组件渲染完成之后生效，并且它们不是响应式的
+      if (this.$refs.description) {
+        const clientHeight = this.$refs.description.clientHeight // 可视窗口的高度
+        const scrollHeight = this.$refs.description.scrollHeight // 文档或元素真实的高度，相对 Scroll 的高度
+        return clientHeight < scrollHeight
+      } else {
+        return false
+      }
+    },
+    handleDescriptionToggle: function () {
+      this.opened = !this.opened
+    },
+    addToPlayingSongList () {
+      const tracks = this.myPlayListDetail.tracks
+      const songUrlMap = this.myPlayListDetail.songUrlMap
+      const coverImgUrl = this.myPlayListDetail.coverImgUrl
+      const playListId = this.myPlayListDetail.id
+      const playingSongObj = localStorageGetItem('playingSongObj')
+      let playingSongIdArr = localStorageGetItem('playingSongIdArr')
+      if (Object.keys(playingSongIdArr).length === 0) {
+        playingSongIdArr = []
+      }
+      tracks.forEach((item) => {
+        const id = item.id
+        if (!playingSongObj.hasOwnProperty(id)) {
+          const url = songUrlMap[id]
+          item.src = url
+          item.coverImgUrl = coverImgUrl
+          item.playListId = playListId
+          playingSongObj[id] = item
+          playingSongIdArr.push(id)
+        }
+      })
+      localStorageSetItem('playingSongObj', playingSongObj)
+      localStorageSetItem('playingSongIdArr', playingSongIdArr)
+
+      if (tracks.length > 0) {
+        const track = tracks[0]
+        const id = track.id
+        const coverImgUrl = this.myPlayListDetail.coverImgUrl
+        const src = this.myPlayListDetail.songUrlMap[track.id]
+        const playListId = this.myPlayListDetail.id
+        const author = track.author
+        const name = track.name
+        const payload = {
+          id: id,
+          src: src,
+          coverImgUrl: coverImgUrl,
+          songName: name,
+          playListId: playListId,
+          author: author
+        }
+        this.getPlayingSongInfo(payload)
+      }
+    }
+  },
+
+  // 实例挂载到DOM之后，生成DOM节点之后调用
+  mounted: function () {
+    // nextTick是全局vue的一个函数，在vue系统中，用于处理dom更新的操作。vue里面有一个watcher，用于观察数据的变化，然后更新dom，vue里面并不是每次数据改变都会触发更新dom，而是将这些操作都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
+    // Vue.js实现了一个queue队列，在下一个tick的时候会统一执行queue中Watcher的run。同时，拥有相同id的Watcher不会被重复加入到该queue中去
+    // 保证更新视图操作DOM的动作是在当前栈执行完以后下一个tick的时候调用，大大优化了性能。
+    // 异步更新Dom操作
+    this.$nextTick(function () {
+      const isClosed = this.computeIsClosed()
+      if (isClosed) {
+        // 初始化是展开的，则isCanOpen is true
+        this.opened = !isClosed
+        this.isCanOpen = true
+      } else {
+        this.opened = false
+        this.isCanOpen = false
+      }
+    })
+  },
+  updated: function () {
+    // 当点击其他的 play list 时，isReComputed = true，在updated 中 的 $nextTick 中，重新计算
+    // 把$nextTick 中的操作 都缓存在一个队列，在一个事件循环结束之后，刷新队列，统一执行dom更新操作。
+    this.$nextTick(function () {
+      // Code that will run only after the
+      // entire view has been re-rendered
+      if (this.isReComputed) {
+        const isClosed = this.computeIsClosed()
+        if (isClosed) {
+          // 初始化是展开的，则isCanOpen is true
+          this.opened = !isClosed
+          this.isCanOpen = true
+        } else {
+          this.opened = false
+          this.isCanOpen = false
+        }
+        this.isReComputed = false
+      }
+    })
+  }
 }
 </script>

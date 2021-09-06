@@ -69,55 +69,55 @@
     }
 </style>
 <template>
-    <div class='netease-header'>
-        <div class='container'>
-            <div class='icon'></div>
-            <div
-                v-bind:class="{ 'top-bar-item': true, selected: item === selectIndex }" 
-                v-for='item in topBar' 
-                v-bind:key='item'
-                v-on:click="handleItemClick"
-            >
-                <em>{{item}}</em>
-                <sub>&nbsp;</sub>
-            </div>
-        </div>
-        <div class="header-bottom"></div>
+  <div class="netease-header">
+    <div class="container">
+      <div class="icon" />
+      <div
+        v-for="item in topBar"
+        :key="item"
+        :class="{ 'top-bar-item': true, selected: item === selectIndex }"
+        @click="handleItemClick"
+      >
+        <em>{{ item }}</em>
+        <sub>&nbsp;</sub>
+      </div>
     </div>
+    <div class="header-bottom" />
+  </div>
 </template>
 
 <script>
 const PATH_MAP = {
-    '/': '发现音乐',
-    '/my_music': '我的音乐',
-    '/playlistDetail/:id': '发现音乐',
-};
+  '/': '发现音乐',
+  '/my_music': '我的音乐',
+  '/playlistDetail/:id': '发现音乐'
+}
 const ROUTE_MAP = {
-    '发现音乐': '/',
-    '我的音乐': '/my_music'
-};
+  发现音乐: '/',
+  我的音乐: '/my_music'
+}
 export default {
-    data() {
-        return {
-            topBar: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
-            selectIndex: PATH_MAP[this.$route.path] || PATH_MAP[this.$route.matched[0].path],
-            currentPath: this.$route.path
-        };
-    },
-    methods: {
-        handleItemClick: function(event) {
-            // 事件冒泡会从当前触发的事件目标一级一级往上传递，依次触发，直到document为止。
-            // 事件捕获会从document开始触发，一级一级往下传递，依次触发，直到真正事件目标为止。
-            // 通过stopPropagation()在子元素上阻止冒泡, 不再派发事件。
-            event.stopPropagation();
-            const value = event.target.innerText;
-            this.selectIndex = value;
-          
-            if (ROUTE_MAP[this.selectIndex]) {
-                // 想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。
-                this.$router.push(ROUTE_MAP[this.selectIndex]);
-            }
-        }
+  data () {
+    return {
+      topBar: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
+      selectIndex: PATH_MAP[this.$route.path] || PATH_MAP[this.$route.matched[0].path],
+      currentPath: this.$route.path
     }
+  },
+  methods: {
+    handleItemClick: function (event) {
+      // 事件冒泡会从当前触发的事件目标一级一级往上传递，依次触发，直到document为止。
+      // 事件捕获会从document开始触发，一级一级往下传递，依次触发，直到真正事件目标为止。
+      // 通过stopPropagation()在子元素上阻止冒泡, 不再派发事件。
+      event.stopPropagation()
+      const value = event.target.innerText
+      this.selectIndex = value
+
+      if (ROUTE_MAP[this.selectIndex]) {
+        // 想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL。
+        this.$router.push(ROUTE_MAP[this.selectIndex])
+      }
+    }
+  }
 }
 </script>

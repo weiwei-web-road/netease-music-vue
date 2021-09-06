@@ -29,11 +29,11 @@
                 }
             }
             > .blank {
-                width: 88px;  
+                width: 88px;
                 &:hover .delete{
                     visibility: visible;
                     cursor: pointer;
-                }  
+                }
                 > .delete {
                     width: 13px;
                     height: 16px;
@@ -41,7 +41,7 @@
                     background-image: url('../assets/playlist.png');
                     background-position: -51px 0;
                     background-repeat: no-repeat;
-                    visibility: hidden; 
+                    visibility: hidden;
                 }
             }
             > .author {
@@ -69,7 +69,7 @@
                     background-repeat: no-repeat;
                     // cursor: pointer;
                 }
-                
+
             }
         }
         > .selected {
@@ -83,39 +83,57 @@
 </style>
 
 <template>
-    <div class="song-list-container-left">
-        <div :class="{'song-item':true, 'selected': item.id === playingSong.id}" v-for="item in playSongList" v-bind:key="item.id">
-            <div class="common name" @click="handlePlay(item)">{{item.name}}</div>
-            <div class="common blank">
-                <div class="delete" @click="deleteSongList(item.id)"></div>
-            </div>
-            <div class="common author">{{item.author[0].name}}</div>
-            <div class="common duration">{{item.durationTime | dateformat('mm:ss')}}</div>
-            <div class="source"><a></a></div>
-        </div>
+  <div class="song-list-container-left">
+    <div
+      v-for="item in playSongList"
+      :key="item.id"
+      :class="{'song-item':true, 'selected': item.id === playingSong.id}"
+    >
+      <div
+        class="common name"
+        @click="handlePlay(item)"
+      >
+        {{ item.name }}
+      </div>
+      <div class="common blank">
+        <div
+          class="delete"
+          @click="deleteSongList(item.id)"
+        />
+      </div>
+      <div class="common author">
+        {{ item.author[0].name }}
+      </div>
+      <div class="common duration">
+        {{ item.durationTime | dateformat('mm:ss') }}
+      </div>
+      <div class="source">
+        <a />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from 'vuex'
 // 点击显示播放列表时，会调用
 // 在显示播放列表的情况下，切换页面，会调用
 export default {
-    name: 'song-list',
-    props: ['playingSong', 'playSongList'],
-    methods: {
-        ...mapActions({
-            getPlayingSongInfo: 'getPlayingSongInfo',
-        }),
-        closeSongList() {
-            this.$emit('closeSongList');
-        },
-        handlePlay(param) {
-            this.$emit('handlePlay', param);
-        },
-        deleteSongList(param) {
-            this.$emit('deleteSongList', param);
-        },
+  name: 'SongList',
+  props: ['playingSong', 'playSongList'],
+  methods: {
+    ...mapActions({
+      getPlayingSongInfo: 'getPlayingSongInfo'
+    }),
+    closeSongList () {
+      this.$emit('closeSongList')
+    },
+    handlePlay (param) {
+      this.$emit('handlePlay', param)
+    },
+    deleteSongList (param) {
+      this.$emit('deleteSongList', param)
     }
+  }
 }
 </script>

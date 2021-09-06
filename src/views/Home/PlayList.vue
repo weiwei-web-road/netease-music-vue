@@ -66,52 +66,63 @@
 </style>
 
 <template>
-    <div class="music-card-layout"> 
-        <div class="card-row" 
-          v-for="(item, index) in localData" v-bind:key="index">
-          <div class="card-column"
-            v-for="subitem in item"
-            v-bind:key="subitem.id" @click="JumpToDetail(subitem.id)">
-              <div class="playlist-cover-image">
-                <img v-bind:src="subitem.coverImage"/>
-                <div class="play-count">播放量： {{convertNumFormat(subitem.playCount)}}</div>
-              </div>
-              <p class="playlist-name">{{subitem.name}}</p>
-              <p class="playlist-user-name">by {{subitem.userName}}</p>
+  <div class="music-card-layout">
+    <div
+      v-for="(item, index) in localData"
+      :key="index"
+      class="card-row"
+    >
+      <div
+        v-for="subitem in item"
+        :key="subitem.id"
+        class="card-column"
+        @click="JumpToDetail(subitem.id)"
+      >
+        <div class="playlist-cover-image">
+          <img :src="subitem.coverImage">
+          <div class="play-count">
+            播放量： {{ convertNumFormat(subitem.playCount) }}
           </div>
         </div>
+        <p class="playlist-name">
+          {{ subitem.name }}
+        </p>
+        <p class="playlist-user-name">
+          by {{ subitem.userName }}
+        </p>
+      </div>
     </div>
+  </div>
 </template>
-
 
 <script>
 export default {
   name: 'PlayList',
-  data() {
-    return {};
+  props: ['data'],
+  data () {
+    return {}
   },
   computed: {
     localData: function () {
       // 前面是 handler 函数，后面是 初始的值。handler 的初始返回值与初始值保持一致。
       return this.data.reduce((prev, curr, index) => {
         if (index % 5 === 0) {
-          prev.push([curr]);
+          prev.push([curr])
         } else {
-          const temp = prev.pop();
-          temp.push(curr);
-          prev.push(temp);
+          const temp = prev.pop()
+          temp.push(curr)
+          prev.push(temp)
         }
-        return prev;
+        return prev
       }, [])
     }
   },
-  props: ['data'],
   methods: {
-    convertNumFormat(param) {
-      const temp = param / 10000;
-      return temp.toFixed(0) > 0 ? temp.toFixed(0)+'万' : param;
+    convertNumFormat (param) {
+      const temp = param / 10000
+      return temp.toFixed(0) > 0 ? temp.toFixed(0) + '万' : param
     },
-    JumpToDetail(param) {
+    JumpToDetail (param) {
       this.$router.push({
         path: `/playlistDetail/${param}`
       })

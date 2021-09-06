@@ -31,7 +31,7 @@
             // 2: 水平居中方法二， use transform
             // margin-left: 50%;
             // transform: translate(-50%);
-            
+
             // box-sizing: content-box; // 默认，设置的width 作用于content
             box-sizing: border-box; // 总的展示宽度是 content + border + margin
             margin-top: 5px;
@@ -133,48 +133,68 @@
 </style>
 
 <template>
-    <div class='netease-layout'>
-        <div class='header'> 
-            <Header></Header>
-        </div>
-        <section>
-            <slot name="music-card"></slot>
-            <slot name="song-card"></slot>
-        </section>
-        <div class='footer'>
-            <slot name="footer-content">
-                <!-- 如果没有响应的slot，就用这个默认的Footer -->
-                <Footer></Footer>
-            </slot>
-        </div>
-        <div class="footer-auto-visible">
-            <div :class="style.footerContainer" @mouseenter="handleFooterEnter" @mouseleave="handleFooterLeave">
-              <div class="updn"><div @click="handleAutoVisible" :class="style.autovisible"></div></div>
-              <div class="updn-right"></div>
-              <div class="bg" title="背景"></div>
-              <div class="hand" title="展开播放器"></div>
-              <div class="player"><Player :playingSong="playingSong" @clockPlayer="clockPlayer"></Player></div>
-            </div>
-        </div>
+  <div class="netease-layout">
+    <div class="header">
+      <Header />
     </div>
+    <section>
+      <slot name="music-card" />
+      <slot name="song-card" />
+    </section>
+    <div class="footer">
+      <slot name="footer-content">
+        <!-- 如果没有响应的slot，就用这个默认的Footer -->
+        <Footer />
+      </slot>
+    </div>
+    <div class="footer-auto-visible">
+      <div
+        :class="style.footerContainer"
+        @mouseenter="handleFooterEnter"
+        @mouseleave="handleFooterLeave"
+      >
+        <div class="updn">
+          <div
+            :class="style.autovisible"
+            @click="handleAutoVisible"
+          />
+        </div>
+        <div class="updn-right" />
+        <div
+          class="bg"
+          title="背景"
+        />
+        <div
+          class="hand"
+          title="展开播放器"
+        />
+        <div class="player">
+          <Player
+            :playing-song="playingSong"
+            @clockPlayer="clockPlayer"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Footer from './Footer';
-import Header from './Header';
-import Player from './Player';
-import { mapState } from 'vuex';
+import Footer from './Footer'
+import Header from './Header'
+import Player from './Player'
+import { mapState } from 'vuex'
 // 每次切换页面时，Layout 和 Header，Footer 组件会再次调用。
 export default {
   name: 'Layout',
-  data() {
-      return {
-          autovisible: false, // 
-          footerVisible: false,  // 12
-          mouseOver: false,  // 
-          animationState: false,  // 
-          showSongList: false,
-      };
+  data () {
+    return {
+      autovisible: false, //
+      footerVisible: false, // 12
+      mouseOver: false, //
+      animationState: false, //
+      showSongList: false
+    }
   },
   computed: {
     style: function () {
@@ -187,52 +207,52 @@ export default {
           icon: true,
           lock: this.autovisible
         }
-      };
+      }
     },
     ...mapState({
       playingSong: state => state.playingSong
     })
   },
   components: {
-      Footer,
-      Header,
-      Player
+    Footer,
+    Header,
+    Player
   },
   methods: {
-    handleAutoVisible: function(event) {
-      event.preventDefault();      
-      this.autovisible = !this.autovisible;
+    handleAutoVisible: function (event) {
+      event.preventDefault()
+      this.autovisible = !this.autovisible
     },
-    handleFooterEnter: function(event) {
-      event.preventDefault();
-      event.stopPropagation();
+    handleFooterEnter: function (event) {
+      event.preventDefault()
+      event.stopPropagation()
       if (!this.footerVisible && !this.autovisible) {
-        this.footerVisible = true;
-        this.animationState = true;
+        this.footerVisible = true
+        this.animationState = true
         setTimeout(() => {
-          this.animationState = false;
-        }, 400);
+          this.animationState = false
+        }, 400)
       }
     },
-    handleFooterLeave: function(event) {
-      event.preventDefault(); // 阻止标签点击时的一些默认行为， 比如a标签，点击的时候，阻止跳转
-      event.stopPropagation(); // 阻止冒泡
+    handleFooterLeave: function (event) {
+      event.preventDefault() // 阻止标签点击时的一些默认行为， 比如a标签，点击的时候，阻止跳转
+      event.stopPropagation() // 阻止冒泡
       if (!this.autovisible && !this.animationState && this.footerVisible && !this.showSongList) {
-        this.footerVisible = false;
-        this.animationState = true;
+        this.footerVisible = false
+        this.animationState = true
         setTimeout(() => {
-          this.animationState = false;
-        }, 400);
+          this.animationState = false
+        }, 400)
       }
     },
-    clockPlayer(param) {
-      this.showSongList = param;
+    clockPlayer (param) {
+      this.showSongList = param
       if (!this.showSongList && !this.autovisible) {
-        this.footerVisible = false;
-        this.animationState = true;
+        this.footerVisible = false
+        this.animationState = true
         setTimeout(() => {
-          this.animationState = false;
-        }, 400);
+          this.animationState = false
+        }, 400)
       }
     }
   }

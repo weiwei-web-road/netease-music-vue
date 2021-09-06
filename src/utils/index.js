@@ -1,7 +1,7 @@
-import localStorageSetItem from './localStorageSetItem';
-import localStorageGetItem from './localStorageGetItem';
+import localStorageSetItem from './localStorageSetItem'
+import localStorageGetItem from './localStorageGetItem'
 
 export {
-    localStorageSetItem,
-    localStorageGetItem,
+  localStorageSetItem,
+  localStorageGetItem
 }

@@ -14,46 +14,45 @@
 }
 </style>
 <template>
-    <div class="select-time-customize">
-        <el-time-picker
-        class="log-create-icon-right"
-        v-model="value"
-        arrow-control
-        size="small"
-        :clearable="false"
-        format="hh:mm A"
-        :picker-options="{
-            selectableRange: '00:00:00 - 23:59:59'
-        } "
-        @change='getChange'
-        >
-        </el-time-picker>
-    </div>
+  <div class="select-time-customize">
+    <el-time-picker
+      v-model="value"
+      class="log-create-icon-right"
+      arrow-control
+      size="small"
+      :clearable="false"
+      format="hh:mm A"
+      :picker-options="{
+        selectableRange: '00:00:00 - 23:59:59'
+      } "
+      @change="getChange"
+    />
+  </div>
 </template>
 
 <script>
 
 export default {
-    name: 'timePicker',
-    props: ['initTime', 'getData'],
-    data() {
-        return {
-            value: ''
-        }
-    },
-    mounted() {
-        if (this.initTime) {
-            this.value = this.initTime;
-        }
-    },
-    methods:{
-        getChange(value) {
-            this.value = value;
-            // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
-            this.getData(value);
-            // this.getData(value);
-        }
-    },
-    
+  name: 'TimePicker',
+  props: ['initTime', 'getData'],
+  data () {
+    return {
+      value: ''
+    }
+  },
+  mounted () {
+    if (this.initTime) {
+      this.value = this.initTime
+    }
+  },
+  methods: {
+    getChange (value) {
+      this.value = value
+      // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
+      this.getData(value)
+      // this.getData(value);
+    }
+  }
+
 }
 </script>

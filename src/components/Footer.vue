@@ -61,44 +61,53 @@
 </style>
 
 <template>
-    <div class="footer-container">
-        <div class="netease-icon">
-            <span>本项目使用Vue全家桶实现网易云音乐的模仿。
-                <br/>作者王亚丽。仅供学习交流使用。</span>
+  <div class="footer-container">
+    <div class="netease-icon">
+      <span>本项目使用Vue全家桶实现网易云音乐的模仿。
+        <br>作者王亚丽。仅供学习交流使用。</span>
+    </div>
+    <div class="list-container">
+      <div
+        v-for="item in data"
+        :key="item.title"
+        class="list-item"
+      >
+        <div
+          class="icon"
+          :style="{backgroundPosition: item.position}"
+        />
+        <div class="title">
+          {{ item.title }}
         </div>
-        <div class="list-container">
-            <div class="list-item" v-bind:key="item.title" v-for="item in data">
-                <div class="icon" v-bind:style="{backgroundPosition: item.position}"></div>
-                <div class="title">{{item.title}}</div>
-            </div>
-        </div>
-    </div>    
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    // ES6 语法简写
-    data() {
-        return {
-            data: [
-                {
-                    title: "用户认证",
-                    position: "-63px -101px",
-                },
-                {
-                    title: "独立音乐人",
-                    position: "0 0",
-                },
-                {
-                    title: "赞赏",
-                    position: "-60px -50px",
-                },
-                {
-                    title: "视频奖励",
-                    position: "0 -101px",
-                }
-            ]
-        };
-    },
+  // ES6 语法简写
+  data () {
+    return {
+      data: [
+        {
+          title: '用户认证',
+          position: '-63px -101px'
+        },
+        {
+          title: '独立音乐人',
+          position: '0 0'
+        },
+        {
+          title: '赞赏',
+          position: '-60px -50px'
+        },
+        {
+          title: '视频奖励',
+          position: '0 -101px'
+        }
+      ]
+    }
+  }
 }
 </script>

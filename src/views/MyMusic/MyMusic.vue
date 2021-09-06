@@ -21,7 +21,7 @@
         width: 740px;
         margin: 0;
       }
-      
+
     }
   }
 </style>
@@ -29,14 +29,18 @@
 <template>
   <div class="my-music">
     <Layout>
-      <template v-slot:song-card>
-
-        <div class="my-music-playlist-container" >
-            <LeftTitle v-bind:data="myPlayList" class="left-title"></LeftTitle>
-            <!-- <RightContent class="right-content"></RightContent> -->
-            <RightContent :myPlayListDetail="myPlayListDetail" class="right-content"></RightContent>
+      <template #song-card>
+        <div class="my-music-playlist-container">
+          <LeftTitle
+            :data="myPlayList"
+            class="left-title"
+          />
+          <!-- <RightContent class="right-content"></RightContent> -->
+          <RightContent
+            :my-play-list-detail="myPlayListDetail"
+            class="right-content"
+          />
         </div>
-
       </template>
     </Layout>
   </div>
@@ -44,40 +48,40 @@
 
 <script>
 
-import Layout from '@/components/Layout.vue';
-import LeftTitle from '@/views/MyMusic/LeftTitle.vue';
-import RightContent from '@/views/MyMusic/RightContent.vue';
-import { mapState, mapActions } from 'vuex';
+import Layout from '@/components/Layout.vue'
+import LeftTitle from '@/views/MyMusic/LeftTitle.vue'
+import RightContent from '@/views/MyMusic/RightContent.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-    name: 'my-music',
-    data() {
-        return {
+  name: 'MyMusic',
+  components: {
+    Layout,
+    LeftTitle,
+    RightContent
+  },
+  data () {
+    return {
 
-        };
-    },
-    created: function() {
-      this.fetchMyPlayListAsync({
-        uid: 1832132513
-      }).then((id) => {
-        this.fetchMyPlayListDetailAsync(id);
-      });
-    },
-    components: {
-        Layout,
-        LeftTitle,
-        RightContent,
-    },
-    computed: mapState({
-      myPlayList: state => state.myPlayList,
-      myPlayListDetail: state => state.myPlayListDetail,
-      rendermyPlayListDetail: state => state.rendermyPlayListDetail
-    }),
-    methods: {
-      ...mapActions({
-        fetchMyPlayListAsync: 'fetchMyPlayListAsync',
-        fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync'
-      })
     }
+  },
+  created: function () {
+    this.fetchMyPlayListAsync({
+      uid: 1832132513
+    }).then((id) => {
+      this.fetchMyPlayListDetailAsync(id)
+    })
+  },
+  computed: mapState({
+    myPlayList: state => state.myPlayList,
+    myPlayListDetail: state => state.myPlayListDetail,
+    rendermyPlayListDetail: state => state.rendermyPlayListDetail
+  }),
+  methods: {
+    ...mapActions({
+      fetchMyPlayListAsync: 'fetchMyPlayListAsync',
+      fetchMyPlayListDetailAsync: 'fetchMyPlayListDetailAsync'
+    })
+  }
 }
 </script>

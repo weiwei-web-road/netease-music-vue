@@ -29,14 +29,32 @@
   <div class="personal-study">
     <div class="body">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
+        <div
+          slot="header"
+          class="clearfix"
+        >
           <span>checkbox click multi selected</span>
-          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          <el-button
+            style="float: right; padding: 3px 0"
+            type="text"
+          >
+            操作按钮
+          </el-button>
         </div>
         <el-checkbox-group v-model="checkList">
-          <div v-for="item in formData" :key="item.join(',')" :data-data="item.join(',')" class="item-row" @click="click">
-            <div v-for="subItem in item" :key="subItem" class="item-unit">
-              <el-checkbox :label="subItem"></el-checkbox>
+          <div
+            v-for="item in formData"
+            :key="item.join(',')"
+            :data-data="item.join(',')"
+            class="item-row"
+            @click="click"
+          >
+            <div
+              v-for="subItem in item"
+              :key="subItem"
+              class="item-unit"
+            >
+              <el-checkbox :label="subItem" />
             </div>
           </div>
         </el-checkbox-group>
@@ -49,29 +67,29 @@
 import '../../plugins/element.js'
 
 export default {
-  name: 'multiSelect',
+  name: 'MultiSelect',
   data () {
     return {
       checkList: [],
       data: ['西瓜', '苹果', '栗子', '李子', '桃子', '梨', '西红柿', '甜瓜', '樱桃', '荔枝', '长工']
-    };
-  },
-  mounted () {
-    
+    }
   },
   computed: {
-    formData: function() {
+    formData: function () {
       return this.data.reduce((prev, curr, index) => {
         if (index % 3 === 0) {
           prev.push([curr])
         } else {
-          const target = prev.pop();
-          target.push(curr);
+          const target = prev.pop()
+          target.push(curr)
           prev.push(target)
         }
-        return prev;
+        return prev
       }, [])
     }
+  },
+  mounted () {
+
   },
   methods: {
     click (e) {
@@ -79,13 +97,13 @@ export default {
         const data = (e.target.className === 'item-unit' ? e.target.parentNode : e.target).dataset.data.split(',')
         this.checkList = data.reduce((prev, curr) => {
           if (curr && curr.length > 0 && prev.indexOf(curr) === -1) {
-            prev.push(curr);
+            prev.push(curr)
           }
-          return prev;
-        }, this.checkList);
-      }      
+          return prev
+        }, this.checkList)
+      }
     }
-  },
+  }
 
-};
+}
 </script>

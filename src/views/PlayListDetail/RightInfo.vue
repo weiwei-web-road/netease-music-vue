@@ -30,44 +30,54 @@
 </style>
 
 <template>
-    <div class="playlist-subscribers">
-        <div class="title">喜欢这个歌单的人</div>
-        <div class="content-list">
-            <div class="row" v-for="(item, index) in localData" :key="index">
-                <div class="column" v-for="(subItem, subIndex) in item" :key="subIndex">
-                    <img :src="subItem" />
-                </div>
-            </div>
-        </div>
+  <div class="playlist-subscribers">
+    <div class="title">
+      喜欢这个歌单的人
     </div>
+    <div class="content-list">
+      <div
+        v-for="(item, index) in localData"
+        :key="index"
+        class="row"
+      >
+        <div
+          v-for="(subItem, subIndex) in item"
+          :key="subIndex"
+          class="column"
+        >
+          <img :src="subItem">
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'right-info',
-    data() {
-        return {
+  name: 'RightInfo',
+  props: ['data'],
+  data () {
+    return {
 
-        }
-    },
-    props: ['data'],
-    computed: {
-        localData: function() {
-            if (this.data) {
-                return this.data.reduce((prev, curr, index) => {
-                    if (index % 4 === 0) {
-                        prev.push([curr])
-                    } else {
-                        const temp = prev.pop();
-                        temp.push(curr);
-                        prev.push(temp);
-                    }
-                    return prev;
-                }, [])
-            } else {
-                return [];
-            }
-        }
     }
+  },
+  computed: {
+    localData: function () {
+      if (this.data) {
+        return this.data.reduce((prev, curr, index) => {
+          if (index % 4 === 0) {
+            prev.push([curr])
+          } else {
+            const temp = prev.pop()
+            temp.push(curr)
+            prev.push(temp)
+          }
+          return prev
+        }, [])
+      } else {
+        return []
+      }
+    }
+  }
 }
 </script>

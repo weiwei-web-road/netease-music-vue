@@ -6,7 +6,7 @@
             border-color: #1688ca;
             -webkit-box-shadow: -1px 0 0 0 #1688ca;
             box-shadow: -1px 0 0 0 #1688ca;
-        }  
+        }
         .el-radio-button .el-radio-button__inner{
             font-weight: 100;
             display: flex;
@@ -17,24 +17,28 @@
         .el-radio-button__inner:hover {
             color: #1688ca;
         }
-        
+
     }
 </style>
 
 <template>
-    <el-radio-group v-model="typeSummary" class='lig-color right' size="medium">
-        <el-radio-button label="Vehicle"></el-radio-button>
-        <el-radio-button label="Driver"></el-radio-button>
-    </el-radio-group>
+  <el-radio-group
+    v-model="typeSummary"
+    class="lig-color right"
+    size="medium"
+  >
+    <el-radio-button label="Vehicle" />
+    <el-radio-button label="Driver" />
+  </el-radio-group>
 </template>
 
 <script>
 export default {
-    name: 'radioSelect',
-    data() {
-        return {
-            typeSummary: 'Vehicle'
-        }
+  name: 'RadioSelect',
+  data () {
+    return {
+      typeSummary: 'Vehicle'
     }
+  }
 }
 </script>

@@ -24,44 +24,48 @@
     }
 </style>
 <template>
-    <div class="lyric-container">
-        <div ref="lyricLine" :class="{'item':true, 'selected':indexLine===index}" v-for="(item, index) of lyric" :key="index">
-            {{item.content}}
-        </div>
+  <div class="lyric-container">
+    <div
+      v-for="(item, index) of lyric"
+      ref="lyricLine"
+      :key="index"
+      :class="{'item':true, 'selected':indexLine===index}"
+    >
+      {{ item.content }}
     </div>
+  </div>
 </template>
 <script>
-import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
 
 export default {
-    data() {
-        return {
-            indexLine: 0,
-        }
-    },
-    props: ['lyric', 'playedTimeSec'],
-    watch: {
-        playedTimeSec: function() {
-            for (let i=0; i<this.lyric.length-1; i++) {
-                if (this.playedTimeSec < this.lyric[i+1].time && this.playedTimeSec > this.lyric[i].time) {
-                    this.indexLine = i;
-                    break;
-                }
-            }
-            this.goToLyricLine();
-        }
-    },
-    methods: {
-        goToLyricLine() {
-            const node = this.$refs.lyricLine[this.indexLine];
-            scrollIntoViewIfNeeded(node, {
-                centerIfNeeded: true
-                // scrollMode: 'if-needed',
-                // block: 'center',
-                // inline: 'center',
-            });
-        }
+  props: ['lyric', 'playedTimeSec'],
+  data () {
+    return {
+      indexLine: 0
     }
+  },
+  watch: {
+    playedTimeSec: function () {
+      for (let i = 0; i < this.lyric.length - 1; i++) {
+        if (this.playedTimeSec < this.lyric[i + 1].time && this.playedTimeSec > this.lyric[i].time) {
+          this.indexLine = i
+          break
+        }
+      }
+      this.goToLyricLine()
+    }
+  },
+  methods: {
+    goToLyricLine () {
+      const node = this.$refs.lyricLine[this.indexLine]
+      scrollIntoViewIfNeeded(node, {
+        centerIfNeeded: true
+        // scrollMode: 'if-needed',
+        // block: 'center',
+        // inline: 'center',
+      })
+    }
+  }
 }
 </script>
-

@@ -24,5 +24,6 @@ new Vue({
 }).$mount('#app')
 
 // moment 用来管理时间格式
-Vue.filter('dateformat', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {return moment(dataStr).format(pattern);
-});
+Vue.filter('dateformat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+  return moment(dataStr).format(pattern)
+})

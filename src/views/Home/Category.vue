@@ -48,47 +48,59 @@
 </style>
 
 <template>
-    <div class="category-container">
-        <div class="all-category">
-            <div class="all">
-                全部
-            </div>
-            <!-- <div class="choose-category-button">
+  <div class="category-container">
+    <div class="all-category">
+      <div class="all">
+        全部
+      </div>
+      <!-- <div class="choose-category-button">
                 选择分类
                 <em class="arrow"></em>
             </div> -->
-        </div>
-        <div class="hot-new-category" v-bind:style="{backgroundPosition: backgroundPosition}">
-            <div v-bind:class="hotStyle" v-on:click="swapHotNewCategory('hot')">热门</div>
-            <div v-bind:class="newStyle" v-on:click="swapHotNewCategory('new')">最新</div>
-        </div>
     </div>
+    <div
+      class="hot-new-category"
+      :style="{backgroundPosition: backgroundPosition}"
+    >
+      <div
+        :class="hotStyle"
+        @click="swapHotNewCategory('hot')"
+      >
+        热门
+      </div>
+      <div
+        :class="newStyle"
+        @click="swapHotNewCategory('new')"
+      >
+        最新
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            selectedStyle: 'hot'
-        } 
-    },
-    computed: {
-        hotStyle: function() {
-            return `category-button${this.selectedStyle === 'hot' ? ' active' : ''}`;
-        },
-        newStyle: function() {
-            return `category-button${this.selectedStyle === 'new' ? ' active' : ''}`;
-        },
-        backgroundPosition: function() {
-            return this.selectedStyle === 'hot' ? '0 0' : '0 -32px'; 
-        }
-    },
-    methods: {
-        swapHotNewCategory: function(value) {
-            this.selectedStyle = value;
-            this.$emit('swapHotNewCategory', {value: value});
-        }
+  data () {
+    return {
+      selectedStyle: 'hot'
     }
+  },
+  computed: {
+    hotStyle: function () {
+      return `category-button${this.selectedStyle === 'hot' ? ' active' : ''}`
+    },
+    newStyle: function () {
+      return `category-button${this.selectedStyle === 'new' ? ' active' : ''}`
+    },
+    backgroundPosition: function () {
+      return this.selectedStyle === 'hot' ? '0 0' : '0 -32px'
+    }
+  },
+  methods: {
+    swapHotNewCategory: function (value) {
+      this.selectedStyle = value
+      this.$emit('swapHotNewCategory', { value: value })
+    }
+  }
 }
 </script>
-
