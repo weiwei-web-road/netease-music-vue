@@ -1,71 +1,65 @@
 <style lang="less">
-  .line-chart {
-    font: 10px sans-serif;
-  }
+.line-chart {
+  font: 10px sans-serif;
+}
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
-  .line {
-    fill: none;
-    // stroke: steelblue;
-    stroke: red;
+.line {
+  fill: none;
+  // stroke: steelblue;
+  stroke: red;
 
-    stroke-width: 1.5px;
-  }
+  stroke-width: 1.5px;
+}
 
-  h1 {
-    color: red;
-  }
-  // zoom in out
+h1 {
+  color: red;
+}
+// zoom in out
 .white-popup {
+  position: relative;
 
-    position: relative;
+  background: #fff;
 
-    background: #FFF;
+  padding: 10px 20px;
 
-    padding: 10px 20px;
+  width: auto;
 
-    width: auto;
+  max-width: 100%;
 
-    max-width: 100%;
-
-    margin: 0 auto;
-
+  margin: 0 auto;
 }
 </style>
 
 <template lang="html">
-  <div
-    id="d3-container"
-    @click="zoomOutSvg()"
-  >
+  <div id="d3-container" @click="zoomOutSvg()">
     专业D3工程师
   </div>
 </template>
 
 <script>
-import LineChart from './LineChart'
+import LineChart from "./LineChart";
 // import * as magnificPopup from 'magnific-popup';
 // import $ from 'jquery'
 
 export default {
-  data () {
+  data() {
     return {
-      data: []
-    }
+      data: [],
+    };
   },
-  mounted () {
-    this.run()
+  mounted() {
+    this.run();
   },
   methods: {
-    zoomOutSvg () {
+    zoomOutSvg() {
       // let gridChartWrapper = $('#d3-container')
-
       // $.magnificPopup.open({
       //   items: {
       //     src: gridChartWrapper,
@@ -80,7 +74,6 @@ export default {
       //   callbacks: {
       //     open: function () {
       //       const mfpClose = $('.mfp-close')
-
       //       // Will fire when this exact popup is opened
       //       // this - is Magnific Popup object
       //       gridChartWrapper.addClass('white-popup')
@@ -93,14 +86,13 @@ export default {
       //       gridChartWrapper.removeClass('white-popup')
       //       gridChartWrapper.removeClass('mfp-hide')
       //       gridChartWrapper.prop('style', false)
-
       //       // Clear the cache
       //       gridChartWrapper = null
       //     }
       //   }
       // })
     },
-    run () {
+    run() {
       const initData = [
         { month: 0, value: 5 },
         { month: 1, value: 5 },
@@ -114,8 +106,8 @@ export default {
         { month: 9, value: 5 },
         { month: 10, value: 5 },
         { month: 11, value: 5 },
-        { month: 12, value: 5 }
-      ]
+        { month: 12, value: 5 },
+      ];
       const data = [
         { month: 0, value: 2 },
         { month: 1, value: 4 },
@@ -129,8 +121,8 @@ export default {
         { month: 9, value: 0 },
         { month: 10, value: 4 },
         { month: 11, value: 6 },
-        { month: 12, value: 3 }
-      ]
+        { month: 12, value: 3 },
+      ];
 
       const lineChart = new LineChart({
         width: 700,
@@ -138,18 +130,18 @@ export default {
         margin: { top: 20, right: 30, bottom: 20, left: 30 },
         initData,
         data,
-        xPath: 'month',
-        yPath: 'value',
-        constainer: '#d3-container'
-      })
+        xPath: "month",
+        yPath: "value",
+        constainer: "#d3-container",
+      });
 
       setTimeout(() => {
-        data[5].value = 6
-        data[9].value = 2
+        data[5].value = 6;
+        data[9].value = 2;
 
-        lineChart.render()
-      }, 1000)
-    }
-  }
-}
+        lineChart.render();
+      }, 1000);
+    },
+  },
+};
 </script>

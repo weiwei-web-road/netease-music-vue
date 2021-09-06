@@ -14,23 +14,23 @@
 
 <script>
 export default {
-  inject: ['forProvide'],
-  data () {
+  inject: ["forProvide"],
+  data() {
     return {
-      childC: 'child C'
-    }
+      childC: "child C",
+    };
   },
   methods: {
-    emitToA () {
+    emitToA() {
       // 可以通过this.$attrs 获取到A组件经由B组件传递过来的数据
       // console.log(this.$attrs, '$attrs')
-      this.$emit('getC', 'emit value from C to A')
-      console.log(this.forProvide, 'C for provide')
+      this.$emit("getC", "emit value from C to A");
+      console.log(this.forProvide, "C for provide");
     },
-    changeParentB () {
-      console.log(this.$parent)
-      this.$parent.parentB = 'changed parent B'
-    }
-  }
-}
+    changeParentB() {
+      console.log(this.$parent);
+      this.$parent.parentB = "changed parent B";
+    },
+  },
+};
 </script>

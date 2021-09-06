@@ -1,9 +1,9 @@
-export default function (key, newVal) {
+export default function (key: string, newVal: any) {
   if (key === 'playingSongObj' || key === 'playingSongIdArr') {
     // 创建一个StorageEvent事件
     // var newStorageEvent = document.createEvent('StorageEvent');
     const storage = {
-      setItem: function (k, val) {
+      setItem: function (k: string, val: string) {
         localStorage.setItem(k, val)
         // 初始化创建的事件
         const event = new Event('setItem')

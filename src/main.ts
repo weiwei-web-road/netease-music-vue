@@ -5,10 +5,10 @@ import store from './store'
 import moment from 'moment'
 // 可以使用plugin 把新的 Vue实例挂载到 Vue原型上，这样每次实例化的时候，Vue实例都有这个属性
 // 或者也可以在Vue 实例化之后，再挂载到Vue根实例上，这样每次实例化，都需要再重新挂载
-import './plugins/element.js'
-import './plugins/audio.js'
-import './plugins/d3.js'
-import './plugins/popup.js'
+import './plugins/element'
+import './plugins/audio'
+import './plugins/d3'
+import './plugins/popup'
 
 Vue.config.productionTip = false
 
@@ -24,6 +24,6 @@ new Vue({
 }).$mount('#app')
 
 // moment 用来管理时间格式
-Vue.filter('dateformat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+Vue.filter('dateformat', function (dataStr: string, pattern = 'YYYY-MM-DD HH:mm:ss') {
   return moment(dataStr).format(pattern)
 })

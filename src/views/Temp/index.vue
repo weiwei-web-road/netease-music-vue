@@ -23,7 +23,7 @@
           width: 30%;
         }
         .width-80 {
-            width: 80%;
+          width: 80%;
         }
         .content {
           font-size: 14px;
@@ -33,15 +33,14 @@
           border-bottom: solid 1px #e4e8eb;
           border-right: solid 1px #e4e8eb;
           text-align: left;
-
         }
         // .common-height {
         //   height: 36px;
         //   line-height: 36px;
         // }
         .left-padding {
-            padding: 10px 0 10px 30px;
-            // height: 16px;
+          padding: 10px 0 10px 30px;
+          // height: 16px;
           // line-height: 16px;
         }
 
@@ -58,7 +57,6 @@
         background-color: #f9fbfc;
       }
     }
-
   }
   .info-table-new {
     border-radius: 3px;
@@ -67,38 +65,38 @@
     .info-table-border {
       border-top: solid 1px #e4e8eb;
       border-left: solid 1px #e4e8eb;
-      .log-tr{
+      .log-tr {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         border-bottom: solid 1px #e4e8eb;
         align-items: stretch;
-        .partWrap{
+        .partWrap {
           width: 50%;
           display: flex;
           flex-flow: row nowrap;
-          >div{
+          > div {
             border-right: solid 1px #e4e8eb;
             padding: 10px 30px;
             // word-break: break-all;
           }
         }
-        .width100{
+        .width100 {
           width: 100%;
         }
-        .flex1{
+        .flex1 {
           flex: 1;
         }
-        .td-left{
+        .td-left {
           width: 215px;
           min-width: 215px;
           text-align: left;
         }
-        .td-right{
+        .td-right {
           flex: 1;
         }
       }
-      .log-tr:nth-child(even){
+      .log-tr:nth-child(even) {
         background-color: #f9fbfc;
       }
     }
@@ -285,7 +283,7 @@
               DRIVER NAME
             </div>
             <div class="td-right">
-              {{ driverName || '——' }}
+              {{ driverName || "——" }}
             </div>
           </div>
           <div class="partWrap">
@@ -293,7 +291,7 @@
               DRIVER ID
             </div>
             <div class="td-right">
-              {{ driverIDEmail || '——' }}
+              {{ driverIDEmail || "——" }}
             </div>
           </div>
         </div>
@@ -308,10 +306,7 @@
                 ——
               </div>
               <div v-if="vehicleCoDriverList.length !== 0">
-                <div
-                  v-for="item in vehicleCoDriverList"
-                  :key="item"
-                >
+                <div v-for="item in vehicleCoDriverList" :key="item">
                   {{ item.coDriverName }}
                 </div>
               </div>
@@ -326,10 +321,7 @@
                 ——
               </div>
               <div v-if="vehicleCoDriverList.length !== 0">
-                <div
-                  v-for="item in vehicleCoDriverList"
-                  :key="item"
-                >
+                <div v-for="item in vehicleCoDriverList" :key="item">
                   {{ item.email }}
                 </div>
               </div>
@@ -343,7 +335,7 @@
               CARRIER
             </div>
             <div class="td-right">
-              {{ data.carrier || '——' }}
+              {{ data.carrier || "——" }}
             </div>
           </div>
           <div class="partWrap">
@@ -351,7 +343,7 @@
               SHIPPING DOCS
             </div>
             <div class="td-right">
-              {{ shippingDocs || '——' }}
+              {{ shippingDocs || "——" }}
             </div>
           </div>
         </div>
@@ -362,10 +354,7 @@
               VEHICLES
             </div>
             <div class="td-right">
-              <div
-                v-for="(item,index) in data.vehicle"
-                :key="index"
-              >
+              <div v-for="(item, index) in data.vehicle" :key="index">
                 {{ item }}
               </div>
             </div>
@@ -375,10 +364,7 @@
               TRAILERS
             </div>
             <div class="td-right">
-              <div
-                v-for="item in data.trailer"
-                :key="item"
-              >
+              <div v-for="item in data.trailer" :key="item">
                 {{ item }}
               </div>
             </div>
@@ -391,7 +377,7 @@
               DISTANCE
             </div>
             <div class="td-right">
-              {{ distance || '——' }}
+              {{ distance || "——" }}
             </div>
           </div>
           <div class="partWrap">
@@ -403,10 +389,7 @@
                 ——
               </div>
               <div v-if="startEndOdemeterList.length !== 0">
-                <div
-                  v-for="item in startEndOdemeterList"
-                  :key="item"
-                >
+                <div v-for="item in startEndOdemeterList" :key="item">
                   {{ item }}
                 </div>
               </div>
@@ -420,7 +403,7 @@
               MAIN OFFICE
             </div>
             <div class="td-right">
-              {{ data.mainOffice || '——' }}
+              {{ data.mainOffice || "——" }}
             </div>
           </div>
           <div class="partWrap">
@@ -428,7 +411,7 @@
               HOME TERMINAL
             </div>
             <div class="td-right">
-              {{ homeTerminalFromUserPreference || '——' }}
+              {{ homeTerminalFromUserPreference || "——" }}
             </div>
           </div>
         </div>
@@ -439,10 +422,9 @@
               EXCEPTIONS
             </div>
             <div class="flex1">
-              <span
-                v-for="item in exceptionsDescArr"
-                :key="item"
-              >{{ item }}</span>
+              <span v-for="item in exceptionsDescArr" :key="item">{{
+                item
+              }}</span>
             </div>
           </div>
         </div>
@@ -457,58 +439,61 @@
 </template>
 
 <script>
-export default {
-  name: 'Temp',
-  data () {
-    return {
-      startEndOdemeterList: ['fef', 'fefef', 'fefef', 'fdfdsf'],
-      trailerList: ['fef', 'fefef', 'fefef', 'fdfdsf', 'fggeg', 'fgsf']
+  export default {
+    name: "Temp",
+    data() {
+      return {
+        startEndOdemeterList: ["fef", "fefef", "fefef", "fdfdsf"],
+        trailerList: ["fef", "fefef", "fefef", "fdfdsf", "fggeg", "fgsf"],
+      };
+    },
+    mounted() {
+      if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
+        const vehicleHeight = this.startEndOdemeterList.length * 16;
+        const trailerHeight = this.trailerList.length * 16;
+        let height = "";
+        let vehiclePaddingTop = "";
+        let trailerPaddingTop = "";
 
-    }
-  },
-  mounted () {
-    if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
-      const vehicleHeight = this.startEndOdemeterList.length * 16
-      const trailerHeight = this.trailerList.length * 16
-      let height = ''
-      let vehiclePaddingTop = ''
-      let trailerPaddingTop = ''
+        if (vehicleHeight > trailerHeight) {
+          height = vehicleHeight + "px";
+          trailerPaddingTop = (vehicleHeight - trailerHeight) / 2 + 10 + "px";
+        } else {
+          height = trailerHeight + "px";
+          vehiclePaddingTop = (trailerHeight - vehicleHeight) / 2 + 10 + "px";
+        }
 
-      if (vehicleHeight > trailerHeight) {
-        height = vehicleHeight + 'px'
-        trailerPaddingTop = (vehicleHeight - trailerHeight) / 2 + 10 + 'px'
-      } else {
-        height = trailerHeight + 'px'
-        vehiclePaddingTop = (trailerHeight - vehicleHeight) / 2 + 10 + 'px'
+        const domList = document.getElementsByClassName("log-vehicle-row-name");
+
+        for (let i = 0; i < domList.length; i++) {
+          domList[i].style.height = height;
+          domList[i].style.lineHeight = height;
+        }
+
+        const contentDomList = document.getElementsByClassName(
+          "log-vehicle-row-content"
+        );
+
+        for (let i = 0; i < contentDomList.length; i++) {
+          contentDomList[i].style.height = height;
+          // contentDomList[i].style.lineHeight = height;
+          // if (vehiclePaddingTop) {
+          //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
+          // }
+        }
+
+        const trailerContentDomList = document.getElementsByClassName(
+          "log-trailer-row-content"
+        );
+
+        for (let i = 0; i < trailerContentDomList.length; i++) {
+          trailerContentDomList[i].style.height = height;
+          // contentDomList[i].style.lineHeight = height;
+          // if (trailerPaddingTop) {
+          //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
+          // }
+        }
       }
-
-      const domList = document.getElementsByClassName('log-vehicle-row-name')
-
-      for (let i = 0; i < domList.length; i++) {
-        domList[i].style.height = height
-        domList[i].style.lineHeight = height
-      }
-
-      const contentDomList = document.getElementsByClassName('log-vehicle-row-content')
-
-      for (let i = 0; i < contentDomList.length; i++) {
-        contentDomList[i].style.height = height
-        // contentDomList[i].style.lineHeight = height;
-        // if (vehiclePaddingTop) {
-        //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
-        // }
-      }
-
-      const trailerContentDomList = document.getElementsByClassName('log-trailer-row-content')
-
-      for (let i = 0; i < trailerContentDomList.length; i++) {
-        trailerContentDomList[i].style.height = height
-        // contentDomList[i].style.lineHeight = height;
-        // if (trailerPaddingTop) {
-        //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
-        // }
-      }
-    }
-  }
-}
+    },
+  };
 </script>

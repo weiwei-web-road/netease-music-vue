@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home/Home.vue'
-import './plugins/element.js'
+import './plugins/element'
 
 Vue.use(Router)
 

@@ -3,8 +3,27 @@ import Vuex from 'vuex'
 import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING, SET_LYRIC } from './mutation_types'
 import fetchAPI, { apis } from './service'
 import { TopPlayList, MyPlayList, PlayListDetail } from './model'
+import {} from './model/PlayListDetail';
 
 Vue.use(Vuex)
+
+
+export interface IState {
+  count: number;
+  movies: number[];
+  filterParams: number;
+  topPlayList: TopPlayList[];
+  totalPlay: number;
+  myPlayList: MyPlayList[];
+  myPlayListDetail: PlayListDetail | {};
+  rendermyPlayListDetail: boolean;
+  playingSong: any;
+  initPlay: {
+    isPlaying: boolean,
+    showSongList: boolean
+  };
+  lyric: any;
+}
 
 export default new Vuex.Store({
   // state 中的数据 是全局静态数据，可以理解为 state 里的数据可以全局使用
@@ -13,7 +32,7 @@ export default new Vuex.Store({
   state: {
     count: 0,
     movies: [1, 2, 3, 4, 5, 6, 7, 8],
-    filterParams: '',
+    filterParams: 1,
     topPlayList: [],
     totalPlay: 0,
     myPlayList: [],
@@ -32,11 +51,11 @@ export default new Vuex.Store({
       showSongList: false
     },
     lyric: {}
-  },
+  } as IState,
   // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
   // 就和vue的computed差不多；
   getters: {
-    singleMovies: (state) => (filterNumber) => {
+    singleMovies: (state) => (filterNumber: number) => {
       return state.movies.filter(item => item % filterNumber)
     },
     filterMovies: (state) => {
@@ -60,7 +79,7 @@ export default new Vuex.Store({
     // 对 state 中的 topPlayList 赋值 和 操作
     [SET_TOP_PLAYLIST] (state, payload) {
       // 调用 TopPlayList Model 中的 fromJS 方法，按照构造函数中定义好的格式对原数据进行修改
-      state.topPlayList = TopPlayList.fromJS(payload.value)
+      state.topPlayList = TopPlayList.fromJS(payload.value) as TopPlayList[];
     },
 
     [SET_TOTAL_PLAY] (state, payload) {
@@ -70,7 +89,7 @@ export default new Vuex.Store({
     // 对 state 中的 myPlayList 赋值 和 操作
     [SET_MY_PLAYLIST] (state, payload) {
       // 调用 MyPlayList Model 中的 fromJS 方法，按照构造函数中定义好的格式对原数据进行修改
-      state.myPlayList = MyPlayList.fromJS(payload.value)
+      state.myPlayList = MyPlayList.fromJS(payload.value) as MyPlayList[];
     },
     [SET_MY_PLAYLIST_DETAIL] (state, payload) {
       state.myPlayListDetail = PlayListDetail.fromJS(payload.value)
@@ -85,10 +104,10 @@ export default new Vuex.Store({
     },
     [SET_LYRIC] (state, payload) {
       const value = payload.value
-      const lyric = value.split(/\r?\n/).map(item => {
+      const lyric = value.split(/\r?\n/).map((item: string) => {
         const index = item.indexOf(']')
         const timeArr = item.slice(1, index).split(':')
-        const time = timeArr.length === 2 ? timeArr[0] * 60 + Math.floor(timeArr[1]) : 0
+        const time = timeArr.length === 2 ? Number(timeArr[0]) * 60 + Math.floor(Number(timeArr[1])) : 0
         const content = item.slice(index + 1)
         return {
           time,
@@ -139,7 +158,7 @@ export default new Vuex.Store({
       return await new Promise((resolve, reject) => {
         fetchAPI(apis.myMusic.getPlayListDetail, params).then((res) => {
           if (res.status === 200 && res.data.code === 200) {
-            const trackIds = res.data.playlist.trackIds.map(item => item.id).join(',')
+            const trackIds = res.data.playlist.trackIds.map((item: { id: string }) => item.id).join(',')
             const songUrlParam = { id: trackIds }
             const playListDetailRes = res.data.playlist
             fetchAPI(apis.myMusic.getSongUrl, songUrlParam).then((res) => {
