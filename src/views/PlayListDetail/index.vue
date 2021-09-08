@@ -72,8 +72,6 @@ export default {
         ...mapActions({
             'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
         })
-    },
-    // 加入组件销毁生命周期，当离开页面时，组件会销毁
-    unmounted() {}
+    }
 };
 </script>

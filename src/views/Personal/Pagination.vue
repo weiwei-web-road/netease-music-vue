@@ -204,7 +204,7 @@ export default {
             let page = 1;
 
             if (valStr && valStr.length > 0) {
-                page = isNaN(valStr) ? 1 : parseInt(valStr);
+                page = isNaN(valStr) ? 1 : parseInt(valStr, 10);
             }
             this.$emit('clickPage', {
                 'offset': this.rowValue * (page > 1 ? page - 1 : 0),
@@ -212,7 +212,7 @@ export default {
             });
         },
         prevPage() {
-            let currPageNum = parseInt(this.currPage);
+            let currPageNum = parseInt(this.currPage, 10);
 
             if (currPageNum > 1) {
                 currPageNum -= 1;
@@ -224,7 +224,7 @@ export default {
             }
         },
         nextPage() {
-            let currPageNum = parseInt(this.currPage);
+            let currPageNum = parseInt(this.currPage, 10);
 
             if (currPageNum < this.totalPageNum) {
                 currPageNum += 1;

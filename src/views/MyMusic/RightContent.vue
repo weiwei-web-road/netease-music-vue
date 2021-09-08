@@ -459,7 +459,7 @@ export default {
                 playingSongObj = localStorageGetItem('playingSongObj'),
                 playingSongIdArr = localStorageGetItem('playingSongIdArr');
 
-            if (!playingSongObj.hasOwnProperty(id)) {
+            if (!Object.prototype.hasOwnProperty.call(playingSongObj, id)) {
                 playingSongObj[id] = data;
                 playingSongIdArr.push(id);
             }
@@ -504,7 +504,7 @@ export default {
             tracks.forEach((item) => {
                 const id = item.id;
 
-                if (!playingSongObj.hasOwnProperty(id)) {
+                if (!Object.prototype.hasOwnProperty.call(playingSongObj, id)) {
                     const url = songUrlMap[id];
 
                     item.src = url;

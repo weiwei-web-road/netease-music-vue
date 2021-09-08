@@ -29,12 +29,12 @@
   <div class="personal-study">
     <div class="body">
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
+        <template v-slot:header class="clearfix">
           <span>checkbox click multi selected</span>
           <el-button style="float: right; padding: 3px 0" type="text">
             操作按钮
           </el-button>
-        </div>
+        </template>
         <el-checkbox-group v-model="checkList">
           <div
             v-for="item in formData"
@@ -91,7 +91,9 @@ export default {
             }, []);
         }
     },
-    mounted() {},
+    mounted() {
+        console.log('empty function');
+    },
     'methods': {
         click(e) {
             if (

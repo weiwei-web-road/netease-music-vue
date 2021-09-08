@@ -13,8 +13,8 @@ div {
     <!-- 从组件A传递过来的data 和事件中，B组件通过props 获取了自身需要用的属性，
         然后向 C组件传递了$attr, $listeners
         本质是Vue内部封装了props，不用再手动 props和v-on事件了
-        $attrs, $listeners 用于隔代组件之间传递数据 -->
-    <C v-bind="$attrs" v-on="$listeners" />
+        $attrs, $listeners 用于隔代组件之间传递数据，但是这个已经即将废除 -->
+    <!-- <C v-bind="$attrs" v-on="$listeners" /> -->
     <!-- messageFromB 会以value的属性传递给D组件，并未会自动绑定v-on:input事件 -->
     <D v-model="messageFromB" />
     <button @click="changeChildVal">
@@ -25,12 +25,12 @@ div {
 </template>
 
 <script>
-import C from './C';
+// import C from './C';
 import D from './D';
 
 export default {
     'components': {
-        C,
+        // C,
         D
     },
     'inject': ['forProvide'],
