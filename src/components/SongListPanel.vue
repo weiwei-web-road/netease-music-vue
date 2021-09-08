@@ -77,78 +77,81 @@
 </template>
 
 <script>
-import SongList from './SongList'
-import Lyric from './Lyric'
-import { localStorageSetItem, localStorageGetItem } from '../utils/index'
-import { mapState, mapActions } from 'vuex'
+import SongList from './SongList';
+import Lyric from './Lyric';
+import { localStorageSetItem, localStorageGetItem } from '../utils/index';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  props: ['playingSong', 'playedTimeSec'],
-  data () {
-    return {
-      data: localStorageGetItem('playingSongObj'),
-      dataArr: localStorageGetItem('playingSongIdArr')
-    }
-  },
-  computed: {
-    ...mapState({
-      lyric: state => state.lyric
-    }),
-    playSongList () {
-      const arr = []
-      for (const item of this.dataArr) {
-        arr.push(this.data[item])
-      }
-      return arr
-    }
-  },
-  components: {
-    SongList,
-    Lyric
-  },
-  created () {
-    window.addEventListener('setItem', () => {
-      this.data = localStorageGetItem('playingSongObj')
-      this.dataArr = localStorageGetItem('playingSongIdArr')
-    })
-  },
-  methods: {
-    ...mapActions({
-      getLyric: 'getLyric',
-      getPlayingSongInfo: 'getPlayingSongInfo'
-    }),
-    closeSongList () {
-      this.$emit('closeSongList')
+    'props': ['playingSong', 'playedTimeSec'],
+    data () {
+        return {
+            'data': localStorageGetItem('playingSongObj'),
+            'dataArr': localStorageGetItem('playingSongIdArr')
+        };
     },
-    handlePlay (param) {
-      const id = param.id
-      const coverImgUrl = param.coverImgUrl
-      const src = param.src
-      const playListId = param.playListId
-      const author = param.author
-      const name = param.name
-      const payload = {
-        id: id,
-        src: src,
-        coverImgUrl: coverImgUrl,
-        songName: name,
-        playListId: playListId,
-        author: author
-      }
-      this.getPlayingSongInfo(payload)
-      this.getLyric({ id: id })
+    'computed': {
+        ...mapState({
+            'lyric': state => state.lyric
+        }),
+        playSongList () {
+            const arr = [];
+
+            for (const item of this.dataArr) {
+                arr.push(this.data[item]);
+            }
+            return arr;
+        }
     },
-    deleteSongList (param) {
-      const playingSongObj = localStorageGetItem('playingSongObj')
-      const playingSongIdArr = localStorageGetItem('playingSongIdArr')
+    'components': {
+        SongList,
+        Lyric
+    },
+    created () {
+        window.addEventListener('setItem', () => {
+            this.data = localStorageGetItem('playingSongObj');
+            this.dataArr = localStorageGetItem('playingSongIdArr');
+        });
+    },
+    'methods': {
+        ...mapActions({
+            'getLyric': 'getLyric',
+            'getPlayingSongInfo': 'getPlayingSongInfo'
+        }),
+        closeSongList () {
+            this.$emit('closeSongList');
+        },
+        handlePlay (param) {
+            const id = param.id,
+                coverImgUrl = param.coverImgUrl,
+                src = param.src,
+                playListId = param.playListId,
+                author = param.author,
+                name = param.name,
+                payload = {
+                    'id': id,
+                    'src': src,
+                    'coverImgUrl': coverImgUrl,
+                    'songName': name,
+                    'playListId': playListId,
+                    'author': author
+                };
 
-      delete playingSongObj[param]
-      const index = playingSongIdArr.indexOf(param)
-      playingSongIdArr.splice(index, 1)
+            this.getPlayingSongInfo(payload);
+            this.getLyric({ 'id': id });
+        },
+        deleteSongList (param) {
+            const playingSongObj = localStorageGetItem('playingSongObj'),
+                playingSongIdArr = localStorageGetItem('playingSongIdArr');
 
-      localStorageSetItem('playingSongObj', playingSongObj)
-      localStorageSetItem('playingSongIdArr', playingSongIdArr)
+            delete playingSongObj[param];
+            const index = playingSongIdArr.indexOf(param);
+
+            playingSongIdArr.splice(index, 1);
+
+            localStorageSetItem('playingSongObj', playingSongObj);
+            localStorageSetItem('playingSongIdArr', playingSongIdArr);
+        }
     }
-  }
-}
+};
 </script>

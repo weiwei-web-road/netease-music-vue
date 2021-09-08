@@ -90,36 +90,38 @@
 
 <script>
 export default {
-  name: "PlayList",
-  props: ["data"],
-  data() {
-    return {};
-  },
-  computed: {
-    localData: function() {
-      // 前面是 handler 函数，后面是 初始的值。handler 的初始返回值与初始值保持一致。
-      return this.data.reduce((prev, curr, index) => {
-        if (index % 5 === 0) {
-          prev.push([curr]);
-        } else {
-          const temp = prev.pop();
-          temp.push(curr);
-          prev.push(temp);
+    'name': 'PlayList',
+    'props': ['data'],
+    data() {
+        return {};
+    },
+    'computed': {
+        'localData': function() {
+            // 前面是 handler 函数，后面是 初始的值。handler 的初始返回值与初始值保持一致。
+            return this.data.reduce((prev, curr, index) => {
+                if (index % 5 === 0) {
+                    prev.push([curr]);
+                } else {
+                    const temp = prev.pop();
+
+                    temp.push(curr);
+                    prev.push(temp);
+                }
+                return prev;
+            }, []);
         }
-        return prev;
-      }, []);
     },
-  },
-  methods: {
-    convertNumFormat(param) {
-      const temp = param / 10000;
-      return temp.toFixed(0) > 0 ? temp.toFixed(0) + "万" : param;
-    },
-    JumpToDetail(param) {
-      this.$router.push({
-        path: `/playlistDetail/${param}`,
-      });
-    },
-  },
+    'methods': {
+        convertNumFormat(param) {
+            const temp = param / 10000;
+
+            return temp.toFixed(0) > 0 ? temp.toFixed(0) + '万' : param;
+        },
+        JumpToDetail(param) {
+            this.$router.push({
+                'path': `/playlistDetail/${param}`
+            });
+        }
+    }
 };
 </script>

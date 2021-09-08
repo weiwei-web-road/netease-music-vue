@@ -1,116 +1,116 @@
 export default {
-  _keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
+    '_keyStr': 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
 
-  encode: function (e) {
-    'use strict'
-    let t = ''
-    let n, r, i, s, o, u, a
-    let f = 0
+    'encode': function (e) {
 
-    e = this._utf8_encode(e)
+        let t = '',
+            n, r, i, s, o, u, a,
+            f = 0;
 
-    while (f < e.length) {
-      n = e.charCodeAt(f++)
-      r = e.charCodeAt(f++)
-      i = e.charCodeAt(f++)
-      s = n >> 2
-      o = (n & 3) << 4 | r >> 4
-      u = (r & 15) << 2 | i >> 6
-      a = i & 63
+        e = this._utf8_encode(e);
 
-      if (isNaN(r)) {
-        u = a = 64
-      } else if (isNaN(i)) {
-        a = 64
-      }
+        while (f < e.length) {
+            n = e.charCodeAt(f++);
+            r = e.charCodeAt(f++);
+            i = e.charCodeAt(f++);
+            s = n >> 2;
+            o = (n & 3) << 4 | r >> 4;
+            u = (r & 15) << 2 | i >> 6;
+            a = i & 63;
 
-      t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
-    }
+            if (isNaN(r)) {
+                u = a = 64;
+            } else if (isNaN(i)) {
+                a = 64;
+            }
 
-    return t
-  },
+            t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a);
+        }
 
-  decode: function (e) {
-    'use strict'
-    let t = ''
-    let n, r, i
-    let s, o, u, a
-    let f = 0
+        return t;
+    },
 
-    e = e.replace(/[^A-Za-z0-9+/=]/g, '')
+    'decode': function (e) {
 
-    while (f < e.length) {
-      s = this._keyStr.indexOf(e.charAt(f++))
-      o = this._keyStr.indexOf(e.charAt(f++))
-      u = this._keyStr.indexOf(e.charAt(f++))
-      a = this._keyStr.indexOf(e.charAt(f++))
-      n = s << 2 | o >> 4
-      r = (o & 15) << 4 | u >> 2
-      i = (u & 3) << 6 | a
-      t = t + String.fromCharCode(n)
+        let t = '',
+            n, r, i,
+            s, o, u, a,
+            f = 0;
 
-      if (u != 64) {
-        t = t + String.fromCharCode(r)
-      }
+        e = e.replace(/[^A-Za-z0-9+/=]/g, '');
 
-      if (a != 64) {
-        t = t + String.fromCharCode(i)
-      }
-    }
+        while (f < e.length) {
+            s = this._keyStr.indexOf(e.charAt(f++));
+            o = this._keyStr.indexOf(e.charAt(f++));
+            u = this._keyStr.indexOf(e.charAt(f++));
+            a = this._keyStr.indexOf(e.charAt(f++));
+            n = s << 2 | o >> 4;
+            r = (o & 15) << 4 | u >> 2;
+            i = (u & 3) << 6 | a;
+            t = t + String.fromCharCode(n);
 
-    t = this._utf8_decode(t)
+            if (u != 64) {
+                t = t + String.fromCharCode(r);
+            }
 
-    return t
-  },
+            if (a != 64) {
+                t = t + String.fromCharCode(i);
+            }
+        }
 
-  _utf8_encode: function (e) {
-      "use strict";
-      e = e.replace(/\r\n/g,"\n");
-      var t = "";
+        t = this._utf8_decode(t);
 
-      for ( var n = 0; n < e.length; n++ ) {
-          var r = e.charCodeAt( n );
+        return t;
+    },
 
-          if ( r < 128 ) {
-              t += String.fromCharCode( r )
-          } else if ( r > 127 && r < 2048 ) {
-              t += String.fromCharCode( r >> 6 | 192 );
-              t += String.fromCharCode( r & 63 | 128 );
-          } else {
-              t += String.fromCharCode( r >> 12 | 224 );
-              t += String.fromCharCode( r >> 6 & 63 | 128 );
-              t += String.fromCharCode( r & 63 | 128 );
-          }
-      }
+    '_utf8_encode': function (e) {
 
-      return t;
-  },
+        e = e.replace(/\r\n/g,'\n');
+        var t = '';
 
-  _utf8_decode: function (e) {
-      "use strict";
-      var t = "";
-      var n = 0;
-      /* eslint-disable-next-line */
+        for ( var n = 0; n < e.length; n++ ) {
+            var r = e.charCodeAt( n );
+
+            if ( r < 128 ) {
+                t += String.fromCharCode( r );
+            } else if ( r > 127 && r < 2048 ) {
+                t += String.fromCharCode( r >> 6 | 192 );
+                t += String.fromCharCode( r & 63 | 128 );
+            } else {
+                t += String.fromCharCode( r >> 12 | 224 );
+                t += String.fromCharCode( r >> 6 & 63 | 128 );
+                t += String.fromCharCode( r & 63 | 128 );
+            }
+        }
+
+        return t;
+    },
+
+    '_utf8_decode': function (e) {
+
+        var t = '',
+            n = 0;
+        /* eslint-disable-next-line */
       var r = c1 = c2 = c3 = 0;
 
-      while ( n < e.length ) {
-          r = e.charCodeAt( n );
+        while ( n < e.length ) {
+            r = e.charCodeAt( n );
 
-          if ( r < 128 ) {
-              t += String.fromCharCode( r );
-              n++
-          } else if ( r > 191 && r < 224 ) {
-              c2 = e.charCodeAt( n + 1 );
-              t += String.fromCharCode( ( r & 31 ) << 6 | c2 & 63 );
-              n += 2;
-          } else {
-              c2 = e.charCodeAt( n + 1 );
-              c3 = e.charCodeAt( n + 2 );
-              t += String.fromCharCode( ( r & 15 ) << 12 | ( c2 & 63 ) << 6 | c3 & 63 );
-              n += 3
-          }
-      }
+            if ( r < 128 ) {
+                t += String.fromCharCode( r );
+                n++;
+            } else if ( r > 191 && r < 224 ) {
+                c2 = e.charCodeAt( n + 1 );
+                t += String.fromCharCode( ( r & 31 ) << 6 | c2 & 63 );
+                n += 2;
+            } else {
+                c2 = e.charCodeAt( n + 1 );
+                c3 = e.charCodeAt( n + 2 );
+                t += String.fromCharCode( ( r & 15 ) << 12 | ( c2 & 63 ) << 6 | c3 & 63 );
+                n += 3;
+            }
+        }
 
-      return t;
-  }
-}
+        return t;
+    }
+};

@@ -74,27 +74,27 @@
 
 <script>
 export default {
-  data() {
-    return {
-      selectedStyle: "hot",
-    };
-  },
-  computed: {
-    hotStyle: function() {
-      return `category-button${this.selectedStyle === "hot" ? " active" : ""}`;
+    data() {
+        return {
+            'selectedStyle': 'hot'
+        };
     },
-    newStyle: function() {
-      return `category-button${this.selectedStyle === "new" ? " active" : ""}`;
+    'computed': {
+        'hotStyle': function() {
+            return `category-button${this.selectedStyle === 'hot' ? ' active' : ''}`;
+        },
+        'newStyle': function() {
+            return `category-button${this.selectedStyle === 'new' ? ' active' : ''}`;
+        },
+        'backgroundPosition': function() {
+            return this.selectedStyle === 'hot' ? '0 0' : '0 -32px';
+        }
     },
-    backgroundPosition: function() {
-      return this.selectedStyle === "hot" ? "0 0" : "0 -32px";
-    },
-  },
-  methods: {
-    swapHotNewCategory: function(value) {
-      this.selectedStyle = value;
-      this.$emit("swapHotNewCategory", { value: value });
-    },
-  },
+    'methods': {
+        'swapHotNewCategory': function(value) {
+            this.selectedStyle = value;
+            this.$emit('swapHotNewCategory', { 'value': value });
+        }
+    }
 };
 </script>

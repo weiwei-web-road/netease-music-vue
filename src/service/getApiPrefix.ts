@@ -1,1 +1,1 @@
-export default window.location.href + 'api'
+export default window.location.href + 'api';

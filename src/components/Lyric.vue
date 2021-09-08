@@ -36,36 +36,37 @@
   </div>
 </template>
 <script>
-import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed'
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 export default {
-  props: ['lyric', 'playedTimeSec'],
-  data () {
-    return {
-      indexLine: 0
-    }
-  },
-  watch: {
-    playedTimeSec: function () {
-      for (let i = 0; i < this.lyric.length - 1; i++) {
-        if (this.playedTimeSec < this.lyric[i + 1].time && this.playedTimeSec > this.lyric[i].time) {
-          this.indexLine = i
-          break
+    'props': ['lyric', 'playedTimeSec'],
+    data () {
+        return {
+            'indexLine': 0
+        };
+    },
+    'watch': {
+        'playedTimeSec': function () {
+            for (let i = 0; i < this.lyric.length - 1; i++) {
+                if (this.playedTimeSec < this.lyric[i + 1].time && this.playedTimeSec > this.lyric[i].time) {
+                    this.indexLine = i;
+                    break;
+                }
+            }
+            this.goToLyricLine();
         }
-      }
-      this.goToLyricLine()
+    },
+    'methods': {
+        goToLyricLine () {
+            const node = this.$refs.lyricLine[this.indexLine];
+
+            scrollIntoViewIfNeeded(node, {
+                'centerIfNeeded': true
+                // scrollMode: 'if-needed',
+                // block: 'center',
+                // inline: 'center',
+            });
+        }
     }
-  },
-  methods: {
-    goToLyricLine () {
-      const node = this.$refs.lyricLine[this.indexLine]
-      scrollIntoViewIfNeeded(node, {
-        centerIfNeeded: true
-        // scrollMode: 'if-needed',
-        // block: 'center',
-        // inline: 'center',
-      })
-    }
-  }
-}
+};
 </script>

@@ -42,38 +42,38 @@
 </template>
 
 <script>
-import Layout from "@/components/Layout.vue";
-import LeftTitle from "@/views/MyMusic/LeftTitle.vue";
-import RightContent from "@/views/MyMusic/RightContent.vue";
-import { mapState, mapActions } from "vuex";
+import Layout from '@/components/Layout.vue';
+import LeftTitle from '@/views/MyMusic/LeftTitle.vue';
+import RightContent from '@/views/MyMusic/RightContent.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "MyMusic",
-  components: {
-    Layout,
-    LeftTitle,
-    RightContent,
-  },
-  data() {
-    return {};
-  },
-  created: function() {
-    this.fetchMyPlayListAsync({
-      uid: 1832132513,
-    }).then((id) => {
-      this.fetchMyPlayListDetailAsync(id);
-    });
-  },
-  computed: mapState({
-    myPlayList: (state) => state.myPlayList,
-    myPlayListDetail: (state) => state.myPlayListDetail,
-    rendermyPlayListDetail: (state) => state.rendermyPlayListDetail,
-  }),
-  methods: {
-    ...mapActions({
-      fetchMyPlayListAsync: "fetchMyPlayListAsync",
-      fetchMyPlayListDetailAsync: "fetchMyPlayListDetailAsync",
+    'name': 'MyMusic',
+    'components': {
+        Layout,
+        LeftTitle,
+        RightContent
+    },
+    data() {
+        return {};
+    },
+    'created': function() {
+        this.fetchMyPlayListAsync({
+            'uid': 1832132513
+        }).then((id) => {
+            this.fetchMyPlayListDetailAsync(id);
+        });
+    },
+    'computed': mapState({
+        'myPlayList': (state) => state.myPlayList,
+        'myPlayListDetail': (state) => state.myPlayListDetail,
+        'rendermyPlayListDetail': (state) => state.rendermyPlayListDetail
     }),
-  },
+    'methods': {
+        ...mapActions({
+            'fetchMyPlayListAsync': 'fetchMyPlayListAsync',
+            'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
+        })
+    }
 };
 </script>

@@ -25,35 +25,35 @@ div {
 </template>
 
 <script>
-import C from "./C";
-import D from "./D";
+import C from './C';
+import D from './D';
 
 export default {
-  components: {
-    C,
-    D,
-  },
-  inject: ["forProvide"],
-  props: ["messageA"],
-  data() {
-    return {
-      messageFromB: "hello from B",
-      message: "hello from parent B",
-      parentB: "parent B",
-    };
-  },
-  methods: {
-    emitToA() {
-      // 通过this.$emit 触发父组件注册的事件监听。Vue 内置了 $emit 事件发射和监听机制
-      // React 需要调用第三方库 EventEmitter3 来实现事件的发射与监听
-      this.$emit("getB", "emit val from B to A");
-      console.log(this.forProvide, "B for provide");
+    'components': {
+        C,
+        D
     },
-    changeChildVal() {
-      console.log(this.$children);
-      this.$children[0].childC = "changed child C";
-      this.$children[1].childD = "changed child D";
+    'inject': ['forProvide'],
+    'props': ['messageA'],
+    data() {
+        return {
+            'messageFromB': 'hello from B',
+            'message': 'hello from parent B',
+            'parentB': 'parent B'
+        };
     },
-  },
+    'methods': {
+        emitToA() {
+            // 通过this.$emit 触发父组件注册的事件监听。Vue 内置了 $emit 事件发射和监听机制
+            // React 需要调用第三方库 EventEmitter3 来实现事件的发射与监听
+            this.$emit('getB', 'emit val from B to A');
+            console.log(this.forProvide, 'B for provide');
+        },
+        changeChildVal() {
+            console.log(this.$children);
+            this.$children[0].childC = 'changed child C';
+            this.$children[1].childD = 'changed child D';
+        }
+    }
 };
 </script>

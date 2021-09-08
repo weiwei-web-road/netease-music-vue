@@ -86,58 +86,62 @@
   </div>
 </template>
 <script type="text/javascript">
-import moment from "moment";
+import moment from 'moment';
 
 export default {
-  name: "LimitDoubleDateSearch",
-  components: {},
-  props: ["initMsg", "getData"],
-  data() {
-    return {
-      value: "",
-      pickerOptions0: {
-        disabledDate(time) {
-          return (
-            time.getTime() > Date.now() ||
+    'name': 'LimitDoubleDateSearch',
+    'components': {},
+    'props': ['initMsg', 'getData'],
+    data() {
+        return {
+            'value': '',
+            'pickerOptions0': {
+                disabledDate(time) {
+                    return (
+                        time.getTime() > Date.now() ||
             time.getTime() <= new Date(Date.now() - 30 * 24 * 3600 * 1000)
-          );
+                    );
+                }
+            }
+        };
+    },
+    mounted() {
+        this.dataInit();
+    },
+    created() {
+        console.log('');
+    },
+    'methods': {
+        dataInit() {
+            const date = new Date(),
+                temp = new Date(date - 6 * 24 * 3600 * 1000),
+                form = moment(date)
+                    .format()
+                    .split('T')[0],
+                endTime = moment(temp)
+                    .format()
+                    .split('T')[0];
+
+            this.value = [endTime, form];
         },
-      },
-    };
-  },
-  mounted() {
-    this.dataInit();
-  },
-  created() {},
-  methods: {
-    dataInit() {
-      const date = new Date();
-      const temp = new Date(date - 6 * 24 * 3600 * 1000);
-      const form = moment(date)
-        .format()
-        .split("T")[0];
-      const endTime = moment(temp)
-        .format()
-        .split("T")[0];
-      this.value = [endTime, form];
-    },
-    getChange(value) {
-      if (value) {
-        // $('.searchDate').removeClass('doublDateInit').addClass('doublDate');
-        const temp = [];
-        value.forEach((element) => {
-          temp.push(
-            moment(element)
-              .format()
-              .split("T")[0]
-          );
-        });
-        this.getData(temp);
-      } else {
-        // $('.searchDate').removeClass('doublDate').addClass('doublDateInit');
-        this.getData(value);
-      }
-    },
-  },
+        getChange(value) {
+            if (value) {
+                // $('.searchDate').removeClass('doublDateInit').addClass('doublDate');
+                const temp = [];
+
+                value.forEach((element) => {
+                    temp.push(
+                        moment(element)
+                            .format()
+                            .split('T')[0]
+                    );
+                });
+                this.getData(temp);
+            } else {
+                // $('.searchDate').removeClass('doublDate').addClass('doublDateInit');
+                this.getData(value);
+            }
+        }
+    }
 };
 </script>

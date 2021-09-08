@@ -31,18 +31,18 @@
     placement="right"
     popper-class="fleet-manager-role-tooltip"
   >
-    <div slot="content">
+    <template v-slot:content>
       <div class="admin-content-tooltip">A Fleet Manager<br /></div>
-    </div>
+    </template>
     <el-button />
   </el-tooltip>
 </template>
 
 <script>
 export default {
-  name: "ElTooltipHover",
-  data() {
-    return {};
-  },
+    'name': 'ElTooltipHover',
+    data() {
+        return {};
+    }
 };
 </script>

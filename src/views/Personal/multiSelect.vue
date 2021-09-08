@@ -54,62 +54,64 @@
 </template>
 
 <script>
-import "../../plugins/element";
+import '../../plugins/element';
 
 export default {
-  name: "MultiSelect",
-  data() {
-    return {
-      checkList: [],
-      data: [
-        "西瓜",
-        "苹果",
-        "栗子",
-        "李子",
-        "桃子",
-        "梨",
-        "西红柿",
-        "甜瓜",
-        "樱桃",
-        "荔枝",
-        "长工",
-      ],
-    };
-  },
-  computed: {
-    formData: function() {
-      return this.data.reduce((prev, curr, index) => {
-        if (index % 3 === 0) {
-          prev.push([curr]);
-        } else {
-          const target = prev.pop();
-          target.push(curr);
-          prev.push(target);
+    'name': 'MultiSelect',
+    data() {
+        return {
+            'checkList': [],
+            'data': [
+                '西瓜',
+                '苹果',
+                '栗子',
+                '李子',
+                '桃子',
+                '梨',
+                '西红柿',
+                '甜瓜',
+                '樱桃',
+                '荔枝',
+                '长工'
+            ]
+        };
+    },
+    'computed': {
+        'formData': function() {
+            return this.data.reduce((prev, curr, index) => {
+                if (index % 3 === 0) {
+                    prev.push([curr]);
+                } else {
+                    const target = prev.pop();
+
+                    target.push(curr);
+                    prev.push(target);
+                }
+                return prev;
+            }, []);
         }
-        return prev;
-      }, []);
     },
-  },
-  mounted() {},
-  methods: {
-    click(e) {
-      if (
-        e.target &&
-        (e.target.className === "item-row" ||
-          e.target.className === "item-unit")
-      ) {
-        const data = (e.target.className === "item-unit"
-          ? e.target.parentNode
-          : e.target
-        ).dataset.data.split(",");
-        this.checkList = data.reduce((prev, curr) => {
-          if (curr && curr.length > 0 && prev.indexOf(curr) === -1) {
-            prev.push(curr);
-          }
-          return prev;
-        }, this.checkList);
-      }
-    },
-  },
+    mounted() {},
+    'methods': {
+        click(e) {
+            if (
+                e.target &&
+        (e.target.className === 'item-row' ||
+          e.target.className === 'item-unit')
+            ) {
+                const data = (e.target.className === 'item-unit' ?
+                    e.target.parentNode :
+                    e.target
+                ).dataset.data.split(',');
+
+                this.checkList = data.reduce((prev, curr) => {
+                    if (curr && curr.length > 0 && prev.indexOf(curr) === -1) {
+                        prev.push(curr);
+                    }
+                    return prev;
+                }, this.checkList);
+            }
+        }
+    }
 };
 </script>

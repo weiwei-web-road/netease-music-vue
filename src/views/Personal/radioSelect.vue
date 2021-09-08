@@ -29,11 +29,11 @@
 
 <script>
 export default {
-  name: "RadioSelect",
-  data() {
-    return {
-      typeSummary: "Vehicle",
-    };
-  },
+    'name': 'RadioSelect',
+    data() {
+        return {
+            'typeSummary': 'Vehicle'
+        };
+    }
 };
 </script>

@@ -32,85 +32,90 @@
 
 <script>
 export default {
-  name: "Spread",
-  data() {
-    return {
-      title: "演示展开收起",
-      introduce: "",
-      // 是否展示所有文本内容
-      showTotal: true,
-      // 显示展开还是收起
-      exchangeButton: true,
-      // 是否显示展开收起按钮
-      showExchangeButton: false,
-      rem: "",
-    };
-  },
-  watch: {
-    introduce: function() {
-      this.$nextTick(
-        function() {
-          // 判断介绍是否超过四行
-          const rem = parseFloat(this.getRem());
-          if (!this.$refs.desc) {
-            return;
-          }
-          const descHeight = window
-            .getComputedStyle(this.$refs.desc)
-            .height.replace("px", "");
-          if (descHeight > 5.25 * rem) {
-            // 显示展开收起按钮
-            this.showExchangeButton = true;
-            this.exchangeButton = true;
-            // 不是显示所有
-            this.showTotal = false;
-          } else {
-            // 不显示展开收起按钮
-            this.showExchangeButton = false;
-            // 没有超过四行就显示所有
-            this.showTotal = true;
-          }
-        }.bind(this)
-      );
+    'name': 'Spread',
+    data() {
+        return {
+            'title': '演示展开收起',
+            'introduce': '',
+            // 是否展示所有文本内容
+            'showTotal': true,
+            // 显示展开还是收起
+            'exchangeButton': true,
+            // 是否显示展开收起按钮
+            'showExchangeButton': false,
+            'rem': ''
+        };
     },
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    showTotalIntro() {
-      this.showTotal = !this.showTotal;
-      this.exchangeButton = !this.exchangeButton;
+    'watch': {
+        'introduce': function() {
+            this.$nextTick(
+                function() {
+                    // 判断介绍是否超过四行
+                    const rem = parseFloat(this.getRem());
+
+                    if (!this.$refs.desc) {
+                        return;
+                    }
+                    const descHeight = window
+                        .getComputedStyle(this.$refs.desc)
+                        .height.replace('px', '');
+
+                    if (descHeight > 5.25 * rem) {
+                        // 显示展开收起按钮
+                        this.showExchangeButton = true;
+                        this.exchangeButton = true;
+                        // 不是显示所有
+                        this.showTotal = false;
+                    } else {
+                        // 不显示展开收起按钮
+                        this.showExchangeButton = false;
+                        // 没有超过四行就显示所有
+                        this.showTotal = true;
+                    }
+                }.bind(this)
+            );
+        }
     },
-    getRem() {
-      const defaultRem = 16;
-      const winWidth = window.innerWidth;
-      const rem = (winWidth / 375) * defaultRem;
-      return rem;
+    mounted() {
+        this.init();
     },
-    init() {
-      this.introduce =
-        "拥有财富、名声、权力，这世界上的一切的男人--哥尔·D·罗杰，在被行刑受死之前说了一句话，让全世界的人都涌向了大海。“想要我的宝藏吗？如果想要的话，那就到海上去找吧，我全部都放在那里。”，世界开始迎接“大海贼时代”的来临。拥有财富、名声、权力，这世界上的一切的男人 “海贼王”哥尔·D·罗杰，在被行刑受死之前说了一句话，让全世界的人都涌向了大海。“想要我的宝藏吗？如果想要的话，那就到海上去找吧，我全部都放在那里。”，世界开始迎接“大海贼时代”的来临。";
-    },
-    tryLong() {
-      const longIntroduce =
-        "Vue是一套用于构建用户界面的渐进式框架。Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。";
-      if (this.introduce !== longIntroduce) {
-        this.showExchangeButton = false;
-        this.showTotal = true;
-        this.introduce = longIntroduce;
-      }
-    },
-    tryShort() {
-      const shortIntroduce =
-        "Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。";
-      if (this.introduce !== shortIntroduce) {
-        this.showExchangeButton = false;
-        this.showTotal = true;
-        this.introduce = shortIntroduce;
-      }
-    },
-  },
+    'methods': {
+        showTotalIntro() {
+            this.showTotal = !this.showTotal;
+            this.exchangeButton = !this.exchangeButton;
+        },
+        getRem() {
+            const defaultRem = 16,
+                winWidth = window.innerWidth,
+                rem = winWidth / 375 * defaultRem;
+
+            return rem;
+        },
+        init() {
+            this.introduce =
+        '拥有财富、名声、权力，这世界上的一切的男人--哥尔·D·罗杰，在被行刑受死之前说了一句话，让全世界的人都涌向了大海。“想要我的宝藏吗？如果想要的话，那就到海上去找吧，我全部都放在那里。”，世界开始迎接“大海贼时代”的来临。拥有财富、名声、权力，这世界上的一切的男人 “海贼王”哥尔·D·罗杰，在被行刑受死之前说了一句话，让全世界的人都涌向了大海。“想要我的宝藏吗？如果想要的话，那就到海上去找吧，我全部都放在那里。”，世界开始迎接“大海贼时代”的来临。';
+        },
+        tryLong() {
+            const longIntroduce =
+        'Vue是一套用于构建用户界面的渐进式框架。Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。';
+
+            if (this.introduce !== longIntroduce) {
+                this.showExchangeButton = false;
+                this.showTotal = true;
+                this.introduce = longIntroduce;
+            }
+        },
+        tryShort() {
+            const shortIntroduce =
+        'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。';
+
+            if (this.introduce !== shortIntroduce) {
+                this.showExchangeButton = false;
+                this.showTotal = true;
+                this.introduce = shortIntroduce;
+            }
+        }
+    }
 };
 </script>
 

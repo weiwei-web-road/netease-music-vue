@@ -86,28 +86,28 @@
 
 <script>
 export default {
-  // ES6 语法简写
-  data () {
-    return {
-      data: [
-        {
-          title: '用户认证',
-          position: '-63px -101px'
-        },
-        {
-          title: '独立音乐人',
-          position: '0 0'
-        },
-        {
-          title: '赞赏',
-          position: '-60px -50px'
-        },
-        {
-          title: '视频奖励',
-          position: '0 -101px'
-        }
-      ]
+    // ES6 语法简写
+    data () {
+        return {
+            'data': [
+                {
+                    'title': '用户认证',
+                    'position': '-63px -101px'
+                },
+                {
+                    'title': '独立音乐人',
+                    'position': '0 0'
+                },
+                {
+                    'title': '赞赏',
+                    'position': '-60px -50px'
+                },
+                {
+                    'title': '视频奖励',
+                    'position': '0 -101px'
+                }
+            ]
+        };
     }
-  }
-}
+};
 </script>

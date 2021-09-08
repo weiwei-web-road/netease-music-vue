@@ -46,28 +46,29 @@
 
 <script>
 export default {
-  name: "RightInfo",
-  props: ["data"],
-  data() {
-    return {};
-  },
-  computed: {
-    localData: function() {
-      if (this.data) {
-        return this.data.reduce((prev, curr, index) => {
-          if (index % 4 === 0) {
-            prev.push([curr]);
-          } else {
-            const temp = prev.pop();
-            temp.push(curr);
-            prev.push(temp);
-          }
-          return prev;
-        }, []);
-      } else {
-        return [];
-      }
+    'name': 'RightInfo',
+    'props': ['data'],
+    data() {
+        return {};
     },
-  },
+    'computed': {
+        'localData': function() {
+            if (this.data) {
+                return this.data.reduce((prev, curr, index) => {
+                    if (index % 4 === 0) {
+                        prev.push([curr]);
+                    } else {
+                        const temp = prev.pop();
+
+                        temp.push(curr);
+                        prev.push(temp);
+                    }
+                    return prev;
+                }, []);
+            }
+            return [];
+
+        }
+    }
 };
 </script>

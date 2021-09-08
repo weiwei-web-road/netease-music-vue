@@ -439,61 +439,61 @@
 </template>
 
 <script>
-  export default {
-    name: "Temp",
+export default {
+    'name': 'Temp',
     data() {
-      return {
-        startEndOdemeterList: ["fef", "fefef", "fefef", "fdfdsf"],
-        trailerList: ["fef", "fefef", "fefef", "fdfdsf", "fggeg", "fgsf"],
-      };
+        return {
+            'startEndOdemeterList': ['fef', 'fefef', 'fefef', 'fdfdsf'],
+            'trailerList': ['fef', 'fefef', 'fefef', 'fdfdsf', 'fggeg', 'fgsf']
+        };
     },
     mounted() {
-      if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
-        const vehicleHeight = this.startEndOdemeterList.length * 16;
-        const trailerHeight = this.trailerList.length * 16;
-        let height = "";
-        let vehiclePaddingTop = "";
-        let trailerPaddingTop = "";
+        if (this.startEndOdemeterList.length > 1 || this.trailerList.length > 1) {
+            const vehicleHeight = this.startEndOdemeterList.length * 16,
+                trailerHeight = this.trailerList.length * 16;
+            let height = '';
+            // vehiclePaddingTop = '',
+            // trailerPaddingTop = '';
 
-        if (vehicleHeight > trailerHeight) {
-          height = vehicleHeight + "px";
-          trailerPaddingTop = (vehicleHeight - trailerHeight) / 2 + 10 + "px";
-        } else {
-          height = trailerHeight + "px";
-          vehiclePaddingTop = (trailerHeight - vehicleHeight) / 2 + 10 + "px";
+            if (vehicleHeight > trailerHeight) {
+                height = vehicleHeight + 'px';
+                // trailerPaddingTop = (vehicleHeight - trailerHeight) / 2 + 10 + 'px';
+            } else {
+                height = trailerHeight + 'px';
+                // vehiclePaddingTop = (trailerHeight - vehicleHeight) / 2 + 10 + 'px';
+            }
+
+            const domList = document.getElementsByClassName('log-vehicle-row-name');
+
+            for (let i = 0; i < domList.length; i++) {
+                domList[i].style.height = height;
+                domList[i].style.lineHeight = height;
+            }
+
+            const contentDomList = document.getElementsByClassName(
+                'log-vehicle-row-content'
+            );
+
+            for (let i = 0; i < contentDomList.length; i++) {
+                contentDomList[i].style.height = height;
+                // contentDomList[i].style.lineHeight = height;
+                // if (vehiclePaddingTop) {
+                //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
+                // }
+            }
+
+            const trailerContentDomList = document.getElementsByClassName(
+                'log-trailer-row-content'
+            );
+
+            for (let i = 0; i < trailerContentDomList.length; i++) {
+                trailerContentDomList[i].style.height = height;
+                // contentDomList[i].style.lineHeight = height;
+                // if (trailerPaddingTop) {
+                //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
+                // }
+            }
         }
-
-        const domList = document.getElementsByClassName("log-vehicle-row-name");
-
-        for (let i = 0; i < domList.length; i++) {
-          domList[i].style.height = height;
-          domList[i].style.lineHeight = height;
-        }
-
-        const contentDomList = document.getElementsByClassName(
-          "log-vehicle-row-content"
-        );
-
-        for (let i = 0; i < contentDomList.length; i++) {
-          contentDomList[i].style.height = height;
-          // contentDomList[i].style.lineHeight = height;
-          // if (vehiclePaddingTop) {
-          //   contentDomList[i].style.paddingTop = vehiclePaddingTop;
-          // }
-        }
-
-        const trailerContentDomList = document.getElementsByClassName(
-          "log-trailer-row-content"
-        );
-
-        for (let i = 0; i < trailerContentDomList.length; i++) {
-          trailerContentDomList[i].style.height = height;
-          // contentDomList[i].style.lineHeight = height;
-          // if (trailerPaddingTop) {
-          //   trailerContentDomList[i].style.paddingTop = trailerPaddingTop;
-          // }
-        }
-      }
-    },
-  };
+    }
+};
 </script>

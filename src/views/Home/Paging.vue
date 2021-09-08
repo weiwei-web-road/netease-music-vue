@@ -141,69 +141,70 @@
 
 <script>
 export default {
-  name: "Paging",
-  props: ["data"],
-  data() {
+    'name': 'Paging',
+    'props': ['data'],
+    data() {
     // 这里是类似 constructor 的初始化过程，因此只能写初始值
-    return {
-      limit: 35,
-      offset: 0,
-      currPage: 1,
-    };
-  },
-  computed: {
-    totalPlay: function() {
-      return this.data;
+        return {
+            'limit': 35,
+            'offset': 0,
+            'currPage': 1
+        };
     },
-    totalPages: function() {
-      // 这里可以对 props 的值进行处理，也可以直接使用props中的值在template中绑定
-      // 数据处理逻辑尽量放到这里，不要写到模板里
-      return Math.ceil(this.data / this.limit);
+    'computed': {
+        'totalPlay': function() {
+            return this.data;
+        },
+        'totalPages': function() {
+            // 这里可以对 props 的值进行处理，也可以直接使用props中的值在template中绑定
+            // 数据处理逻辑尽量放到这里，不要写到模板里
+            return Math.ceil(this.data / this.limit);
+        },
+        'leftEllipsis': function() {
+            return this.currPage > 4;
+        },
+        'rightEllipsis': function() {
+            return Math.ceil(this.data / this.limit) - this.currPage > 4;
+        },
+        'centerArr': function() {
+            const result = [],
+                left =
+        this.currPage > 5 ?
+            this.totalPages < this.currPage + 4 ?
+                Math.ceil(this.data / this.limit) - 7 :
+                this.currPage - 3 :
+            2,
+                isEnough = Math.ceil(this.data / this.limit) > this.currPage + 3,
+                right = isEnough ?
+                    Math.max(this.currPage + 3, left + 6) :
+                    Math.ceil(this.data / this.limit) - 1;
+
+            for (let index = left; index <= right; index++) {
+                result.push(index);
+            }
+            return result;
+        }
     },
-    leftEllipsis: function() {
-      return this.currPage > 4;
-    },
-    rightEllipsis: function() {
-      return Math.ceil(this.data / this.limit) - this.currPage > 4;
-    },
-    centerArr: function() {
-      const result = [];
-      const left =
-        this.currPage > 5
-          ? this.totalPages < this.currPage + 4
-            ? Math.ceil(this.data / this.limit) - 7
-            : this.currPage - 3
-          : 2;
-      const isEnough = Math.ceil(this.data / this.limit) > this.currPage + 3;
-      const right = isEnough
-        ? Math.max(this.currPage + 3, left + 6)
-        : Math.ceil(this.data / this.limit) - 1;
-      for (let index = left; index <= right; index++) {
-        result.push(index);
-      }
-      return result;
-    },
-  },
-  methods: {
-    clickPage(page) {
-      this.currPage = page;
-      this.offset = this.limit * (this.currPage - 1);
-      this.$emit("clickPage", { value: this.offset });
-    },
-    clickPrevPage() {
-      if (this.currPage > 1) {
-        this.currPage -= 1;
-        this.offset = this.limit * (this.currPage - 1);
-        this.$emit("clickPage", { value: this.offset });
-      }
-    },
-    clickNextPage() {
-      if (this.currPage < Math.ceil(this.data / this.limit)) {
-        this.currPage += 1;
-        this.offset = this.limit * (this.currPage - 1);
-        this.$emit("clickPage", { value: this.offset });
-      }
-    },
-  },
+    'methods': {
+        clickPage(page) {
+            this.currPage = page;
+            this.offset = this.limit * (this.currPage - 1);
+            this.$emit('clickPage', { 'value': this.offset });
+        },
+        clickPrevPage() {
+            if (this.currPage > 1) {
+                this.currPage -= 1;
+                this.offset = this.limit * (this.currPage - 1);
+                this.$emit('clickPage', { 'value': this.offset });
+            }
+        },
+        clickNextPage() {
+            if (this.currPage < Math.ceil(this.data / this.limit)) {
+                this.currPage += 1;
+                this.offset = this.limit * (this.currPage - 1);
+                this.$emit('clickPage', { 'value': this.offset });
+            }
+        }
+    }
 };
 </script>

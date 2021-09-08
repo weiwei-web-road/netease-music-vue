@@ -75,26 +75,26 @@
 </template>
 
 <script>
-import Vuex, { mapActions } from "vuex";
-import Vue from "vue";
+import Vuex, { mapActions } from 'vuex';
+import Vue from 'vue';
 Vue.use(Vuex);
 
 export default {
-  name: "LeftTitle",
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapActions({
-      fetchMyPlayListDetailAsync: "fetchMyPlayListDetailAsync",
-    }),
-    playListClick: function(value) {
-      this.fetchMyPlayListDetailAsync({
-        id: value,
-      });
+    'name': 'LeftTitle',
+    data() {
+        return {};
     },
-  },
+    'methods': {
+        ...mapActions({
+            'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
+        }),
+        'playListClick': function(value) {
+            this.fetchMyPlayListDetailAsync({
+                'id': value
+            });
+        }
+    },
 
-  props: ["data"],
+    'props': ['data']
 };
 </script>

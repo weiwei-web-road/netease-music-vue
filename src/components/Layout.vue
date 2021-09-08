@@ -180,81 +180,81 @@
 </template>
 
 <script>
-import Footer from './Footer'
-import Header from './Header'
-import Player from './Player'
-import { mapState } from 'vuex'
+import Footer from './Footer';
+import Header from './Header';
+import Player from './Player';
+import { mapState } from 'vuex';
 // 每次切换页面时，Layout 和 Header，Footer 组件会再次调用。
 export default {
-  name: 'Layout',
-  data () {
-    return {
-      autovisible: false, //
-      footerVisible: false, // 12
-      mouseOver: false, //
-      animationState: false, //
-      showSongList: false
-    }
-  },
-  computed: {
-    style: function () {
-      return {
-        footerContainer: {
-          'footer-container': true,
-          visible: this.footerVisible
+    'name': 'Layout',
+    data () {
+        return {
+            'autovisible': false, //
+            'footerVisible': false, // 12
+            'mouseOver': false, //
+            'animationState': false, //
+            'showSongList': false
+        };
+    },
+    'computed': {
+        'style': function () {
+            return {
+                'footerContainer': {
+                    'footer-container': true,
+                    'visible': this.footerVisible
+                },
+                'autovisible': {
+                    'icon': true,
+                    'lock': this.autovisible
+                }
+            };
         },
-        autovisible: {
-          icon: true,
-          lock: this.autovisible
+        ...mapState({
+            'playingSong': state => state.playingSong
+        })
+    },
+    'components': {
+        Footer,
+        Header,
+        Player
+    },
+    'methods': {
+        'handleAutoVisible': function (event) {
+            event.preventDefault();
+            this.autovisible = !this.autovisible;
+        },
+        'handleFooterEnter': function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!this.footerVisible && !this.autovisible) {
+                this.footerVisible = true;
+                this.animationState = true;
+                setTimeout(() => {
+                    this.animationState = false;
+                }, 400);
+            }
+        },
+        'handleFooterLeave': function (event) {
+            event.preventDefault(); // 阻止标签点击时的一些默认行为， 比如a标签，点击的时候，阻止跳转
+            event.stopPropagation(); // 阻止冒泡
+            if (!this.autovisible && !this.animationState && this.footerVisible && !this.showSongList) {
+                this.footerVisible = false;
+                this.animationState = true;
+                setTimeout(() => {
+                    this.animationState = false;
+                }, 400);
+            }
+        },
+        clockPlayer (param) {
+            this.showSongList = param;
+            if (!this.showSongList && !this.autovisible) {
+                this.footerVisible = false;
+                this.animationState = true;
+                setTimeout(() => {
+                    this.animationState = false;
+                }, 400);
+            }
         }
-      }
-    },
-    ...mapState({
-      playingSong: state => state.playingSong
-    })
-  },
-  components: {
-    Footer,
-    Header,
-    Player
-  },
-  methods: {
-    handleAutoVisible: function (event) {
-      event.preventDefault()
-      this.autovisible = !this.autovisible
-    },
-    handleFooterEnter: function (event) {
-      event.preventDefault()
-      event.stopPropagation()
-      if (!this.footerVisible && !this.autovisible) {
-        this.footerVisible = true
-        this.animationState = true
-        setTimeout(() => {
-          this.animationState = false
-        }, 400)
-      }
-    },
-    handleFooterLeave: function (event) {
-      event.preventDefault() // 阻止标签点击时的一些默认行为， 比如a标签，点击的时候，阻止跳转
-      event.stopPropagation() // 阻止冒泡
-      if (!this.autovisible && !this.animationState && this.footerVisible && !this.showSongList) {
-        this.footerVisible = false
-        this.animationState = true
-        setTimeout(() => {
-          this.animationState = false
-        }, 400)
-      }
-    },
-    clockPlayer (param) {
-      this.showSongList = param
-      if (!this.showSongList && !this.autovisible) {
-        this.footerVisible = false
-        this.animationState = true
-        setTimeout(() => {
-          this.animationState = false
-        }, 400)
-      }
     }
-  }
-}
+};
 </script>

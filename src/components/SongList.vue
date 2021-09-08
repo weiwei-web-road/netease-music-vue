@@ -105,7 +105,7 @@
         {{ item.author[0].name }}
       </div>
       <div class="common duration">
-        {{ item.durationTime | dateformat('mm:ss') }}
+        {{ dateformat(item.durationTime, 'mm:ss') }}
       </div>
       <div class="source">
         <a />
@@ -115,25 +115,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
 // 点击显示播放列表时，会调用
 // 在显示播放列表的情况下，切换页面，会调用
 export default {
-  name: 'SongList',
-  props: ['playingSong', 'playSongList'],
-  methods: {
-    ...mapActions({
-      getPlayingSongInfo: 'getPlayingSongInfo'
-    }),
-    closeSongList () {
-      this.$emit('closeSongList')
-    },
-    handlePlay (param) {
-      this.$emit('handlePlay', param)
-    },
-    deleteSongList (param) {
-      this.$emit('deleteSongList', param)
+    'name': 'SongList',
+    'props': ['playingSong', 'playSongList'],
+    'methods': {
+        ...mapActions({
+            'getPlayingSongInfo': 'getPlayingSongInfo'
+        }),
+        closeSongList () {
+            this.$emit('closeSongList');
+        },
+        handlePlay (param) {
+            this.$emit('handlePlay', param);
+        },
+        deleteSongList (param) {
+            this.$emit('deleteSongList', param);
+        }
     }
-  }
-}
+};
 </script>

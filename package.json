@@ -45,14 +45,18 @@
     "@vue/cli-service": "~5.0.0-beta.3",
     "babel-plugin-component": "^1.1.1",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.17.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "lint-staged": "^8.1.5",
+    "prettier": "^2.3.2",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.5.21"
   },
-  "gitHooks": {},
+  "gitHooks": {
+  },
   "lint-staged": {
     "*.{ts,vue}": [
       "vue-cli-service lint",

@@ -32,25 +32,25 @@
 
 <script>
 export default {
-  name: "TimePicker",
-  props: ["initTime", "getData"],
-  data() {
-    return {
-      value: "",
-    };
-  },
-  mounted() {
-    if (this.initTime) {
-      this.value = this.initTime;
-    }
-  },
-  methods: {
-    getChange(value) {
-      this.value = value;
-      // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
-      this.getData(value);
-      // this.getData(value);
+    'name': 'TimePicker',
+    'props': ['initTime', 'getData'],
+    data() {
+        return {
+            'value': ''
+        };
     },
-  },
+    mounted() {
+        if (this.initTime) {
+            this.value = this.initTime;
+        }
+    },
+    'methods': {
+        getChange(value) {
+            this.value = value;
+            // this.value = moment(moment().format('YYYY-MM-DD')+'T'+value).format('hh:mm A')
+            this.getData(value);
+            // this.getData(value);
+        }
+    }
 };
 </script>

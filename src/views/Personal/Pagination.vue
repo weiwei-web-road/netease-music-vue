@@ -145,94 +145,96 @@
  * @
  */
 export default {
-  name: "FooterPagination",
-  props: ["totalListNum"],
-  data() {
-    return {
-      rowValue: 10,
-      options: [10, 20, 50, 100],
-      currPage: 1,
-    };
-  },
-  computed: {
-    totalPageNum() {
-      return Math.ceil(this.totalListNum / this.rowValue);
+    'name': 'FooterPagination',
+    'props': ['totalListNum'],
+    data() {
+        return {
+            'rowValue': 10,
+            'options': [10, 20, 50, 100],
+            'currPage': 1
+        };
     },
-  },
-  methods: {
-    selectGet(val) {
-      this.rowValue = val;
-      this.currPage = 1;
-      this.$emit("clickPage", {
-        offset: this.rowValue * (this.currPage - 1),
-        limit: this.rowValue,
-      });
-    },
-    handleOnKeyDown(event) {
-      const validateCode = [
-        8,
-        13,
-        39,
-        37,
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
-        57,
-      ];
-      const code = event.which || event.keyCode;
-      const value = event.target.value;
-      if (validateCode.indexOf(code) === -1) {
-        event.preventDefault();
-      } else {
-        event.preventDefault();
-        if (code === 8) {
-          this.inputGet(value.slice(0, -1));
-        } else if (code >= 48 && code <= 57) {
-          this.inputGet(`${value}${code - 48}`);
+    'computed': {
+        totalPageNum() {
+            return Math.ceil(this.totalListNum / this.rowValue);
         }
-      }
     },
-    inputGet(valStr) {
-      this.currPage = valStr;
-      let page = 1;
-      if (valStr && valStr.length > 0) {
-        page = isNaN(valStr) ? 1 : parseInt(valStr);
-      }
-      this.$emit("clickPage", {
-        offset: this.rowValue * (page > 1 ? page - 1 : 0),
-        limit: this.rowValue,
-      });
-    },
-    prevPage() {
-      let currPageNum = parseInt(this.currPage);
+    'methods': {
+        selectGet(val) {
+            this.rowValue = val;
+            this.currPage = 1;
+            this.$emit('clickPage', {
+                'offset': this.rowValue * (this.currPage - 1),
+                'limit': this.rowValue
+            });
+        },
+        handleOnKeyDown(event) {
+            const validateCode = [
+                    8,
+                    13,
+                    39,
+                    37,
+                    48,
+                    49,
+                    50,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57
+                ],
+                code = event.which || event.keyCode,
+                value = event.target.value;
 
-      if (currPageNum > 1) {
-        currPageNum -= 1;
-        this.currPage = currPageNum;
-        this.$emit("clickPage", {
-          offset: this.rowValue * (this.currPage - 1),
-          limit: this.rowValue,
-        });
-      }
-    },
-    nextPage() {
-      let currPageNum = parseInt(this.currPage);
+            if (validateCode.indexOf(code) === -1) {
+                event.preventDefault();
+            } else {
+                event.preventDefault();
+                if (code === 8) {
+                    this.inputGet(value.slice(0, -1));
+                } else if (code >= 48 && code <= 57) {
+                    this.inputGet(`${value}${code - 48}`);
+                }
+            }
+        },
+        inputGet(valStr) {
+            this.currPage = valStr;
+            let page = 1;
 
-      if (currPageNum < this.totalPageNum) {
-        currPageNum += 1;
-        this.currPage = currPageNum;
-        this.$emit("clickPage", {
-          offset: this.rowValue * (this.currPage - 1),
-          limit: this.rowValue,
-        });
-      }
-    },
-  },
+            if (valStr && valStr.length > 0) {
+                page = isNaN(valStr) ? 1 : parseInt(valStr);
+            }
+            this.$emit('clickPage', {
+                'offset': this.rowValue * (page > 1 ? page - 1 : 0),
+                'limit': this.rowValue
+            });
+        },
+        prevPage() {
+            let currPageNum = parseInt(this.currPage);
+
+            if (currPageNum > 1) {
+                currPageNum -= 1;
+                this.currPage = currPageNum;
+                this.$emit('clickPage', {
+                    'offset': this.rowValue * (this.currPage - 1),
+                    'limit': this.rowValue
+                });
+            }
+        },
+        nextPage() {
+            let currPageNum = parseInt(this.currPage);
+
+            if (currPageNum < this.totalPageNum) {
+                currPageNum += 1;
+                this.currPage = currPageNum;
+                this.$emit('clickPage', {
+                    'offset': this.rowValue * (this.currPage - 1),
+                    'limit': this.rowValue
+                });
+            }
+        }
+    }
 };
 </script>
