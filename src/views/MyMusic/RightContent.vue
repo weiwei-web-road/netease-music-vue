@@ -398,7 +398,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { localStorageSetItem, localStorageGetItem } from '../../utils/index';
+import { localStorageSetItem, localStorageGetItem, dateformat } from '../../utils/index';
 
 export default {
     'name': 'RightContent',
@@ -414,6 +414,7 @@ export default {
     // 实时监视着 myPlayListDetail， 当其变化时，执行function
     // 当点击其他的 play list 时， myPlayListDetail 会发生变化，需要重新计算，所以设置isReComputed = true，update 函数会执行
         'myPlayListDetail': function () {
+            console.log('响应变化');
             this.opened = false;
             this.isReComputed = true;
         }
@@ -534,7 +535,8 @@ export default {
 
                 this.getPlayingSongInfo(payload);
             }
-        }
+        },
+        dateformat
     },
 
     // 实例挂载到DOM之后，生成DOM节点之后调用

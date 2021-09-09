@@ -48,5 +48,6 @@ yarn run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-### githook 
-    "pre-commit": "lint-staged"
+### 安装注意事项
+- Node的版本 > 14
+- 安装时，如果遇到安装失败的情况，请移除yarn.lock文件之后重新安装

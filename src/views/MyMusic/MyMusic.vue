@@ -59,7 +59,7 @@ export default {
     },
     'created': function() {
         this.fetchMyPlayListAsync({
-            'uid': 1832132513
+            'uid': 77680183
         }).then((id) => {
             this.fetchMyPlayListDetailAsync(id);
         });

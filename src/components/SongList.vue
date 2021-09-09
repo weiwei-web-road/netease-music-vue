@@ -116,6 +116,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { dateformat } from '../utils';
 // 点击显示播放列表时，会调用
 // 在显示播放列表的情况下，切换页面，会调用
 export default {
@@ -133,7 +134,8 @@ export default {
         },
         deleteSongList (param) {
             this.$emit('deleteSongList', param);
-        }
+        },
+        dateformat
     }
 };
 </script>
