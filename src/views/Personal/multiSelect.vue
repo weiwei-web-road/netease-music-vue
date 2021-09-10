@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import '../../plugins/element';
 
 export default {
     'name': 'MultiSelect',

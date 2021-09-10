@@ -1,25 +1,36 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
+import moment from 'moment';
 import router from './router';
 import store from './store';
 // 可以使用plugin 把新的 Vue实例挂载到 Vue原型上，这样每次实例化的时候，Vue实例都有这个属性
 // 或者也可以在Vue 实例化之后，再挂载到Vue根实例上，这样每次实例化，都需要再重新挂载
-import './plugins/element';
-import './plugins/audio';
-import './plugins/d3';
-import './plugins/popup';
+import ElementUI from 'element-plus';
+import 'element-plus/dist/index.css';
+import $audio from '@/plugins/audio';
 
-Vue.config.productionTip = false;
-new Vue({
-    // 创建和挂载根实例。
-    // 通过 router 配置参数注入路由，
-    // 从而让整个应用都有路由功能, 任何组件都可以通过 this.$route 访问路由器，通过 this.$router 访问当前路由
-    router,
-    // Vuex 通过 store 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中（需调用 Vue.use(Vuex)）
-    // 通过在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 this.$store 访问到。
-    store,
-    'render': h => h(App)
-}).$mount('#app');
+const app = createApp(App as any);
+
+app.use(store);
+app.use(router);
+app.use(ElementUI);
+app.config.globalProperties.$filters = {
+    'dateformat': function (dataStr: string, pattern = 'YYYY-MM-DD HH:mm:ss') {
+        return moment(dataStr).format(pattern);
+    }
+};
+
+// // 可以选择使用npm来引入D3而不是在html中引入D3的源文件
+// const magnificPopup = typeof require === 'function' ? require('magnific-popup') : window.magnificPopup;
+// // const D3 = window.d3;
+
+// if (!magnificPopup) {
+//     throw new Error('[vue-magnificPopup] cannot locate magnificPopup');
+// }
+
+// app.config.globalProperties.$magnificPopup = magnificPopup;
+app.config.globalProperties.$audio = $audio;
+app.mount('#app');
 
 // // moment 用来管理时间格式 在Vue3中已经被废止
 // Vue.filter('dateformat', function (dataStr: string, pattern = 'YYYY-MM-DD HH:mm:ss') {

@@ -75,9 +75,7 @@
 </template>
 
 <script>
-import Vuex, { mapActions } from 'vuex';
-import Vue from 'vue';
-Vue.use(Vuex);
+import { mapActions } from 'vuex';
 
 export default {
     'name': 'LeftTitle',

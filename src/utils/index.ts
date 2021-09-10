@@ -11,5 +11,5 @@ function dateformat(dataStr: string, pattern = 'YYYY-MM-DD HH:mm:ss'): string {
 export {
     localStorageSetItem,
     localStorageGetItem,
-    dateformat,
+    dateformat
 };

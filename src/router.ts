@@ -1,20 +1,14 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home/Home.vue';
-import './plugins/element';
-
-Vue.use(Router);
+import { createRouter, createWebHistory } from 'vue-router';
 
 // router, default is home page
-export default new Router({
-    'mode': 'history',
-    'base': process.env.BASE_URL,
+export default createRouter({
+    'history': createWebHistory(process.env.BASE_URL),
     'routes': [
         {
             'path': '/',
             // 通过一个名称来标识一个路由显得更方便一些，特别是在链接一个路由，或者是执行一些跳转的时候。你可以在创建 Router 实例的时候，在 routes 配置中给某个路由设置名称。
             'name': 'home',
-            'component': Home
+            'component': async () => await import(/* webpackChunkName: "about" */ './views/Home/Home.vue')
         },
         {
             'path': '/playlistDetail/:id',
@@ -40,6 +34,11 @@ export default new Router({
             'path': '/personal',
             'name': 'personal',
             'component': async () => await import(/* webpackChunkName: "personal" */ './views/Personal/index.vue')
+        },
+        {
+            'path': '/recommend',
+            'name': 'recommend',
+            'component': async () => await import(/* webpackChunkName: "personal" */ './views/MusicSuggestion/index.vue')
         },
         {
             'path': '/temp',

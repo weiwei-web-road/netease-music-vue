@@ -92,7 +92,6 @@ module.exports = {
         'no-extend-native': 'error', // 禁止扩展native对象
         'no-extra-bind': 'error', // 禁止不必要的函数绑定
         'no-extra-boolean-cast': 'error', // 禁止不必要的bool转换
-        'no-extra-parens': 'error', // 禁止非必要的括号
         'no-extra-semi': 'error', // 禁止多余的冒号
         'no-fallthrough': 'warn', // 禁止switch穿透
         'no-floating-decimal': 'error', // 禁止省略浮点数中的'off' .5 3.
@@ -173,7 +172,6 @@ module.exports = {
         'prefer-spread': 'off', // 首选展开运算
         'prefer-reflect': 'off', // 首选Reflect的方法
         'quotes': ['warn', 'single'], // 引号类型 `` '' ''
-        'quote-props':['error', 'always'], // 对象字面量中的属性名是否强制双引号
         'radix': 'error', // parseInt必须指定第二个参数
         'id-match': 'off', // 命名检测
         'require-yield': 'off', // 生成器函数必须有yield

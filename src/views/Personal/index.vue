@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import '../../plugins/element.ts';
 import multiSelect from './multiSelect.vue';
 import footerPagination from './Pagination.vue';
 import limitDoubleDateSearch from './doubleDateSearch.vue';

@@ -50,7 +50,7 @@ export default {
             return str;
         },
         // time duration format
-        timeDurartionFormat(millSec) {
+        timeDurartionFormat(millSec: number): string {
             const d = moment.duration(millSec, 'milliseconds'),
                 hours = Math.floor(d.asHours()),
                 mins = Math.floor(d.asMinutes()) - hours * 60;

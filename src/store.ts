@@ -1,12 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING, SET_LYRIC } from './mutation_types';
+import { createStore } from 'vuex';
+import { INCREMENT, FILTER, SET_TOP_PLAYLIST, SET_TOTAL_PLAY, SET_MY_PLAYLIST, SET_MY_PLAYLIST_DETAIL, SET_PLAYING_SONG, SET_IS_PLAYING, SET_LYRIC, SET_RECOMMAND_ALBUMS } from './mutation_types';
 import fetchAPI, { apis } from './service';
 import { TopPlayList, MyPlayList, PlayListDetail } from './model';
-import {} from './model/PlayListDetail';
-
-Vue.use(Vuex);
-
+import { IAlbumDetail } from './model/MusicSuggestion';
 
 export interface IState {
   count: number;
@@ -23,9 +19,10 @@ export interface IState {
     showSongList: boolean
   };
   lyric: any;
+  recommandAlbums: IAlbumDetail[];
 }
 
-export default new Vuex.Store({
+export default createStore({
     // state 中的数据 是全局静态数据，可以理解为 state 里的数据可以全局使用
     // 可以减少数据请求，因为同样的数据只需要在 state 中请求一次，全局便可以使用
     // 全局控制，跨组件协作，父子组件之间的协作
@@ -50,7 +47,8 @@ export default new Vuex.Store({
             'isPlaying': true,
             'showSongList': false
         },
-        'lyric': {}
+        'lyric': {},
+        'recommandAlbums': []
     } as IState,
     // 派生状态。也就是set、get中的get，有两个可选参数：state、getters分别可以获取state中的变量和其他的getters。
     // 就和vue的computed差不多；
@@ -117,6 +115,9 @@ export default new Vuex.Store({
                 });
 
             state.lyric = lyric;
+        },
+        [SET_RECOMMAND_ALBUMS](state, payload) {
+            state.recommandAlbums = payload;
         }
     },
     // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
@@ -176,6 +177,12 @@ export default new Vuex.Store({
                     reject(JSON.stringify(error));
                 });
             });
+        },
+
+        async fetchRecommandAlbum (context, params) {
+            const res = await fetchAPI(apis.musicSuggestion.getRecoomandResource, params);
+
+            console.log(res, 'res');
         },
 
         getPlayingSongInfo (context, params) {

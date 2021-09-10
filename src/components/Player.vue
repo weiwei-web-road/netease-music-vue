@@ -267,6 +267,7 @@
 <script>
 import getAudioEvent from '../config/AudioEvent';
 import SongListPanel from './SongListPanel.vue';
+import eventBus from '@/utils/eventBus';
 import { mapState, mapActions } from 'vuex';
 import { localStorageGetItem } from '../utils/index';
 
@@ -312,11 +313,11 @@ export default {
     },
     mounted () {
     // 获取播放器控制权
-        this.$audio.$emit(audioEvent.SETCONTROLL, 'player');
-        this.$audio.$on(audioEvent.ONPLAY, () => {
+        eventBus.$emit(audioEvent.SETCONTROLL, 'player');
+        eventBus.$on(audioEvent.ONPLAY, () => {
             console.log('音乐正在播放中国呢...');
         });
-        this.$audio.$on(audioEvent.ONTIMEUPDATE, (options) => {
+        eventBus.$on(audioEvent.ONTIMEUPDATE, (options) => {
             this.onTimeUpdate(options);
         });
 
@@ -332,17 +333,16 @@ export default {
             'updateIsPlaying': 'updateIsPlaying'
         }),
         play () {
-            // this.$audio = this.$root, 因为$audio 已经被挂载到全局Vue实例上了
             // 向Vue实例发射事件INITIALAUDIO，并且带着实参src等，也可以直接调用play()或者setSrc()
             // audioComponent 组件里面，有$on在监听INITIALAUDIO事件，然后触发响应的方法
             // this.$audio.$emit(audioEvent.PLAY, {
             //     src: 'http://sf3-ttcdn-tos.pstatp.com/obj/ttfe/cg/homed/a8772889f38dfcb91c04da915b301617.mp3'
             // });
 
-            this.$audio.$emit(audioEvent.PLAY);
+            eventBus.$emit(audioEvent.PLAY);
         },
         pause () {
-            this.$audio.$emit(audioEvent.PAUSE);
+            eventBus.$emit(audioEvent.PAUSE);
         },
         handleTroggle () {
             if (this.isPlaying) {
@@ -364,7 +364,7 @@ export default {
             }
         },
         initialSong () {
-            this.$audio.$emit(audioEvent.SETSRC, {
+            eventBus.$emit(audioEvent.SETSRC, {
                 'src': this.playingSong.src,
                 'autoplay': true
             });
