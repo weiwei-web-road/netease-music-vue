@@ -74,25 +74,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
+import { defineComponent } from 'vue';
 
-export default {
-    'name': 'LeftTitle',
+export default defineComponent({
+    name: 'LeftTitle',
     data() {
         return {};
     },
-    'methods': {
+    methods: {
         ...mapActions({
             'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
         }),
-        'playListClick': function(value) {
+        'playListClick': function(value: number) {
             this.fetchMyPlayListDetailAsync({
-                'id': value
+                id: value
             });
         }
     },
 
     'props': ['data']
-};
+});
 </script>

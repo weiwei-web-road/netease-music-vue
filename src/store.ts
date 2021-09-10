@@ -122,8 +122,6 @@ export default createStore({
     },
     // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。
     'actions': {
-    // 用户触发
-
         // 异步，给后端发送HTTP请求获取数据
         async fetchTopPlayListAsync (context, params) {
             // params view 层传递来的数据，idx: 榜单种类
@@ -182,7 +180,12 @@ export default createStore({
         async fetchRecommandAlbum (context, params) {
             const res = await fetchAPI(apis.musicSuggestion.getRecoomandResource, params);
 
-            console.log(res, 'res');
+            if (res?.status === 200 && res?.data?.code === 200) {
+                // 获取数据成功
+                context.commit({ type: SET_RECOMMAND_ALBUMS, value: res?.data?.recommend });
+                return Promise.resolve(res?.data?.recommend);
+            }
+            return Promise.reject(new Error('请求失败'));
         },
 
         getPlayingSongInfo (context, params) {

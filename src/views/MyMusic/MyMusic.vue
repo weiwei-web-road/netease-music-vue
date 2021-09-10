@@ -41,13 +41,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Layout from '@/components/Layout.vue';
 import LeftTitle from '@/views/MyMusic/LeftTitle.vue';
 import RightContent from '@/views/MyMusic/RightContent.vue';
 import { mapState, mapActions } from 'vuex';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     'name': 'MyMusic',
     'components': {
         Layout,
@@ -65,9 +66,9 @@ export default {
         });
     },
     'computed': mapState({
-        'myPlayList': (state) => state.myPlayList,
-        'myPlayListDetail': (state) => state.myPlayListDetail,
-        'rendermyPlayListDetail': (state) => state.rendermyPlayListDetail
+        'myPlayList': (state: any) => state.myPlayList,
+        'myPlayListDetail': (state: any) => state.myPlayListDetail,
+        'rendermyPlayListDetail': (state: any) => state.rendermyPlayListDetail
     }),
     'methods': {
         ...mapActions({
@@ -75,5 +76,5 @@ export default {
             'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
         })
     }
-};
+});
 </script>

@@ -23,7 +23,7 @@
         section {
             width: 980px;
             // min-height: 700px;
-            background-color: #000;
+            // background-color: #000;
             flex: 1 1 0;
             // 1： 水平居中方法一，margin:auto法，根据宽度水平居中元素
             // margin: auto;
