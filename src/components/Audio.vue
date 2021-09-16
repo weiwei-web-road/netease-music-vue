@@ -58,7 +58,7 @@ export default defineComponent({
                         'muted': true,
                         ...options
                     };
-    
+
                     for (const key in options) {
                         (this.audioDOM as any)[key] = initialOptions[key];
                     }
@@ -78,7 +78,7 @@ export default defineComponent({
                 eventBus.$on(this.audioEvent.PAUSE, () => {
                     this.pause();
                 });
-    
+
                 eventBus.$on(this.audioEvent.SETSRC, (options: { src: string, autoplay: true }) => {
                     this.setSrc(options.src, options.autoplay);
                 });

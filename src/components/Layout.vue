@@ -184,8 +184,10 @@ import Footer from './Footer';
 import Header from './Header';
 import Player from './Player';
 import { mapState } from 'vuex';
+import { defineComponent } from 'vue';
+
 // 每次切换页面时，Layout 和 Header，Footer 组件会再次调用。
-export default {
+export default defineComponent({
     'name': 'Layout',
     data () {
         return {
@@ -196,8 +198,8 @@ export default {
             'showSongList': false
         };
     },
-    'computed': {
-        'style': function () {
+    computed: {
+        style() {
             return {
                 'footerContainer': {
                     'footer-container': true,
@@ -256,5 +258,5 @@ export default {
             }
         }
     }
-};
+});
 </script>

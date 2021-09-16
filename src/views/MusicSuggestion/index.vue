@@ -46,14 +46,14 @@ import { IAlbumDetail } from '@/model/MusicSuggestion';
 export default defineComponent(
     {
         'name': 'MusicSuggestion',
-        components: {
+        'components': {
             Layout
         },
         data() {
             return {};
         },
-        created: function() {
-            this.fetchRecommandAlbum({}).then(() => {
+        created() {
+            (this as any).fetchRecommandAlbum({}).then(() => {
                 ElMessage.success('推荐列表拉取成功');
             }).catch((error: Error) => {
                 ElMessage.error(error.message);

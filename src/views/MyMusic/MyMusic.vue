@@ -58,11 +58,11 @@ export default defineComponent({
     data() {
         return {};
     },
-    'created': function() {
-        this.fetchMyPlayListAsync({
+    created() {
+        (this as any).fetchMyPlayListAsync({
             'uid': 77680183
-        }).then((id) => {
-            this.fetchMyPlayListDetailAsync(id);
+        }).then((id: string) => {
+            (this as any).fetchMyPlayListDetailAsync(id);
         });
     },
     'computed': mapState({
@@ -72,7 +72,7 @@ export default defineComponent({
     }),
     'methods': {
         ...mapActions({
-            'fetchMyPlayListAsync': 'fetchMyPlayListAsync',
+            fetchMyPlayListAsync: 'fetchMyPlayListAsync',
             'fetchMyPlayListDetailAsync': 'fetchMyPlayListDetailAsync'
         })
     }
