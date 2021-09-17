@@ -28,8 +28,14 @@
 <Layout>
     <template #music-card>
         <div class="music-suggestion">
-            <div class="header">头部走马灯</div>
-            <div class="body"></div>
+            <div class="header"></div>
+            <div class="body">
+                <AlbumLayout has-extra="true" title="热门推荐">
+                    <template v-slot:header>
+                        <TabsCategory v-bind:options="hotRecommendOptions" />
+                    </template>
+                </AlbumLayout>
+            </div>
             <div class="footer">尾部法律告诫</div>
         </div>
     </template>
@@ -40,6 +46,8 @@ import { mapState, mapActions } from 'vuex';
 import { defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 import Layout from '@/components/Layout.vue';
+import AlbumLayout from './AlbumLayout.vue';
+import TabsCategory from './TabsCategory.vue';
 import { IAlbumDetail } from '@/model/MusicSuggestion';
 
 
@@ -47,13 +55,23 @@ export default defineComponent(
     {
         'name': 'MusicSuggestion',
         'components': {
-            Layout
+            Layout,
+            AlbumLayout,
+            TabsCategory
         },
         data() {
-            return {};
+            return {
+                hotRecommendOptions: [
+                    { url: '', title: '华语' },
+                    { url: '', title: '流行' },
+                    { url: '', title: '摇滚' },
+                    { url: '', title: '民谣' },
+                    { url: '', title: '电子' }
+                ]
+            };
         },
         created() {
-            (this as any).fetchRecommandAlbum({}).then(() => {
+            this.fetchRecommandAlbum({}).then(() => {
                 ElMessage.success('推荐列表拉取成功');
             }).catch((error: Error) => {
                 ElMessage.error(error.message);
