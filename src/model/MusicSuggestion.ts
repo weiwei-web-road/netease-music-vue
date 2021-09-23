@@ -13,7 +13,7 @@ export interface IAlbumDetail {
     };
     name: string;
     picUrl: string;
-    playcount: number;
+    playCount: number;
     trackCount: number;
     type: number;
 }

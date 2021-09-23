@@ -13,6 +13,20 @@
         .body {
             width: 980px;
             min-height: 700px;
+            background-color: #fff;
+            border: 1px solid #d3d3d3;
+            border-width: 0 1px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            > .left {
+                padding: 20px 20px 40px;
+                width: 729px;
+            }
+            > .right {
+                width: 251px;
+            }
         }
         .footer {
             position: relative;
@@ -30,11 +44,19 @@
         <div class="music-suggestion">
             <div class="header"></div>
             <div class="body">
-                <AlbumLayout has-extra="true" title="热门推荐">
-                    <template v-slot:header>
-                        <TabsCategory v-bind:options="hotRecommendOptions" />
-                    </template>
-                </AlbumLayout>
+                <div class="left">
+                    <AlbumLayout has-extra="true" title="热门推荐">
+                        <template v-slot:header>
+                            <TabsCategory v-bind:options="hotRecommendOptions" />
+                        </template>
+                        <template v-slot:content>
+                            <AlbumDetailCardList v-bind:albums="recommandAlbums" />                        
+                        </template>
+                    </AlbumLayout>
+                </div>
+                <div class="right">
+
+                </div>
             </div>
             <div class="footer">尾部法律告诫</div>
         </div>
@@ -46,10 +68,10 @@ import { mapState, mapActions } from 'vuex';
 import { defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 import Layout from '@/components/Layout.vue';
+import AlbumDetailCardList from '@/components/AlbumDetailCardList.vue';
 import AlbumLayout from './AlbumLayout.vue';
 import TabsCategory from './TabsCategory.vue';
 import { IAlbumDetail } from '@/model/MusicSuggestion';
-
 
 export default defineComponent(
     {
@@ -57,7 +79,8 @@ export default defineComponent(
         'components': {
             Layout,
             AlbumLayout,
-            TabsCategory
+            TabsCategory,
+            AlbumDetailCardList
         },
         data() {
             return {

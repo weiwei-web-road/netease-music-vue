@@ -117,7 +117,8 @@ export default createStore({
             state.lyric = lyric;
         },
         [SET_RECOMMAND_ALBUMS](state, payload) {
-            state.recommandAlbums = payload;
+            console.log(payload, payload);
+            state.recommandAlbums = payload.value;
         }
     },
     // 和mutations类似。不过actions支持异步操作。第一个参数默认是和store具有相同参数属性的对象。

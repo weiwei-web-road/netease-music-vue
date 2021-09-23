@@ -33,7 +33,31 @@
             }
             .header_right {
                 height: 100%;
+                > .has-extra {
+                    font-size: 12px;
+                    color: #333;
+                    font-family: Arial, Helvetica, sans-serif;
+                    margin-top: 9px;
+                    > .more {
+                        color: #666;
+                        cursor: pointer;
+                    }
+                    > .s-bg-6 {
+                        display: inline-block;
+                        width: 12px;
+                        height: 12px;
+                        margin-left: 4px;
+                        vertical-align: middle;
+                        background: url('../../../src/assets/icons2.png') no-repeat 0 9999px;
+                        background-position: 0 -240px;
+                    }
+                }
             }
+        }
+        > .body {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
         }
     }
 </style>
@@ -46,7 +70,10 @@
                 <slot name="header"></slot>
             </div>
             <div class="header_right">
-                <div v-if="hasExtra" class="has-extra"></div>
+                <div v-if="hasExtra" class="has-extra">
+                    <span class="more">更多</span>
+                    <i class="s-bg-6">&nbsp;</i>
+                </div>
             </div>
         </div>
         <div class="body">
