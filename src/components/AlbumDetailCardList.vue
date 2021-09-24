@@ -21,15 +21,63 @@
             box-sizing: content-box;
             flex-grow: 0;
             flex-shrink: 0;
+
+            &:hover {
+                cursor: pointer;
+            }
             > .cover {
                 width: 140px;
                 height: 140px;
                 line-height: 1.4;
                 text-align: -webkit-match-parent;
+                position: relative;
                 > img {
                     display: block;
                     width: 100%;
                     height: 100%;
+                }
+                > .bottom {
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 27px;
+                    background-position: 0 -537px;
+                    background-image: url('../assets/coverall.png');
+                    color: #ccc;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    position: absolute;
+
+                    > .icon-headset {
+                        margin-left: 10px;
+                        margin-right: 5px;
+                        width: 14px;
+                        height: 11px;
+                        background-position: 0 -24px;
+                        background-image: url('../assets/iconall.png');
+                        background-repeat: no-repeat;
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                    }
+                    > .number {
+                        line-height: 1.4;
+                        color: #ccc;
+                        font-size: 12px;
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        text-align: left;
+                    }
+                    > .icon-play {
+                        width: 16px;
+                        margin-right: 10px;
+                        height: 17px;
+                        background-image: url('../assets/iconall.png');
+                        background-repeat: no-repeat;
+                        background-position: 0 0;
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                    }
                 }
             }
             > .desc {
@@ -39,6 +87,9 @@
                 > .title {
                     font-size: 14px;
                     color: #000;
+                    text-align: left;
+                    width: 100%;
+                    display: inline-block;
                 }
             }
         }
@@ -51,7 +102,7 @@
                 <img v-bind:src="item.picUrl" />
                 <div class="bottom">
                     <span class="icon-headset"></span>
-                    <span class="number">{{item.playCount}}</span>
+                    <span class="number">{{formatNumberByChinese(item.playcount)}}</span>
                     <span class="icon-play"></span>
                 </div>
             </div>
@@ -85,7 +136,14 @@ export default defineComponent({
         }
     },
     methods: {
+        formatNumberByChinese(value: number): string {
+            if (typeof value === 'number') {
+                const result = value > 10000 ? `${Math.floor(value / 10000)}万` : Math.floor(value);
 
+                return String(result);
+            }
+            return '0';
+        }
     }
 });
 </script>

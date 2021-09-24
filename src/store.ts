@@ -179,7 +179,7 @@ export default createStore({
         },
 
         async fetchRecommandAlbum (context, params) {
-            const res = await fetchAPI(apis.musicSuggestion.getRecoomandResource, params);
+            const res = await fetchAPI(apis.musicSuggestion.getRecoomandResource, { ...params, timestamp: 1632466783641 });
 
             if (res?.status === 200 && res?.data?.code === 200) {
                 // 获取数据成功
